@@ -1,12 +1,25 @@
 // import React from 'react';
 import React, { Component } from 'react';
 import Anchor from './Components/Anchor/Anchor'
-import Chart from './Components/Research/Research'
+import Chart from './Exams/Research/Research'
 import './App.css';
 import { statement } from '@babel/template';
 import { tsImportEqualsDeclaration } from '@babel/types';
+import axios from 'axios';
 
 class App extends Component {
+
+  componentDidMount () {
+    axios.get('http://localhost:8080/DataQ/IsinRow/IsinRows')
+      .then(response => {
+        console.log(response.data);
+      }
+
+      );
+    console.log("mount");
+  }
+
+
   state = {  
     pageShow: 'test'
   } 
@@ -14,20 +27,14 @@ class App extends Component {
     return (  
       <div className="App">
       <h1>My first App</h1>
-      <button onClick={() => this.navigateTo(<Anchor/>)}>Show Anchor Page</button>
-       {this.state.pageShow}
+      
         <Chart/>
      </div>
     );
   }
 
 
-  navigateTo = (pageName) => {
-    this.setState({
-      pageShow: pageName
-    }
-    ) ;
-  }
+ 
 
 
 }
