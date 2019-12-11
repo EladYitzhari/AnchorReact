@@ -12,7 +12,9 @@ import {Provider} from 'react-redux';
 
 import portfolioReducer from '../src/store/reducers/portfolioReducer'
 
-axios.defaults.baseURL ="http://localhost:8080/";
+// axios.defaults.baseURL ="http://localhost:8080/";
+axios.defaults.baseURL ="https://env-4171164.j.box.co.il/AnchorOpen/";
+
 axios.defaults.headers.common['Authorization'] = 'AUTO TOKEN';
 axios.defaults.headers.post['content-type']= 'application/json';
 
