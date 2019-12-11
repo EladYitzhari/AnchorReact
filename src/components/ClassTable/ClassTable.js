@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
-
+import './ClassTable.css'
+import { CHANGE_PORTFOLIO_NAME } from '../../store/actionTypes';
+import { number } from 'prop-types';
 
 
 
@@ -7,9 +9,42 @@ class ClassTable extends Component {
     state = { 
         
      }
+
+    isHTMLeverage = (c) =>
+    {
+        return c.cloStrategy === 'HTM' && c.leverage ==="Yes";
+    }
+    isHTM = (c) =>
+    {
+        return c.cloStrategy === 'HTM' && c.leverage ==="No";
+    }
+    isActive = (c) =>
+    {
+        return c.cloStrategy === 'AFS';
+    }
+
+    checkPortfolio =(portfolioName) =>
+    {
+        switch(portfolioName){
+            case 'HTM-Leverage':
+                {
+                   return this.props.classes.filter(this.isHTMLeverage);
+                }
+            case 'HTM':
+                    {
+                        return this.props.classes.filter(this.isHTM);
+                    }
+            case 'Active':
+                    {
+                        return this.props.classes.filter(this.isActive);
+                    }
+        }
+        return this.props.classes.filter(this.isHTMLeverage);
+    }
+    
     render() { 
         return ( 
-            <table className="table table-hover w-25">
+            <table id="classTable" className="table table-hover classesTable">
             <thead>
                 <tr>
                     <th>Class Name</th>
@@ -26,7 +61,7 @@ class ClassTable extends Component {
                 </tr>
             </thead>
             <tbody>
-                {this.props.classes.map(c=>{
+                {this.checkPortfolio(this.props.portfolioName).map(c=>{
                     return (
                         <tr>
                             <td>{c['className']}</td>
@@ -37,9 +72,9 @@ class ClassTable extends Component {
                             <td>{c['cloStrategy']}</td>
                             <td>{c['leverage']}</td>
                             <td>{c['feesType']}</td>
-                            <td>{c['adminFee']}</td>
-                            <td>{c['paetFee']}</td>
-                            <td>{c['herdle']}</td>
+                            <td>{Number(c['adminFee']*100).toFixed(2)+"%"}</td>
+                            <td>{Number(c['paetFee']*100).toFixed(0)+"%"}</td>
+                            <td>{Number(c['herdle']*100).toFixed(0)+"%"}</td>
                         </tr>
                     )
                 })}

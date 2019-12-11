@@ -7,6 +7,8 @@ import UploadExcel from '../../containers/UploadExcel/UploadExcel';
 import NavPage from '../../containers/Nav/NAVPage';
 import Movements from '../../containers/Movements/Movements';
 import ResearchPage from '../../containers/Research/ResearchPage';
+import {connect} from 'react-redux';
+import * as portfolioActions from '../../store/actions/PortfolioActions'
 
 
 class Header extends Component {
@@ -17,9 +19,9 @@ class Header extends Component {
                 <ul className="header_ul">
                     <li className="header_li dropdown"><NavLink to={{pathname:"/Portfolio",search:'HTM-Leverage'}}>Portfolio</NavLink>
                         <div className="dropdown-content">
-                        <NavLink to={{pathname:"/Portfolio",hash:'HTM-Leverage'}}>HTM-Leverage</NavLink>
-                        <NavLink to={{pathname:"/Portfolio",hash:'HTM'}}>HTM</NavLink>
-                        <NavLink to={{pathname:"/Portfolio",hash:'Active'}}>Active</NavLink>
+                        <NavLink to={{pathname:"/PortfolioHTML",hash:'HTM-Leverage'}}>HTM-Leverage</NavLink>
+                        <NavLink to={{pathname:"/PortfolioHTM",hash:'HTM'}}>HTM</NavLink>
+                        <NavLink to={{pathname:"/PortfolioACTIVE",hash:'Active'}}>Active</NavLink>
                         </div>
                     </li>
                     <li className="header_li"><NavLink to="/NAV">Nav</NavLink></li>  
@@ -28,7 +30,9 @@ class Header extends Component {
                     <li className="header_li"><NavLink to="/Research">Research</NavLink></li>
                     <li className="header_anchorIcon"><img src={anchorIcom} alt="anchorIcom"/></li>
                 </ul>
-            <Route path="/Portfolio" exact component={Portfolio}   />
+            <Route path="/PortfolioHTM" exact component={Portfolio}   />
+            <Route path="/PortfolioHTML" exact component={Portfolio}   />
+            <Route path="/PortfolioACTIVE" exact component={Portfolio}   />
             <Route path="/UploadExcel" exact component={UploadExcel}   />
             <Route path="/NAV" exact component={NavPage} />
             <Route path="/Movements" exact component={ Movements}   />
@@ -39,4 +43,13 @@ class Header extends Component {
     }
 }
  
-export default Header;
+
+
+const mapDispatchToProps = dispatch =>
+{
+    return {
+        // ChangePortfolioName: (portfolioName) => dispatch(portfolioActions.changePortfolioName(portfolioName))
+    }
+}
+
+export default connect(null,mapDispatchToProps)(Header);

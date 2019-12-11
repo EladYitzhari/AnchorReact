@@ -3,7 +3,8 @@ import axios from 'axios'
 
 const initialState = {
     classes: [],
-    portfolioName:'HTM-Leverage'
+    portfolioName:'HTM-Leverage',
+    asOfDateList: []
 }
 
 const reducer = (state = initialState ,action) => {
@@ -24,6 +25,14 @@ const reducer = (state = initialState ,action) => {
                    
                 }
             }
+        case actionTypes.GET_ALL_AS_OF_DATAS:
+            {
+                return {
+                    ...state,
+                    asOfDateList:action.val
+                    
+                }
+        }   
         
     }
     
