@@ -10,10 +10,12 @@ import  {createStore, combineReducers,applyMiddleware,compose} from 'redux';
 import {Provider} from 'react-redux';
 
 
-import portfolioReducer from '../src/store/reducers/portfolioReducer'
+import portfolioReducer from '../src/store/reducers/portfolioReducer';
+import selctors from '../src/store/reducers/selecorsReducer';
 
-// axios.defaults.baseURL ="http://localhost:8080/";
-axios.defaults.baseURL ="https://env-4171164.j.box.co.il/AnchorOpen/";
+axios.defaults.baseURL ="http://localhost:8080/";
+// axios.defaults.baseURL ="https://env-4171164.j.box.co.il/AnchorOpen/";
+// axios.defaults.baseURL ="https://anchor-bf513.firebaseio.com/";
 
 axios.defaults.headers.common['Authorization'] = 'AUTO TOKEN';
 axios.defaults.headers.post['content-type']= 'application/json';
@@ -21,7 +23,8 @@ axios.defaults.headers.post['content-type']= 'application/json';
 
 
 const rootReducer = combineReducers({
-    portfolio: portfolioReducer
+    portfolio: portfolioReducer,
+    select:selctors
 });
 
 

@@ -61,6 +61,28 @@ export const changePortfolioName = (portfolioName) =>
             });
     }
 }
+/////////////////////////GETING ALL CSAM ROWS////////////////////////////
 
+export const axiosGetACsamRowsOfPortfolio = (asOfDateList) =>
+{
+    return {
+            type: actionTypes.GET_ALL_CSAM_ROWS_FOR_PORTFOLIO,
+            val:asOfDateList
+            };
+      
+}
+
+export const getACsamRowsOfPortfolio = (portfolioName) =>
+{
+    return dispatch  =>
+    {
+        dispatch(axiosGetACsamRowsOfPortfolio([]));
+        axios.get("/DataQ/IsinRow/IsinRows/"+portfolioName).then(response => {
+            console.log(response.data);
+            dispatch(axiosGetACsamRowsOfPortfolio(response.data));
+        });
+        
+    }
+}
 
  

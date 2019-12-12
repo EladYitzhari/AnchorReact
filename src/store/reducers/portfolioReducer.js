@@ -1,10 +1,11 @@
 import * as actionTypes from '../actionTypes'
-import axios from 'axios'
+
 
 const initialState = {
     classes: [],
     portfolioName:'HTM-Leverage',
-    asOfDateList: []
+    asOfDateList: [],
+    csamRows:[]
 }
 
 const reducer = (state = initialState ,action) => {
@@ -33,7 +34,14 @@ const reducer = (state = initialState ,action) => {
                     
                 }
         }   
-        
+        case actionTypes.GET_ALL_CSAM_ROWS_FOR_PORTFOLIO:
+                {
+                    return {
+                        ...state,
+                        csamRows:action.val
+                        
+                    }
+            }   
     }
     
     return state;

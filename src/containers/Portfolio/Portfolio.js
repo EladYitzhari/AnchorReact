@@ -8,7 +8,9 @@ import './Portfolio.css'
 import * as portfolioActions from '../../store/actions/PortfolioActions'
 import ClassTable from '../../components/ClassTable/ClassTable';
 import SelectCreator from '../../components/selectCreator/selectCreator';
-
+import CsamRowsTable from '../../components/CsamRowsTable/CsamRowsTable';
+import Chart from '../../components/Chart/Chart'
+import { valueToNode } from '@babel/types';
 
 class Portfolio extends Component {
     state = { 
@@ -16,7 +18,11 @@ class Portfolio extends Component {
         showClasses : false,
         portfolioName: 'HTM-Leverage',
         asOfDateList: [...this.props.asOfDateList],
-        showSearchControlls : false
+        showSearchControlls : false,
+        csamRows:[...this.props.csamRows],
+        showCsamRowsTable:false,
+        lineFiled:'dailyAssetPrice'
+ 
      }
 
     componentDidMount =() => {
@@ -28,7 +34,8 @@ class Portfolio extends Component {
         this.setState({ portfolioName: portfolioName});
         //bring all the AS OF DATE of the portfolio
         this.props.GetAllAsOfDate(portfolioName);
-
+        //bring all the SCAM ROWS of the portfolio
+        this.props.GetACsamRowsOfPortfolio(portfolioName);
         //bring all the classes
         if(this.state.classes.length<1)
         {
@@ -45,6 +52,11 @@ class Portfolio extends Component {
     {
         this.setState({showSearchControlls: ! this.state.showSearchControlls});
     }
+    toggleShowCsamRowsTable =() =>
+    {
+        this.setState({showCsamRowsTable: ! this.state.showCsamRowsTable});
+    }
+
 
 
     render() { 
@@ -57,16 +69,48 @@ class Portfolio extends Component {
         let searchControlls=null;
         if(this.state.showSearchControlls)
         {
-            searchControlls = <div><img src={calanderImg} alt="calanderImg" /> <SelectCreator  type='portfolioPageAsOfDate' list={this.props.asOfDateList} /></div>
+            searchControlls = (<div>
+                                    <br/>
+                                    <img src={calanderImg} alt="calanderImg" /> <SelectCreator  type='selectedAsOdDatePortfolioPage' list={this.props.asOfDateList} />
+                                    <br/>
+                                    <CsamRowsTable list={this.props.csamRows} asOfDate={this.props.selectedAsOdDate}/>
+                                </div>)
         }
 
 
+        const changeChartData = (e) =>
+        {
+            this.setState({lineFiled: e.target.value});
+            
+        }
+          
+        
 
         return ( 
             <div>
                 <div className="portfolio_Header">  {this.state.portfolioName}    Portfolio </div> 
+
+               <Chart data={this.props.csamRows} labels={this.props.asOfDateList} lineFiled={this.state.lineFiled}/>  
+               <select onChange={(e)=> changeChartData(e)}>
+                   <option value='dailyAssetPrice' selected>Daily Asset Price</option>
+                   <option value='warf'>WARF</option>
+                   <option value='marketValueSettledCommitmentBook'>Setteled</option>
+                   <option value='trancheOC'>Tranche OC</option>
+                   <option value='trancheOcCushion'>Tranche OC Cushion</option>
+               </select>
+               <select >
+                    <option value='quantity' selected>Quantity</option>
+               </select>
+               <select >
+                    <option value='absType' selected>absType</option>
+                    <option value='absType' selected>absType</option>
+               </select>
+                
+               
                 <div>
-                    <button className="btn btn-info portfolio_classTable_btn" onClick={this.toggleClassTable}>Classes Table</button>
+                    <button className="btn btn-info portfolio_classTable_btn" onClick={this.toggleClassTable}>
+                        Classes Table
+                    </button>
                     <ReactToExcel className="btn "
                     table="classTable"
                     filename="ClassTable"
@@ -74,10 +118,17 @@ class Portfolio extends Component {
                     buttonText={<img style={{marginRight:"3%"}} alt="excelImg" src={excelIcon} />}
                     />
                 </div> 
+                
                 {classTable}
 
                 <div className="portfolio_searchControlDiv">
-                    <img className="btn btn-info" src={searchIcon}  alt="searchIcon" onClick={this.toggleSearchControlls}/>
+                    <img className="btn " style={{backgroundColor: "rgb(0, 80, 117)"}} src={searchIcon}  alt="searchIcon" onClick={this.toggleSearchControlls}/>
+                    <ReactToExcel className="btn "
+                    table="csamRowsTable"
+                    filename="CsamTable"
+                    sheet="CsamTable"
+                    buttonText={<img style={{marginRight:"3%"}} alt="excelImg" src={excelIcon} />}
+                    />
                    {searchControlls}
                 </div>
 
@@ -98,7 +149,9 @@ const mapStateToProp = state =>
     return {
             classes: state.portfolio.classes,
             portfolioName: state.portfolio.portfolioName,
-            asOfDateList: state.portfolio.asOfDateList
+            asOfDateList: state.portfolio.asOfDateList,
+            csamRows:state.portfolio.csamRows,
+            selectedAsOdDate:state.select.selectedAsOdDatePortfolioPage
         }
 }
  
@@ -108,7 +161,8 @@ const mapDispatchToProps = dispatch =>
     return {
         GetAllClasses: () => dispatch(portfolioActions.getAllClasses()),
         ChangePortfolioName: (portfolioName) => dispatch(portfolioActions.changePortfolioName(portfolioName)),
-        GetAllAsOfDate:(portfolioName) => dispatch(portfolioActions.getAsOfDateList(portfolioName))
+        GetAllAsOfDate:(portfolioName) => dispatch(portfolioActions.getAsOfDateList(portfolioName)),
+        GetACsamRowsOfPortfolio:(portfolioName) => dispatch(portfolioActions.getACsamRowsOfPortfolio(portfolioName))
     }
 }
 

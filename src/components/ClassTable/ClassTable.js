@@ -63,7 +63,7 @@ class ClassTable extends Component {
             <tbody>
                 {this.checkPortfolio(this.props.portfolioName).map(c=>{
                     return (
-                        <tr>
+                        <tr key={c['className']}>
                             <td>{c['className']}</td>
                             <td>{c['isin']}</td>
                             <td>{c['type']}</td>
