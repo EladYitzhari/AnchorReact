@@ -1,20 +1,21 @@
-import * as actionTypes from '../actions/actionTypes';
+import * as actionTypes from '../actions/actionTypes'
 
 
 const initialState = {
-    selectedAsOdDatePortfolioPage:''
+    rows: []
 }
 
 const reducer = (state = initialState ,action) => {
     switch(action.type){
-        case actionTypes.SELECT_AS_OF_DATE_PORTFOLIO_PAGE:
+        case actionTypes.UPLOAD_EXCEL:
         {
             return {
                ...state,
-               selectedAsOdDatePortfolioPage:action.val
+               rows:action.val
                
             }
         }
+       
     }
     
     return state;

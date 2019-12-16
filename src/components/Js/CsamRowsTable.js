@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import Spinner from '../../components/Spinner/Spinner';
-import './CsamRowsTable.css'
+import Spinner from './Spinner';
+import '../Css/CsamRowsTable.css'
 import {connect} from 'react-redux';
 
 

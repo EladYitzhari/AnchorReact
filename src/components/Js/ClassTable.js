@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
-import './ClassTable.css'
-import { CHANGE_PORTFOLIO_NAME } from '../../store/actionTypes';
+import '../Css/ClassTable.css'
+import { CHANGE_PORTFOLIO_NAME } from '../../store/actions/actionTypes';
 import { number } from 'prop-types';
 
 

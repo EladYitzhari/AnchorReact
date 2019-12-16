@@ -1,6 +1,6 @@
 
 import axios from 'axios';
-import * as actionTypes from '../actionTypes.js'
+import * as actionTypes from './actionTypes.js'
 
 
 

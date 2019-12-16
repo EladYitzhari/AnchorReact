@@ -4,12 +4,12 @@ import ReactToExcel from 'react-html-table-to-excel';
 import excelIcon from '../../images/Microsoft-Excel-icon.png';
 import searchIcon from '../../images/Search-icon.png';
 import calanderImg from '../../images/calendar-icon.png';
-import './Portfolio.css'
+import '../Css/Portfolio.css'
 import * as portfolioActions from '../../store/actions/PortfolioActions'
-import ClassTable from '../../components/ClassTable/ClassTable';
-import SelectCreator from '../../components/selectCreator/selectCreator';
-import CsamRowsTable from '../../components/CsamRowsTable/CsamRowsTable';
-import Chart from '../../components/Chart/Chart'
+import ClassTable from '../../components/Js/ClassTable';
+import SelectCreator from '../../components/Js/selectCreator';
+import CsamRowsTable from '../../components/Js/CsamRowsTable';
+import Chart from '../../components/Js/Chart'
 import { valueToNode } from '@babel/types';
 
 class Portfolio extends Component {

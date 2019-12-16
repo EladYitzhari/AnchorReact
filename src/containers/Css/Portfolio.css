@@ -3,12 +3,14 @@
     width: 100%;
     text-align:center;
     font-size: 200%;;
+    text-decoration: underline;
 }
 .portfolio_Header select
 {
     font-size: 100%;
     width: 10%;
     text-align:center;
+    
 }
 .portfolio_classTable
 {

@@ -1,0 +1,15 @@
+.mainUploadDiv
+{
+    text-align: center;
+}
+.UploadHeaderDiv
+{
+    text-decoration: underline;
+    font-size: 200%;
+}
+
+.uploadInput
+{
+    width:20%;
+    left:40%;
+}

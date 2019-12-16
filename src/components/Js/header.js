@@ -1,12 +1,12 @@
 import React, { Component } from 'react';
-import './Header.css'
+import '../Css/Header.css'
 import anchorIcom from '../../images/Anchor-icon.png'
 import {Route,NavLink} from 'react-router-dom'
-import Portfolio from '../../containers/Portfolio/Portfolio';
-import UploadExcel from '../../containers/UploadExcel/UploadExcel';
-import NavPage from '../../containers/Nav/NAVPage';
-import Movements from '../../containers/Movements/Movements';
-import ResearchPage from '../../containers/Research/ResearchPage';
+import Portfolio from '../../containers/Js/Portfolio';
+import UploadExcel from '../../containers/Js/UploadExcel';
+import NavPage from '../../containers/Js/NAVPage';
+import Movements from '../../containers/Js/Movements';
+import ResearchPage from '../../containers/Js/ResearchPage';
 import {connect} from 'react-redux';
 import * as portfolioActions from '../../store/actions/PortfolioActions'
 
