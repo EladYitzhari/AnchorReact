@@ -1,0 +1,14 @@
+#uploadCsamTable
+{
+    margin-top: 3%;
+}
+.uploadTable_th
+{
+    background-color: rgb(6, 117, 168);
+   
+    /* text-align: center; */
+}
+.uploadTable_th th{
+    padding-bottom: 1%;
+    text-align: center;
+}

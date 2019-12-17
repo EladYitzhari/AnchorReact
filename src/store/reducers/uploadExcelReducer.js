@@ -2,7 +2,9 @@ import * as actionTypes from '../actions/actionTypes'
 
 
 const initialState = {
-    rows: []
+    rows: [],
+    CsamRows:[],
+    spinnerShow:false
 }
 
 const reducer = (state = initialState ,action) => {
@@ -15,6 +17,22 @@ const reducer = (state = initialState ,action) => {
                
             }
         }
+        case actionTypes.CONVER_EXCEL_TO_CSAMROW:
+        {
+            return {
+               ...state,
+               CsamRows:action.val
+               
+            }
+        }
+        case actionTypes.TOGGLE_SPINNER:
+            {
+                return {
+                   ...state,
+                   spinnerShow: !state.spinnerShow
+                   
+                }
+            }
        
     }
     
