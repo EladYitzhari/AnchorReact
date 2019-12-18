@@ -10,7 +10,10 @@ import ClassTable from '../../components/Js/ClassTable';
 import SelectCreator from '../../components/Js/selectCreator';
 import CsamRowsTable from '../../components/Js/CsamRowsTable';
 import Chart from '../../components/Js/Chart'
-import { valueToNode } from '@babel/types';
+import GeneralChart from '../../components/Js/GeneralChart';
+import * as globalFunction from '../../components/Functions/globalFunction';
+
+
 
 class Portfolio extends Component {
     state = { 
@@ -21,7 +24,8 @@ class Portfolio extends Component {
         showSearchControlls : false,
         csamRows:[...this.props.csamRows],
         showCsamRowsTable:false,
-        lineFiled:'dailyAssetPrice'
+        lineFiled:'dailyAssetPrice',
+        lineButtomFiled:'dailyAssetPrice'
  
      }
 
@@ -83,6 +87,12 @@ class Portfolio extends Component {
             this.setState({lineFiled: e.target.value});
             
         }
+
+        const changeBottomChartData = (e) =>
+        {
+            this.setState({lineButtomFiled: e.target.value});
+            
+        }
           
         
 
@@ -131,7 +141,20 @@ class Portfolio extends Component {
                     />
                    {searchControlls}
                 </div>
-
+                <select onChange={(e)=> changeBottomChartData(e)}>
+                   <option value='dailyAssetPrice' selected>Daily Asset Price</option>
+                   <option value='warf'>WARF</option>
+                   <option value='marketValueSettledCommitmentBook'>Setteled</option>
+                   <option value='trancheOC'>Tranche OC</option>
+                   <option value='trancheOcCushion'>Tranche OC Cushion</option>
+               </select>
+                <GeneralChart chartType="Line" array={this.props.csamRows}
+                                                    rowFiledName={'issuer_Name'}
+                                                    rowsHeaders={globalFunction.uniqArrayFromTable(this.props.csamRows,'issuer_Name')}
+                                                    columnFileName={'asOfDate'}
+                                                    columnHeaders={[...this.props.asOfDateList]}
+                                                    value={this.state.lineButtomFiled}
+                                                    gorupingStatus={'No'}/>
 
 
                

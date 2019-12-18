@@ -2,6 +2,23 @@
 import React from 'react';
 
 
+
+export const uniqArrayFromTable=(array,filed)=>{
+    let middleXArray =[];
+    array.map(r=>{
+        middleXArray.push(r[filed]);
+    });
+
+    const onlyUnique = (value, index, self) => { 
+        return self.indexOf(value) === index;
+    }
+    
+    // usage example:
+    return middleXArray.filter( onlyUnique );
+}
+
+
+
 export const createTableFromArray = array =>
 {
     const instance = array[0];
