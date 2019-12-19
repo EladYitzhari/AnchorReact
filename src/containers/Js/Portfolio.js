@@ -100,21 +100,24 @@ class Portfolio extends Component {
             <div>
                 <div className="portfolio_Header">  {this.state.portfolioName}    Portfolio </div> 
 
-               <Chart data={this.props.csamRows} labels={this.props.asOfDateList} lineFiled={this.state.lineFiled}/>  
-               <select onChange={(e)=> changeChartData(e)}>
-                   <option value='dailyAssetPrice' selected>Daily Asset Price</option>
-                   <option value='warf'>WARF</option>
-                   <option value='marketValueSettledCommitmentBook'>Setteled</option>
-                   <option value='trancheOC'>Tranche OC</option>
-                   <option value='trancheOcCushion'>Tranche OC Cushion</option>
-               </select>
-               <select >
-                    <option value='quantity' selected>Quantity</option>
-               </select>
-               <select >
-                    <option value='absType' selected>absType</option>
-                    <option value='absType' selected>absType</option>
-               </select>
+                <div className='portfolio_portfolio_Top_Chart'>
+                    <Chart data={this.props.csamRows} labels={this.props.asOfDateList} lineFiled={this.state.lineFiled}/>  
+                        <select onChange={(e)=> changeChartData(e)}>
+                            <option value='dailyAssetPrice' selected>Daily Asset Price</option>
+                            <option value='warf'>WARF</option>
+                            <option value='marketValueSettledCommitmentBook'>Setteled</option>
+                            <option value='trancheOC'>Tranche OC</option>
+                            <option value='trancheOcCushion'>Tranche OC Cushion</option>
+                        </select>
+                        <select >
+                                <option value='quantity' selected>Quantity</option>
+                        </select>
+                        <select >
+                                <option value='absType' selected>absType</option>
+                                <option value='absType' selected>absType</option>
+                        </select>
+                </div>
+               
                 
                
                 <div>
@@ -141,22 +144,24 @@ class Portfolio extends Component {
                     />
                    {searchControlls}
                 </div>
-                <select onChange={(e)=> changeBottomChartData(e)}>
-                   <option value='dailyAssetPrice' selected>Daily Asset Price</option>
-                   <option value='warf'>WARF</option>
-                   <option value='marketValueSettledCommitmentBook'>Setteled</option>
-                   <option value='trancheOC'>Tranche OC</option>
-                   <option value='trancheOcCushion'>Tranche OC Cushion</option>
-               </select>
-                <GeneralChart chartType="Line" array={this.props.csamRows}
-                                                    rowFiledName={'issuer_Name'}
-                                                    rowsHeaders={globalFunction.uniqArrayFromTable(this.props.csamRows,'issuer_Name')}
-                                                    columnFileName={'asOfDate'}
-                                                    columnHeaders={[...this.props.asOfDateList]}
-                                                    value={this.state.lineButtomFiled}
-                                                    gorupingStatus={'No'}/>
 
+                <div className='portfolio_chart_div'>
+                    <select onChange={(e)=> changeBottomChartData(e)}>
+                        <option value='dailyAssetPrice' selected>Daily Asset Price</option>
+                        <option value='warf'>WARF</option>
+                        <option value='marketValueSettledCommitmentBook'>Setteled</option>
+                        <option value='trancheOC'>Tranche OC</option>
+                        <option value='trancheOcCushion'>Tranche OC Cushion</option>
+                    </select>
+                    <GeneralChart chartType="Line" array={this.props.csamRows}
+                                                            rowFiledName={'issuer_Name'}
+                                                            rowsHeaders={globalFunction.uniqArrayFromTable(this.props.csamRows,'issuer_Name')}
+                                                            columnFileName={'asOfDate'}
+                                                            columnHeaders={[...this.props.asOfDateList]}
+                                                            value={this.state.lineButtomFiled}
+                                                            gorupingStatus={'No'}/>
 
+                </div>
                
             </div>
             
