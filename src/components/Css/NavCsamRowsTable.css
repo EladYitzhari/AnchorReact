@@ -1,0 +1,12 @@
+.Nav_csamRows_table{
+    /* width: 45%; */
+    border: 1px solid cadetblue;
+    
+    margin-left: 10%;
+    margin-right: 3%;
+    /* font-size: 80%; */
+    margin-top: 3%;
+}
+.Nav_csamRows_table td, tr{
+    /* padding: 1%; */
+}

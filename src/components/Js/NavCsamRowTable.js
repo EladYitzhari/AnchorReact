@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-
+import'../Css/NavCsamRowsTable.css'
 
 
 
@@ -24,7 +24,7 @@ class NavCsamRowTable extends Component {
 
     render() { 
         return ( 
-            <table>
+            <table className='table table-hover w-75 Nav_csamRows_table'>
                 <thead>
                     <tr>                  
                         <th className='th-sm'>Asset Name</th>
@@ -46,7 +46,8 @@ class NavCsamRowTable extends Component {
                         <th className='th-sm'>Wal</th>
                         <th className='th-sm'>Issue First Coupon Date</th>
                         <th className='th-sm'>Maturity Date</th>
-                        <th className='th-sm'>Market/Offering</th>                       
+                        <th className='th-sm'>Market/Offering</th>      
+                        <th className='th-sm'>As of Date</th>                 
                     </tr>
                 </thead>
                 <tbody>
@@ -54,8 +55,27 @@ class NavCsamRowTable extends Component {
                             if(c.asOfDate === this.state.theMaxAsOfDate){
                                 return (
                                     <tr key={'navTableTr'+index}>
-                                        <td>{c.asOfDate}</td>
-                                        <td>{c.portfolioName}</td>
+                                          <td>{c["issuer_Name"]}</td>
+                                            <td>{c["asset_Name"]}</td>
+                                            <td>{c["absType"]}</td>
+                                                {/* //<td style='color:darkblue'>{c["newAsset"]}</td> */}
+                                            <td>{c["settlementDate"]}</td>
+                                            <td>{c["quantity"].toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                                            <td style={{color:'darkblue'}}>{c["calculateamortization"].toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                                            <td>{c["costPriceSettled"].toFixed(3)}</td>
+                                            <td>{c["dailyAssetPrice"].toFixed(3)}</td>
+                                                {/* //<td class='numTd'>({c["costPriceSettled"]*c["quantity"]/100).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td> */}
+                                            <td class='numTd'>{c["marketValueSettledCommitmentBook"].toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                                            <td class='numTd'>{c["markPrice"].toFixed(2)}</td>
+                                            <td>{c["interestBeginMonth"]}</td>
+                                            <td>{c["interestRate"]}</td>
+                                            <td style={{color:'darkblue'}}>{c["clculateInterest"].toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                                            <td>{c["spread"]}</td>
+                                            <td>{c["wal"]}</td>
+                                            <td>{c["issueFirstCouponDate"]}</td>
+                                            <td>{c["assetMaturityDate"]}</td>
+                                            <td>{c["boughtInMrkrtOrOffering"]}</td>
+                                            <td>{c["asOfDate"]}</td>
                                     </tr>
                                 )
                             }
