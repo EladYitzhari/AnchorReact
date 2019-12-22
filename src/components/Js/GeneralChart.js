@@ -32,7 +32,7 @@ class GeneralChart extends Component {
                 array.map(a=>{
                     if(a[rowFiledName] === r && a[columnFileName]===c)
                     {
-                        dataSet.push(a[value]);
+                        (a[value]===0 ||a[value]==='') ? dataSet.push(',') : dataSet.push(a[value]);
                         flag =true;
                     }
                 })

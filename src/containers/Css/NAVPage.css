@@ -1,0 +1,12 @@
+.NAVPage_mainDiv
+{
+    
+}
+
+#controlTable{
+    position: relative;
+    width: 30%;
+    left:35%;
+    text-align: center;
+    border: navy;
+}
