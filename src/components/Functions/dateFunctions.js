@@ -21,3 +21,45 @@ export const convertDateToSqlDate = (mn_dd_yy_Date) =>
     }
     return year+'-'+month+'-'+day;
 }
+
+export const numOfDaysInMonth = (monthNum)=>{
+    switch(monthNum){
+        case 0 :{
+            return 31;
+        }
+        case 1 :{
+            return 28;
+        }
+        case 2 :{
+            return 31;
+        }
+        case 3 :{
+            return 30;
+        }
+        case 4 :{
+            return 31;
+        }
+        case 5 :{
+            return 30;
+        }
+        case 6 :{
+            return 31;
+        }
+        case 7 :{
+            return 31;
+        }
+        case 8 :{
+            return 30;
+        }
+        case 9 :{
+            return 31;
+        }
+        case 10 :{
+            return 30;
+        }
+        case 10 :{
+            return 31;
+        }
+    }
+    
+}

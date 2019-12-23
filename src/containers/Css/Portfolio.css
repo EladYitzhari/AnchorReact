@@ -26,11 +26,17 @@
 {
     font-size: 100%;;
 }
-.portfolio_classTable_btn, .portfolio_CahrtDiv_btn
+.portfolio_classTable_btn
 {
     font-size: 100%;;
     margin-top: 3%;
     margin-left: 3%;
+}
+.portfolio_CahrtDiv_btn{
+    font-size: 100%;;
+    margin-top: 3%;
+    margin-left: 3%;
+
 }
 .portfolio_searchControlDiv
 {
