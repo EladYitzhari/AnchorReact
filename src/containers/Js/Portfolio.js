@@ -2,8 +2,10 @@ import React, { Component } from 'react';
 import {connect} from 'react-redux';
 import ReactToExcel from 'react-html-table-to-excel';
 import excelIcon from '../../images/Microsoft-Excel-icon.png';
+import lineChartImg from '../../images/Line-Graph-icon.png'
 import searchIcon from '../../images/Search-icon.png';
 import calanderImg from '../../images/calendar-icon.png';
+import classesImg from '../../images/database-icon.png';
 import '../Css/Portfolio.css'
 import * as portfolioActions from '../../store/actions/PortfolioActions'
 import ClassTable from '../../components/Js/ClassTable';
@@ -25,7 +27,8 @@ class Portfolio extends Component {
         csamRows:[...this.props.csamRows],
         showCsamRowsTable:false,
         lineFiled:'dailyAssetPrice',
-        lineButtomFiled:'dailyAssetPrice'
+        lineButtomFiled:'dailyAssetPrice',
+        ChartArea:false
  
      }
 
@@ -60,7 +63,9 @@ class Portfolio extends Component {
     {
         this.setState({showCsamRowsTable: ! this.state.showCsamRowsTable});
     }
-
+    toggleChartArea= ()=>{
+        this.setState({showChartArea: ! this.state.showChartArea});
+    }
 
 
     render() { 
@@ -94,7 +99,28 @@ class Portfolio extends Component {
             
         }
           
-        
+        let chartArea=null;
+        if(this.state.showChartArea){
+            chartArea=(
+                <div className='portfolio_chart_div' >
+                    <select onChange={(e)=> changeBottomChartData(e)}>
+                        <option value='dailyAssetPrice' selected>Daily Asset Price</option>
+                        <option value='warf'>WARF</option>
+                        <option value='marketValueSettledCommitmentBook'>Setteled</option>
+                        <option value='trancheOC'>Tranche OC</option>
+                        <option value='trancheOcCushion'>Tranche OC Cushion</option>
+                    </select>
+                    <GeneralChart chartType="Line" array={this.props.csamRows}
+                                                            rowFiledName={'issuer_Name'}
+                                                            rowsHeaders={globalFunction.uniqArrayFromTable(this.props.csamRows,'issuer_Name')}
+                                                            columnFileName={'asOfDate'}
+                                                            columnHeaders={[...this.props.asOfDateList]}
+                                                            value={this.state.lineButtomFiled}
+                                                            gorupingStatus={'No'}/>
+
+                </div>
+            )
+        }
 
         return ( 
             <div>
@@ -121,8 +147,9 @@ class Portfolio extends Component {
                 
                
                 <div>
-                    <button className="btn btn-info portfolio_classTable_btn" onClick={this.toggleClassTable}>
+                    <button className="portfolio_classTable_btn" onClick={this.toggleClassTable}>
                         Classes Table
+                        <img  src={classesImg} alt='classesImg'/>
                     </button>
                     <ReactToExcel className="btn "
                     table="classTable"
@@ -135,7 +162,9 @@ class Portfolio extends Component {
                 {classTable}
 
                 <div className="portfolio_searchControlDiv">
-                    <img className="btn " style={{backgroundColor: "rgb(0, 80, 117)"}} src={searchIcon}  alt="searchIcon" onClick={this.toggleSearchControlls}/>
+                   <button className="portfolio_csamTable_btn" onClick={this.toggleSearchControlls}>Csam Table 
+                        <img   src={searchIcon}  alt="searchIcon" /> 
+                    </button> 
                     <ReactToExcel className="btn "
                     table="csamRowsTable"
                     filename="CsamTable"
@@ -145,23 +174,10 @@ class Portfolio extends Component {
                    {searchControlls}
                 </div>
 
-                <div className='portfolio_chart_div'>
-                    <select onChange={(e)=> changeBottomChartData(e)}>
-                        <option value='dailyAssetPrice' selected>Daily Asset Price</option>
-                        <option value='warf'>WARF</option>
-                        <option value='marketValueSettledCommitmentBook'>Setteled</option>
-                        <option value='trancheOC'>Tranche OC</option>
-                        <option value='trancheOcCushion'>Tranche OC Cushion</option>
-                    </select>
-                    <GeneralChart chartType="Line" array={this.props.csamRows}
-                                                            rowFiledName={'issuer_Name'}
-                                                            rowsHeaders={globalFunction.uniqArrayFromTable(this.props.csamRows,'issuer_Name')}
-                                                            columnFileName={'asOfDate'}
-                                                            columnHeaders={[...this.props.asOfDateList]}
-                                                            value={this.state.lineButtomFiled}
-                                                            gorupingStatus={'No'}/>
 
-                </div>
+                <button className="portfolio_CahrtDiv_btn" onClick={this.toggleChartArea}>Graphs <img  src={lineChartImg} alt='lineChartImg' /></button>
+
+                {chartArea}
                
             </div>
             

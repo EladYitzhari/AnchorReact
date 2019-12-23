@@ -22,9 +22,14 @@
     width: 30%;
     position: absolute;
 }
-.portfolio_classTable_btn
+.portfolio_csamTable_btn
 {
     font-size: 100%;;
+}
+.portfolio_classTable_btn, .portfolio_CahrtDiv_btn
+{
+    font-size: 100%;;
+    margin-top: 3%;
     margin-left: 3%;
 }
 .portfolio_searchControlDiv
