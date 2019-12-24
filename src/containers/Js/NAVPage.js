@@ -5,7 +5,7 @@ import ReactToExcel from 'react-html-table-to-excel';
 import excelIcon from '../../images/Microsoft-Excel-icon.png';
 import * as portfolioActions from '../../store/actions/PortfolioActions';
 import NavCsamRowTable from '../../components/Js/NavCsamRowTable'
-
+import NavDetailsTable from '../../components/Js/NavDetailsTable';
 class NavPage extends Component {
     state = { 
         navMonth:'01',
@@ -86,6 +86,7 @@ class NavPage extends Component {
                         </tr>
         
                     </table>
+                    <NavDetailsTable />
                    {csamTable}
             </div>
          );

@@ -5,7 +5,8 @@ const initialState = {
     classes: [],
     portfolioName:'HTM-Leverage',
     asOfDateList: [],
-    csamRows:[]
+    csamRows:[],
+    navData:{totalAssets:0}
 }
 
 const reducer = (state = initialState ,action) => {
@@ -41,7 +42,15 @@ const reducer = (state = initialState ,action) => {
                         csamRows:action.val
                         
                     }
-            }   
+            } 
+        case actionTypes.UPDATE_NAV_DATA_TO_PORTFOLIO:
+            {
+                return {
+                    ...state,
+                    navData:action.val
+                    
+                }
+        }    
     }
     
     return state;

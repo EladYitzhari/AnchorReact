@@ -26,7 +26,7 @@ class CsamRowsTable extends Component {
                 return (
                     <tbody>
                     <tr key={c['asOfDate']+c['asset_Name']}>
-                        <td data-toggle="tooltip" data-placement="top" title='As of Date'>{c['asOfDate']}</td>
+                        <td  data-toggle="tooltip" data-placement="top" title='As of Date'>{c['asOfDate']}</td>
                         <td data-toggle="tooltip" data-placement="top" title='Issuer_Name'>{c['issuer_Name']}</td>
                         <td data-toggle="tooltip" data-placement="top" title='Asset_Name'>{c['asset_Name']}</td>
                         <td data-toggle="tooltip" data-placement="top" title='Currency'>{c['currency']}</td>
