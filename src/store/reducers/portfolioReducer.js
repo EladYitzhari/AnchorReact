@@ -6,7 +6,8 @@ const initialState = {
     portfolioName:'HTM-Leverage',
     asOfDateList: [],
     csamRows:[],
-    navData:{totalAssets:0}
+    navData:{totalAssets:0},
+    totalPortfoliosAssets:0
 }
 
 const reducer = (state = initialState ,action) => {
@@ -50,7 +51,15 @@ const reducer = (state = initialState ,action) => {
                     navData:action.val
                     
                 }
-        }    
+        } 
+        case actionTypes.ALL_PORTFOLIOS_ASSETS_AMOUNT:
+            {
+                return {
+                    ...state,
+                    totalPortfoliosAssets:action.val
+                    
+                }
+        }       
     }
     
     return state;

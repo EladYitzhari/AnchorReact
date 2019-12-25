@@ -26,7 +26,9 @@ class NavDetails extends Component {
             </tr>	
             <tr>
                 <td>Total Assets – All the Anchor fund</td>
-                <td id="AllAnchorAssetsTd" className='numTd'></td>
+                <td id="AllAnchorAssetsTd" className='numTd'>
+                     {Number(this.props.allPortfoliosAssetsAmount).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                </td>
                 <td></td>
             </tr> 
             <tr>
@@ -100,7 +102,8 @@ class NavDetails extends Component {
 const mapStateToProp = state =>
 {
     return {
-        navData: state.portfolio.navData
+        navData: state.portfolio.navData,
+        allPortfoliosAssetsAmount: state.portfolio.totalPortfoliosAssets
         }
 }
 

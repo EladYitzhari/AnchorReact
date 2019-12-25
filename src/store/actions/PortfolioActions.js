@@ -25,7 +25,27 @@ export const getAllClasses = () =>
         
     }
 }
+/////////////////////////GETING ALL ASSETS FOR AL THE PORTFOLIOS////////////////////////////
 
+export const axiosAllPortfoliosAssets = (totalPortfoliosAssets) =>
+{
+    return {
+            type: actionTypes.ALL_PORTFOLIOS_ASSETS_AMOUNT,
+            val:totalPortfoliosAssets
+            };
+      
+}
+
+export const getAllPortfoliosAssets = (month,year) =>
+{
+    return dispatch  =>
+    {
+        axios.get("/DataQ/IsinRow/AllPortfoliosAssetsForTheMonth/"+month+"/"+year).then(response => {
+            dispatch(axiosAllPortfoliosAssets(response.data));
+        });
+        
+    }
+}
 /////////////////////////GETING ALL AS OF DATE LIST////////////////////////////
 
 export const axiosAsOfDateList = (asOfDateList) =>
