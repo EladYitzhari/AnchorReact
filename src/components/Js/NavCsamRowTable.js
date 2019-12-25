@@ -104,15 +104,15 @@ class NavCsamRowTable extends Component {
         let interest = thisMonthQuat["interestRate"];
         let lastMonthInterest = lastMonthQuat["interestRate"];
         let numOfDaysInMonth = dateFunc.numOfDaysInMonth(asOfDate.getMonth());
-        let couponDayInMonth =new Date(thisMonthQuat["issueFirstCouponDate"]).getDate();
+        let couponDayInMonth = new Date(thisMonthQuat["issueFirstCouponDate"]).getDate();
         if(settlementDate.getMonth() === asOfDate.getMonth() && settlementDate.getFullYear() === asOfDate.getFullYear())
         {
             return ((numOfDaysInMonth-settlementDate.getDate())/numOfDaysInMonth*interest/100/12*quantity).toFixed(0);
         }else if(lastMonthInterest === interest){
             return (interest/100/12*quantity).toFixed(0);
         }else if(lastMonthInterest !== 'No Data' && lastMonthInterest !== interest){
-            console.log(thisMonthQuat["issuer_Name"]+ "lastMonthInterest: "+lastMonthInterest+" interest: "+interest);
-
+            console.log(thisMonthQuat["issuer_Name"]+ " lastMonthInterest: "+lastMonthInterest+" interest: "+interest);
+           
             return ((numOfDaysInMonth-couponDayInMonth)/numOfDaysInMonth*interest/12/100*quantity+couponDayInMonth/numOfDaysInMonth*lastMonthInterest/12/100*quantity).toFixed(0);
         }else{
             return 'No Data';
@@ -166,15 +166,10 @@ class NavCsamRowTable extends Component {
         this.props.csamRows.map((c,index)=>{
             if(c.asOfDate === this.state.theMaxAsOfDate){
                 let rowInteret = this.CalculateInterest(c,this.FindLastMonth_CLO_Quat(c["issuer_Name"]));
-                totalMonthlyAmortization += this.MonthlyAmortization(c);
+                totalMonthlyAmortization += (c["settlementDate"] !== null)? this.MonthlyAmortization(c): 0;
                 (c.portfolioName ==='Active')? totalAssets+= c.marketValueSettledCommitmentBook : totalAssets+=c.quantity*(c.costPriceSettled/100);
                 totalCreditLossProvision += this.CreditLossProvisionPerRow(c,this.state.theMaxAsOfDate);
-                if(rowInteret === 'No Data' || rowInteret === null)
-                {
-                    noDataFlag = true;
-                }else{
-                    totalInterest = totalInterest + Number(rowInteret);
-                }
+                totalInterest += (rowInteret !== 'No Data' && rowInteret !== null)? Number(rowInteret): noDataFlag = true;
             }
         })
         let newNavDataToPass2 = {...this.state.navDataToPass};

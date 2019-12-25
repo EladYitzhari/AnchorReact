@@ -57,7 +57,7 @@ export const numOfDaysInMonth = (monthNum)=>{
         case 10 :{
             return 30;
         }
-        case 10 :{
+        case 11 :{
             return 31;
         }
     }

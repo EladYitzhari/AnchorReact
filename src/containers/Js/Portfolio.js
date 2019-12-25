@@ -98,7 +98,19 @@ class Portfolio extends Component {
             this.setState({lineButtomFiled: e.target.value});
             
         }
-          
+
+        let topPortfolioChart = 
+                    <GeneralChart chartType="Line" chrtTableId='TopChartTable' width={'1300'} height={'500'}
+                                                             array={this.props.csamRows}
+                                                            rowFiledName={'portfolioName'}
+                                                            rowsHeaders={[this.props.portfolioName]}
+                                                            columnFileName={'asOfDate'}
+                                                            columnHeaders={[...this.props.asOfDateList]}
+                                                            value={this.state.lineFiled} 
+                                                            averageStatus={'yes'} 
+                                                            averageByField={'quantity'} />
+        ;
+
         let chartArea=null;
         if(this.state.showChartArea){
             chartArea=(
@@ -110,13 +122,15 @@ class Portfolio extends Component {
                         <option value='trancheOC'>Tranche OC</option>
                         <option value='trancheOcCushion'>Tranche OC Cushion</option>
                     </select>
-                    <GeneralChart chartType="Line" array={this.props.csamRows}
+                    <GeneralChart chartType="Line" chrtTableId='chartAreaTable' width={'1700'} height={'700'}
+                                                            array={this.props.csamRows}
                                                             rowFiledName={'issuer_Name'}
                                                             rowsHeaders={globalFunction.uniqArrayFromTable(this.props.csamRows,'issuer_Name')}
                                                             columnFileName={'asOfDate'}
                                                             columnHeaders={[...this.props.asOfDateList]}
                                                             value={this.state.lineButtomFiled}
-                                                            gorupingStatus={'No'}/>
+                                                            averageStatus={'No'}
+                                                            averageByField={'noFiledGroubBy'}/>
 
                 </div>
             )
@@ -127,21 +141,15 @@ class Portfolio extends Component {
                 <div className="portfolio_Header">  {this.state.portfolioName}    Portfolio </div> 
 
                 <div className='portfolio_portfolio_Top_Chart'>
-                    <Chart data={this.props.csamRows} labels={this.props.asOfDateList} lineFiled={this.state.lineFiled}/>  
+                    {topPortfolioChart}
+                    {/* <Chart data={this.props.csamRows} labels={this.props.asOfDateList} lineFiled={this.state.lineFiled}/>   */}
                         <select onChange={(e)=> changeChartData(e)}>
                             <option value='dailyAssetPrice' selected>Daily Asset Price</option>
                             <option value='warf'>WARF</option>
-                            <option value='marketValueSettledCommitmentBook'>Setteled</option>
                             <option value='trancheOC'>Tranche OC</option>
                             <option value='trancheOcCushion'>Tranche OC Cushion</option>
                         </select>
-                        <select >
-                                <option value='quantity' selected>Quantity</option>
-                        </select>
-                        <select >
-                                <option value='absType' selected>absType</option>
-                                <option value='absType' selected>absType</option>
-                        </select>
+                        
                 </div>
                
                 

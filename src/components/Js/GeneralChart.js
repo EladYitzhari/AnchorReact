@@ -21,24 +21,30 @@ class GeneralChart extends Component {
 
     }
 
-    generateDataToChart =(array,rowFiledName,rowsHeaders,columnFileName,columnHeaders,value,gorupingStatus) =>
+    generateDataToChart =(array,rowFiledName,rowsHeaders,columnFileName,columnHeaders,value,averageStatus,averageByField) =>
     {
+        console.log("upload chart, averageStatus: "+String(averageStatus));
         let dataLabels = columnHeaders;
         let datasets =[];
-        rowsHeaders.map((r,index)=>{
+        rowsHeaders.map( r=>{
             let dataSet =[];
             columnHeaders.map(c=>{
                 let flag= false;
+                let val = 0;
+                let averageBy = 0;
                 array.map(a=>{
                     if(a[rowFiledName] === r && a[columnFileName]===c)
                     {
-                        (a[value]===0 ||a[value]==='') ? dataSet.push(',') : dataSet.push(a[value]);
-                        flag =true;
+                        val += (a[value] === 0 || a[value] === '') ? 0 : (averageStatus === "yes") ? Number(a[value]*a[averageByField]) : a[value];
+                        averageBy += (a[value] === 0 || a[value] === '') ? 0 : (averageStatus === "yes")? a[averageByField] : 0;
+                        flag = true;
                     }
-                })
-                if(!flag)
+                });
+                if(flag)
                 {
-                    dataSet.push(',');
+                    (val === 0 || val === '' ) ? dataSet.push(',') : (averageStatus === "yes") ? dataSet.push(val/averageBy) : dataSet.push(val);
+                }else{
+                   dataSet.push(',');
                 }
             })
             datasets.push({
@@ -78,9 +84,10 @@ class GeneralChart extends Component {
             this.props.columnFileName,
             this.props.columnHeaders,
             this.props.value,
-            this.props.gorupingStatus); 
+            this.props.averageStatus,
+            this.props.averageByField);
             table=(
-                <table className='table table-hover portfolio_chart_table' id='chartTable'>
+                <table className='table table-hover portfolio_chart_table' id={this.props.chrtTableId}>
                     <thead>
                     <tr>
                         <th></th>
@@ -114,14 +121,14 @@ class GeneralChart extends Component {
             chart = <div>
                 <img  src={tableImg} alt='tableImg' onClick={this.toggleTable}/>
                 <ReactToExcel className="btn "
-                    table="chartTable"
+                    table={this.props.chrtTableId}
                     filename="Chart Date"
                     sheet="Chart Data"
                     buttonText={<img style={{marginRight:"3%"}} alt="excelImg" src={excelIcon} />}
                     />
                 {table}
                         <Line  
-                    width={2000} height={700}
+                    width={this.props.width} height={this.props.height}
                         options={{
                             // padding:"0px",
                             responsive:false,
@@ -142,7 +149,8 @@ class GeneralChart extends Component {
                                 this.props.columnFileName,
                                 this.props.columnHeaders,
                                 this.props.value,
-                                this.props.gorupingStatus)} />
+                                this.props.averageStatus,
+                                this.props.averageByField)} />
                         </div>;
         }else if(chartType ==="Bar"){
             chart = <Bar data={this.generateDataToChart} />;
