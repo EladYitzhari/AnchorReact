@@ -10,3 +10,14 @@
 .Nav_csamRows_table td, tr{
     /* padding: 1%; */
 }
+#dounloadDivCsamRowTableNavPage{
+    width: 100%;
+    text-align: center;
+    border-top: 1px solid navy;
+}
+.spinnerDiv
+{
+    position: fixed;
+    top: 20%;
+    left:45%;
+}

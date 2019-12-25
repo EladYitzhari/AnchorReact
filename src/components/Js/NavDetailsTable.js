@@ -6,8 +6,19 @@ import {connect} from 'react-redux';
 class NavDetails extends Component {
     state = {  }
     render() { 
+
+        let missingDataAlert= null;
+        if(this.props.navData.noDataFlag){
+            missingDataAlert = <div style={{color:'red'}}>There is Missing data in the interest- please check Settlement Date</div>
+        }
         return ( 
             <table id="calculateNavTable" className="table">
+                <tbody>
+                <tr>
+                    <td> {missingDataAlert}</td>
+                    <td></td>
+                    <td></td>
+                </tr>
             <tr  className="table-primary">
                 <td>Section</td>
                 <td style={{textAlign: 'center'}}>$</td>
@@ -20,8 +31,8 @@ class NavDetails extends Component {
             </tr> 
             <tr>
                 <td>Total Assets – Amortized Cost</td>
-                <td id="totalAssetsTd" className='numTd'></td>
-                <td></td>
+                <td id="totalAssetsTd" className='numTd'>{Number(this.props.navData.totalAssets).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                <td>{Number(this.props.navData.totalAssets/this.props.navData.totalAssets*100).toFixed(0)}</td>
             </tr>
             <tr>
                 <td>Lev Interest</td>
@@ -30,13 +41,13 @@ class NavDetails extends Component {
             </tr>
             <tr>
                 <td>Accrued Interest</td>
-                <td id="AccruedInterestTd" className='numTd'></td>
-                <td></td>
+                <td id="AccruedInterestTd" className='numTd'>{Number(this.props.navData.totalInterest).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                <td>{Number(this.props.navData.totalInterest/this.props.navData.totalAssets*100).toFixed(2)}</td>
             </tr>	
             <tr>
                 <td>Gross Interest</td>
-                <td id="GrossInterestTd" className='numTd'></td>
-                <td></td>
+                <td id="GrossInterestTd" className='numTd'>{Number(this.props.navData.totalInterest).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                <td>{Number(this.props.navData.totalInterest/this.props.navData.totalAssets*100).toFixed(2)}</td>
             </tr>
 
             <tr  className="table-primary">
@@ -62,19 +73,24 @@ class NavDetails extends Component {
             </tr>
             <tr>
                 <td>Credit Loss Provision</td>
-                <td id="CreditLossProvisionTd" className='numTd' style={{color: 'red'}}></td>
-                <td></td>
+                <td id="CreditLossProvisionTd" className='numTd' style={{color: 'red'}}>
+                    {Number(this.props.navData.totalCreditLossProvision).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                </td>
+                <td>{Number(this.props.navData.totalCreditLossProvision/this.props.navData.totalAssets*100).toFixed(2)}</td>
             </tr>
             <tr>
                 <td>Monthly Amortization</td>
-                <td id="MonthlyAmortizationTd" className='numTd'></td>
-                <td></td>
+                <td id="MonthlyAmortizationTd" className='numTd'>
+                    {Number(this.props.navData.totalMonthlyAmortization).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                </td>
+                <td>{Number(this.props.navData.totalMonthlyAmortization/this.props.navData.totalAssets*100).toFixed(2)}</td>
             </tr>
             <tr>
                 <td>Operating Income</td>
                 <td id="OperatingIncomeTd" className='numTd'></td>
                 <td></td>
             </tr>
+            </tbody>
         </table>
          );
     }
