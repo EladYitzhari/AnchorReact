@@ -194,9 +194,9 @@ class Portfolio extends Component {
                             <option value='trancheOcCushion'>Tranche OC Cushion</option>
                         </select>
                         <label style={{margin:'1%'}} for="fromDate">Start date:</label>
-                        <input id="fromDate" type="date" value="2018-12-01" onChange={(e)=>this.ChangeChartDate(e,'fromDate')}/>
+                        <input id="fromDate" type="date"   onChange={(e)=>this.ChangeChartDate(e,'fromDate')}/>
                         <label style={{margin:'1%'}}  for="toDate">End date:</label>
-                        <input id="toDate" type="date" className="date" value={new Date().toDateInputValue()} onChange={(e)=>this.ChangeChartDate(e,'toDate')}/>
+                        <input id="toDate" type="date"  onChange={(e)=>this.ChangeChartDate(e,'toDate')}/>
                 </div>
                
                 
