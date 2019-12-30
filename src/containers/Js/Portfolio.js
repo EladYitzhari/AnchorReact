@@ -23,12 +23,15 @@ class Portfolio extends Component {
         showClasses : false,
         portfolioName: 'HTM-Leverage',
         asOfDateList: [...this.props.asOfDateList],
+        fromDate:'2018-12-01',
+        toDate:'2022-12-01',
         showSearchControlls : false,
         csamRows:[...this.props.csamRows],
         showCsamRowsTable:false,
-        lineFiled:'dailyAssetPrice',
-        lineButtomFiled:'dailyAssetPrice',
+        lineField:'dailyAssetPrice',
+        lineButtomField:'dailyAssetPrice',
         ChartArea:false
+        
  
      }
 
@@ -48,7 +51,6 @@ class Portfolio extends Component {
         {
             this.props.GetAllClasses();
         }
-        
     }
 
     toggleClassTable =() =>
@@ -66,6 +68,40 @@ class Portfolio extends Component {
     toggleChartArea= ()=>{
         this.setState({showChartArea: ! this.state.showChartArea});
     }
+    ChangeChartDate = (e,dateField) =>
+    {
+        this.setState({[dateField]: e.target.value});      
+    }
+
+    TopChartSortDateArray =()=>{
+        let oldArray = [...this.props.asOfDateList]
+        let newDateArray=[];
+        let fromDate = this.state.fromDate;
+        let toDate = this.state.toDate;
+        oldArray.map(d=>{
+            if(new Date(d).getTime() >= new Date(fromDate).getTime() && 
+              new Date(d).getTime() <= new Date(toDate).getTime()){
+                newDateArray.push(d);
+              }
+             
+        })
+        return newDateArray;
+    }
+
+    ChooseCloChartArea=(e)=>{
+        let selectElement = e.target;
+        let selectedValues = Array.from(selectElement.selectedOptions)
+                .map(option => option.value);
+        if(selectedValues[0]==='all'){
+            this.props.UpdateCloList(this.props.CloList);
+        }else{
+            this.props.UpdateCloList(selectedValues);
+        }
+        
+        console.log(selectedValues);
+    }
+
+
 
 
     render() { 
@@ -89,30 +125,32 @@ class Portfolio extends Component {
 
         const changeChartData = (e) =>
         {
-            this.setState({lineFiled: e.target.value});
+            this.setState({lineField: e.target.value});
             
         }
 
         const changeBottomChartData = (e) =>
         {
-            this.setState({lineButtomFiled: e.target.value});
+            this.setState({lineButtomField: e.target.value});
             
         }
 
+
         let topPortfolioChart = 
                     <GeneralChart chartType="Line" chrtTableId='TopChartTable' width={'1300'} height={'500'}
-                                                             array={this.props.csamRows}
+                                                            array={this.props.csamRows}
                                                             rowFiledName={'portfolioName'}
                                                             rowsHeaders={[this.props.portfolioName]}
                                                             columnFileName={'asOfDate'}
-                                                            columnHeaders={[...this.props.asOfDateList]}
-                                                            value={this.state.lineFiled} 
+                                                            columnHeaders={this.TopChartSortDateArray()}
+                                                            value={this.state.lineField} 
                                                             averageStatus={'yes'} 
                                                             averageByField={'quantity'} />
         ;
 
         let chartArea=null;
         if(this.state.showChartArea){
+
             chartArea=(
                 <div className='portfolio_chart_div' >
                     <select onChange={(e)=> changeBottomChartData(e)}>
@@ -122,13 +160,19 @@ class Portfolio extends Component {
                         <option value='trancheOC'>Tranche OC</option>
                         <option value='trancheOcCushion'>Tranche OC Cushion</option>
                     </select>
+                    <select multiple id="CLOSelectorMulti" onChange={(e)=>this.ChooseCloChartArea(e)}>
+                            <option value='all' selected>All</option>
+                            {this.props.CloList.sort().map((c,index)=>{
+                                return <option key={index+'selectOptionChartArea'}>{c}</option>
+                            })}
+                    </select>
                     <GeneralChart chartType="Line" chrtTableId='chartAreaTable' width={'1700'} height={'700'}
                                                             array={this.props.csamRows}
                                                             rowFiledName={'issuer_Name'}
-                                                            rowsHeaders={globalFunction.uniqArrayFromTable(this.props.csamRows,'issuer_Name')}
+                                                            rowsHeaders={this.props.ChartAreaChoosenCLO}
                                                             columnFileName={'asOfDate'}
-                                                            columnHeaders={[...this.props.asOfDateList]}
-                                                            value={this.state.lineButtomFiled}
+                                                            columnHeaders={this.TopChartSortDateArray()}
+                                                            value={this.state.lineButtomField}
                                                             averageStatus={'No'}
                                                             averageByField={'noFiledGroubBy'}/>
 
@@ -142,14 +186,17 @@ class Portfolio extends Component {
 
                 <div className='portfolio_portfolio_Top_Chart'>
                     {topPortfolioChart}
-                    {/* <Chart data={this.props.csamRows} labels={this.props.asOfDateList} lineFiled={this.state.lineFiled}/>   */}
+                    {/* <Chart data={this.props.csamRows} labels={this.props.asOfDateList} lineField={this.state.lineField}/>   */}
                         <select onChange={(e)=> changeChartData(e)}>
                             <option value='dailyAssetPrice' selected>Daily Asset Price</option>
                             <option value='warf'>WARF</option>
                             <option value='trancheOC'>Tranche OC</option>
                             <option value='trancheOcCushion'>Tranche OC Cushion</option>
                         </select>
-                        
+                        <label style={{margin:'1%'}} for="fromDate">Start date:</label>
+                        <input id="fromDate" type="date" value="2018-12-01" onChange={(e)=>this.ChangeChartDate(e,'fromDate')}/>
+                        <label style={{margin:'1%'}}  for="toDate">End date:</label>
+                        <input id="toDate" type="date" className="date" value={new Date().toDateInputValue()} onChange={(e)=>this.ChangeChartDate(e,'toDate')}/>
                 </div>
                
                 
@@ -203,6 +250,8 @@ const mapStateToProp = state =>
             portfolioName: state.portfolio.portfolioName,
             asOfDateList: state.portfolio.asOfDateList,
             csamRows:state.portfolio.csamRows,
+            CloList: state.portfolio.CloList,
+            ChartAreaChoosenCLO:state.portfolio.ChartAreaChoosenCLO,
             selectedAsOdDate:state.select.selectedAsOdDatePortfolioPage
         }
 }
@@ -214,7 +263,8 @@ const mapDispatchToProps = dispatch =>
         GetAllClasses: () => dispatch(portfolioActions.getAllClasses()),
         ChangePortfolioName: (portfolioName) => dispatch(portfolioActions.changePortfolioName(portfolioName)),
         GetAllAsOfDate:(portfolioName) => dispatch(portfolioActions.getAsOfDateList(portfolioName)),
-        GetACsamRowsOfPortfolio:(portfolioName) => dispatch(portfolioActions.getACsamRowsOfPortfolio(portfolioName))
+        GetACsamRowsOfPortfolio:(portfolioName) => dispatch(portfolioActions.getACsamRowsOfPortfolio(portfolioName)),
+        UpdateCloList:(choosenCloList)=>dispatch(portfolioActions.udateChoosenCloList(choosenCloList))
     }
 }
 

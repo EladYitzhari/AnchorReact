@@ -6,6 +6,8 @@ const initialState = {
     portfolioName:'HTM-Leverage',
     asOfDateList: [],
     csamRows:[],
+    CloList:[],
+    ChartAreaChoosenCLO:[],
     navData:{totalAssets:0},
     totalPortfoliosAssets:0
 }
@@ -44,6 +46,14 @@ const reducer = (state = initialState ,action) => {
                         
                     }
             } 
+            case actionTypes.UPDATE_CLO_LIST:
+                {
+                    return {
+                        ...state,
+                        CloList:action.val,
+                        ChartAreaChoosenCLO:action.val
+                    }
+            }    
         case actionTypes.UPDATE_NAV_DATA_TO_PORTFOLIO:
             {
                 return {
@@ -57,6 +67,14 @@ const reducer = (state = initialState ,action) => {
                 return {
                     ...state,
                     totalPortfoliosAssets:action.val
+                    
+                }
+        } 
+        case actionTypes.UPDATE_CHOOSEN_CLO_LIST:
+            {
+                return {
+                    ...state,
+                    ChartAreaChoosenCLO:action.val
                     
                 }
         }       

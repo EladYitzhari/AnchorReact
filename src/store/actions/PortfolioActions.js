@@ -1,7 +1,7 @@
 
 import axios from 'axios';
 import * as actionTypes from './actionTypes.js'
-
+import * as globalFunction from '../../components/Functions/globalFunction';
 
 
 /////////////////////////GETING ALL CALSSES////////////////////////////
@@ -100,9 +100,29 @@ export const getACsamRowsOfPortfolio = (portfolioName) =>
         axios.get("/DataQ/IsinRow/IsinRows/"+portfolioName).then(response => {
             console.log(response.data);
             dispatch(axiosGetACsamRowsOfPortfolio(response.data));
+            dispatch(udateAllCloList([...globalFunction.uniqArrayFromTable(response.data,'issuer_Name')]));    
         });
         
     }
 }
 
+/////////////////////////UPDATE_CLO_LIST////////////////////////////
+export const udateAllCloList = (cloList) =>
+{
+    return {
+            type: actionTypes.UPDATE_CLO_LIST,
+            val:[...cloList]
+            };
+      
+}
+
+/////////////////////////UPDATE_CLO_LIST////////////////////////////
+export const udateChoosenCloList = (choosenCloList) =>
+{
+    return {
+            type: actionTypes.UPDATE_CHOOSEN_CLO_LIST,
+            val:[...choosenCloList]
+            };
+      
+}
  
