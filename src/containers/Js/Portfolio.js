@@ -174,8 +174,10 @@ class Portfolio extends Component {
                                                             columnHeaders={this.TopChartSortDateArray()}
                                                             value={this.state.lineButtomField}
                                                             averageStatus={'No'}
-                                                            averageByField={'noFiledGroubBy'}/>
-
+                                                            averageByField={'noFiledGroubBy'}
+                                                            includeRow_ColumnsHeaders={true}
+                                                            />
+                                                            
                 </div>
             )
         }

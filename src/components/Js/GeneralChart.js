@@ -21,10 +21,13 @@ class GeneralChart extends Component {
 
     }
 
+
+
+
     generateDataToChart =(array,rowFiledName,rowsHeaders,columnFileName,columnHeaders,value,averageStatus,averageByField) =>
     {
         console.log("upload chart, averageStatus: "+String(averageStatus));
-        let dataLabels = columnHeaders;
+        let dataLabels = [...columnHeaders];
         let datasets =[];
         rowsHeaders.map( r=>{
             let dataSet =[];

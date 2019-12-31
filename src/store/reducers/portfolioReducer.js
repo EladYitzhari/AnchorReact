@@ -9,7 +9,8 @@ const initialState = {
     CloList:[],
     ChartAreaChoosenCLO:[],
     navData:{totalAssets:0},
-    totalPortfoliosAssets:0
+    totalPortfoliosAssets:0,
+    tzurNav:''
 }
 
 const reducer = (state = initialState ,action) => {
@@ -77,7 +78,15 @@ const reducer = (state = initialState ,action) => {
                     ChartAreaChoosenCLO:action.val
                     
                 }
-        }       
+        }
+        case actionTypes.GET_TZUR_NAV_DETAILS:
+            {
+                return {
+                    ...state,
+                    tzurNav:action.val
+                    
+                }
+        }         
     }
     
     return state;

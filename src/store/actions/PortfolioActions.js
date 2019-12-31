@@ -36,6 +36,8 @@ export const axiosAllPortfoliosAssets = (totalPortfoliosAssets) =>
       
 }
 
+
+
 export const getAllPortfoliosAssets = (month,year) =>
 {
     return dispatch  =>
@@ -43,7 +45,28 @@ export const getAllPortfoliosAssets = (month,year) =>
         axios.get("/DataQ/IsinRow/AllPortfoliosAssetsForTheMonth/"+month+"/"+year).then(response => {
             dispatch(axiosAllPortfoliosAssets(response.data));
         });
+
         
+    }
+}
+
+/////////////////////////GETING TZUR NAV////////////////////////////
+
+export const axiosTzurNav = (tzurNav) =>
+{
+    return {
+            type: actionTypes.GET_TZUR_NAV_DETAILS,
+            val:tzurNav
+            };
+      
+}
+
+export const getTzurNav = (month,year,portfolioName) => {
+    return dispatch  =>
+    {
+    axios.get("/DataQ/Nav/Nav/"+month+"/"+year+"/"+portfolioName).then(response => {
+        dispatch(axiosTzurNav(response.data));
+    });
     }
 }
 /////////////////////////GETING ALL AS OF DATE LIST////////////////////////////
