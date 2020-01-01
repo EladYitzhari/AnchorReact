@@ -24,7 +24,7 @@ export const createTableFromArray = array =>
     const instance = array[0];
     return  (
         <table className="table table-hover">
-            <thead>{extractHeadersToTh(instance)}</thead>
+            <thead style={{backgroundColor:'rgb(6, 117, 168)'}}>{extractHeadersToTh(instance)}</thead>
             <tbody>
             {array.map(a => {
                 return (
@@ -51,7 +51,9 @@ export const tableRowCreator = instance =>
     return (
         <tr>
             { keysList.map((k,index) =>{
-                return <td key={k+Math.random()}>{instance[k]}</td>
+                return (typeof instance[k] !== 'number')? <td key={k+Math.random()}>{instance[k]}</td>:
+                (instance[k]%1 >0)?<td key={k+Math.random()}>{instance[k].toFixed(3).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>:
+                <td key={k+Math.random()}>{instance[k].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
             }) }
         </tr>)
        
