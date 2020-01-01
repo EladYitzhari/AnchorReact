@@ -16,8 +16,8 @@ import selctors from '../src/store/reducers/selecorsReducer';
 import excelReducer from '../src/store/reducers/uploadExcelReducer';
 
 
-axios.defaults.baseURL ="http://localhost:8080/";
-// axios.defaults.baseURL ="https://env-4171164.j.box.co.il/AnchorOpen/";
+// axios.defaults.baseURL ="http://localhost:8080/";
+axios.defaults.baseURL ="https://env-4171164.j.box.co.il/AnchorOpen/";
 // axios.defaults.baseURL ="https://anchor-bf513.firebaseio.com/";
 
 axios.defaults.headers.common['Authorization'] = 'AUTO TOKEN';

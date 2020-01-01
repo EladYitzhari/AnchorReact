@@ -51,9 +51,14 @@ export const tableRowCreator = instance =>
     return (
         <tr>
             { keysList.map((k,index) =>{
-                return (typeof instance[k] !== 'number')? <td key={k+Math.random()}>{instance[k]}</td>:
-                (instance[k]%1 >0)?<td key={k+Math.random()}>{instance[k].toFixed(3).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>:
-                <td key={k+Math.random()}>{instance[k].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                return(<td key={k+Math.random()} data-toggle="tooltip" data-placement="top" title={k}>
+                    {(typeof instance[k] !== 'number')?instance[k]:
+                      (instance[k]%1 >0)?instance[k].toFixed(3).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+                    :instance[k].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}
+                </td>
+
+                ) 
+
             }) }
         </tr>)
        
