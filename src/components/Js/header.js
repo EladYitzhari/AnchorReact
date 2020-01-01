@@ -9,7 +9,7 @@ import Movements from '../../containers/Js/Movements';
 import ResearchPage from '../../containers/Js/ResearchPage';
 import {connect} from 'react-redux';
 import * as portfolioActions from '../../store/actions/PortfolioActions'
-
+import RepositoryPage from '../../containers/Js/RepositoryPage'
 
 class Header extends Component {
     state = {  }
@@ -28,6 +28,7 @@ class Header extends Component {
                     <li className="header_li"><NavLink to="/Movements">Movments</NavLink></li>
                     <li className="header_li"><NavLink to="/UploadExcel">Upload Excel</NavLink></li>
                     <li className="header_li"><NavLink to="/Research">Research</NavLink></li>
+                    <li className="header_li"><NavLink to="/Repository">Report Repository</NavLink></li>
                     <li className="header_anchorIcon"><img src={anchorIcom} alt="anchorIcom"/></li>
                 </ul>
             <Route path="/PortfolioHTM" exact component={Portfolio}   />
@@ -37,6 +38,7 @@ class Header extends Component {
             <Route path="/NAV" exact component={NavPage} />
             <Route path="/Movements" exact component={ Movements}   />
             <Route path="/Research" exact component={ ResearchPage}   />
+            <Route path="/Repository" exact component={ RepositoryPage}   />
             </div>
 
          );

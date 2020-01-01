@@ -11,6 +11,7 @@ import {Provider} from 'react-redux';
 
 
 import portfolioReducer from '../src/store/reducers/portfolioReducer';
+import repositoryReducer from '../src/store/reducers/repositoryReducer';
 import selctors from '../src/store/reducers/selecorsReducer';
 import excelReducer from '../src/store/reducers/uploadExcelReducer';
 
@@ -27,7 +28,8 @@ axios.defaults.headers.common['Authorization'] = 'AUTO TOKEN';
 const rootReducer = combineReducers({
     excel:excelReducer,
     portfolio: portfolioReducer,
-    select:selctors
+    select:selctors,
+    repository:repositoryReducer
 });
 
 

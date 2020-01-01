@@ -23,7 +23,7 @@ export const createTableFromArray = array =>
 {
     const instance = array[0];
     return  (
-        <table>
+        <table className="table table-hover">
             <thead>{extractHeadersToTh(instance)}</thead>
             <tbody>
             {array.map(a => {
