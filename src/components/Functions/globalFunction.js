@@ -110,6 +110,60 @@ export const isinRowKeys = {
 }
 
 
+//only the relevant cells take care, all the athers stand here for option if we will want it ub future
+export const movementKeys={
+    "ISIN":"isin",
+    // "Fund name":"",
+    // "Bank":"",
+    // "Participant":"",
+    // "account number":"",
+    "FundSettle order number":"fundSettleId",
+    // "Redemption Date":"",
+    "Order type":"type",
+    "Order date":"orderDate",
+    // "Trade date":"",
+    // "Contractual":"",
+    // "Settlement date":"",
+    // "Effective Settlement date":"",
+    // "Life cycle step - Status":"",
+    // "Reason code":"",
+    "Number of shares":"quantity",
+    // "Price 1":"",
+    "Instructed gross cash amount":"amount",
+    // "Confirmed gross cash amount":"",
+    "Currency":"originalCurrency"
+    // "Dividend policy":"",
+    // "Account Id":"",
+    // "Commission recipient":""
+
+}
+
+export const clssesIsins =[
+
+    {"isin":"KYG706221408","class":"A-USD","portfolio":"HTM-Leverage"},
+	{"isin":"KYG706221085","class":"A-NIS","portfolio":"HTM-Leverage"},
+    {"isin":"KYG706221572","class":"B-USD","portfolio":"HTM-Leverage"},
+	{"isin":"KYG706221168","class":"B-NIS","portfolio":"HTM-Leverage"},
+	{"isin":"KYG706221655","class":"C-USD","portfolio":"HTM-Leverage"},
+    {"isin":"KYG706221242","class":"C-NIS","portfolio":"HTM-Leverage"},
+	{"isin":"KYG706221739","class":"D-USD","portfolio":"HTM-Leverage"},
+	{"isin":"KYG706221325","class":"D-NIS","portfolio":"HTM-Leverage"},
+    {"isin":"KYG706221812","class":"E1-USD","portfolio":"HTM-Leverage"},
+	{"isin":"KYG706221994","class":"E2-ILS","portfolio":"HTM"},
+    {"isin": "KYG706222232","class":"G1-USD","portfolio":"HTM-Leverage"},
+	{"isin":"KYG706222315","class":"G2-USD","portfolio":"HTM"},
+    {"isin":"KYG706222497","class":"H1-USD","portfolio":"HTM-Leverage"},
+    {"isin":"KYG706222562","class":"H2-NIS","portfolio":"HTM-Leverage"},
+    {"isin":"KYG706222646","class":"I1-USD","portfolio":"HTM-Leverage"},
+    {"isin":"KYG706222729","class":"I2-USD","portfolio":"HTM-Leverage"},
+    {"isin":"KYG706222802","class":"J1-USD","portfolio":"Active"},
+	{"isin":"KYG706222984","class":"J2-USD","portfolio":"Active"},
+	{"isin":"KYG706223065","class":"K-USD","portfolio":"Active"},
+    {"isin":"XDO417744626","class":"L-USD","portfolio":"HTM-Leverage"},
+
+]
+
+
 
 
 

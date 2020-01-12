@@ -24,7 +24,7 @@ class GeneralChart extends Component {
 
 
 
-    generateDataToChart =(array,rowFiledName,rowsHeaders,columnFileName,columnHeaders,value,averageStatus,averageByField) =>
+    generateDataToChart =(array,rowFiledName,rowsHeaders,columnFileName,columnHeaders,value,averageStatus,averageByField,type) =>
     {
         console.log("upload chart, averageStatus: "+String(averageStatus));
         let dataLabels = [...columnHeaders];
@@ -54,7 +54,8 @@ class GeneralChart extends Component {
                 label:r,
                 // borderColor :'green',
                 // borderColor:this.colorThems[index],
-                borderColor:'rgb('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+')',
+                borderColor:(type==="Line")?'rgb('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+')':"rgb(0, 0, 0)",
+                backgroundColor:(type !=="Line")?'rgb('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+')':"rgb(0, 0, 0)",
                 data:dataSet
             }) 
         })
@@ -88,7 +89,8 @@ class GeneralChart extends Component {
             this.props.columnHeaders,
             this.props.value,
             this.props.averageStatus,
-            this.props.averageByField);
+            this.props.averageByField,
+            this.props.chartType);
             table=(
                 <table className='table table-hover portfolio_chart_table' id={this.props.chrtTableId}>
                     <thead>
@@ -156,7 +158,40 @@ class GeneralChart extends Component {
                                 this.props.averageByField)} />
                         </div>;
         }else if(chartType ==="Bar"){
-            chart = <Bar data={this.generateDataToChart} />;
+            chart = <div>
+                <img  src={tableImg} alt='tableImg' onClick={this.toggleTable}/>
+                <ReactToExcel className="btn "
+                    table={this.props.chrtTableId}
+                    filename="Chart Date"
+                    sheet="Chart Data"
+                    buttonText={<img style={{marginRight:"3%"}} alt="excelImg" src={excelIcon} />}
+                    />
+                {table}
+                        <Bar  
+                    width={this.props.width} height={this.props.height}
+                        options={{
+                            // padding:"0px",
+                            responsive:false,
+                            maintainAspectRatio:false,
+                            defaultFontSize:"30px",
+                            width:"40",
+                            height:"40",
+                            
+                            legend:{
+                                display:true,
+                                position:'right'
+                            }}}
+                    
+                    data={this.generateDataToChart(
+                                this.props.array,
+                                this.props.rowFiledName,
+                                this.props.rowsHeaders,
+                                this.props.columnFileName,
+                                this.props.columnHeaders,
+                                this.props.value,
+                                this.props.averageStatus,
+                                this.props.averageByField)} />
+                        </div>;
         }else if(chartType ==="Pie"){
             chart =<Pie data={this.generateDataToChart} />;
         }

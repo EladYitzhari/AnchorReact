@@ -11,7 +11,7 @@ import excelIcon from '../../images/Microsoft-Excel-icon.png';
 import * as excelAction from '../../store/actions/ExcelAction'
 import axios from 'axios';
 import Spinner from '../../components/Js/Spinner';
-
+import * as movementsAction from '../../store/actions/MovementAction'
 
 class UploadExcel extends Component {
     state = { 
@@ -24,8 +24,17 @@ class UploadExcel extends Component {
     
     handleFiles =(files) =>{
         readXlsxFile(files[0]).then((rows) => {
-            this.props.uploadExcel(rows);
-            this.props.convertToCsamRowObject(rows);
+            //check if movements file or CSAM
+            if(rows[0][0] !== "ISIN")
+            {
+                alert('CSAM File Detected');
+                this.props.uploadExcel(rows);
+                this.props.convertToCsamRowObject(rows);
+            }else{
+                alert('MOVEMENTS File Detected');
+                this.props.movementsAction(rows);
+            }
+
             console.log(rows);
             this.props.toggleSpinner();
            
@@ -55,7 +64,9 @@ class UploadExcel extends Component {
                 Upload Excel Page <img src={uploadImg} alt='uploadImg'/>
                 </div>              
                 <br/>
-                Please upload the CSAM file
+                Please upload 
+                <br />
+                 CSAM file / Movements File
                 <br/>
                 
                 <div id="inputfile" className="uploadInput input-group">
@@ -93,7 +104,8 @@ const mapDispatchToProps = dispatch =>
     return {
         uploadExcel: (rows) => dispatch({type:actionTypes.UPLOAD_EXCEL,val:rows}),
         convertToCsamRowObject: (rows) => dispatch(excelAction.convertEcelToCsamRows(rows)),
-        toggleSpinner: ()=>dispatch({type:actionTypes.TOGGLE_SPINNER})
+        toggleSpinner: ()=>dispatch({type:actionTypes.TOGGLE_SPINNER}),
+        movementsAction: (rows) => dispatch(movementsAction.convertEcelToMovementRows(rows))
     }
 }
 

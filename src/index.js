@@ -14,6 +14,7 @@ import portfolioReducer from '../src/store/reducers/portfolioReducer';
 import repositoryReducer from '../src/store/reducers/repositoryReducer';
 import selctors from '../src/store/reducers/selecorsReducer';
 import excelReducer from '../src/store/reducers/uploadExcelReducer';
+import movementReducer from '../src/store/reducers/movementsReducer';
 
 
 // axios.defaults.baseURL ="http://localhost:8080/";
@@ -21,7 +22,7 @@ axios.defaults.baseURL ="https://env-4171164.j.box.co.il/AnchorOpen/";
 // axios.defaults.baseURL ="https://anchor-bf513.firebaseio.com/";
 
 axios.defaults.headers.common['Authorization'] = 'AUTO TOKEN';
-// axios.defaults.headers.post['content-type']= 'application/json';
+// axios.defaults.headers.post['Content-type']= 'application/json';
 
 
 
@@ -29,7 +30,8 @@ const rootReducer = combineReducers({
     excel:excelReducer,
     portfolio: portfolioReducer,
     select:selctors,
-    repository:repositoryReducer
+    repository:repositoryReducer,
+    movements:movementReducer
 });
 
 
