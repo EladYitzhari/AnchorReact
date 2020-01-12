@@ -54,8 +54,8 @@ class GeneralChart extends Component {
                 label:r,
                 // borderColor :'green',
                 // borderColor:this.colorThems[index],
-                borderColor:(type==="Line")?'rgb('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+')':"rgb(0, 0, 0)",
-                backgroundColor:(type !=="Line")?'rgb('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+')':"rgb(0, 0, 0)",
+                borderColor:(type ==="Line")?'rgb('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+')':"rgb(255, 255, 255)",
+                backgroundColor:(type !=="Line")?'rgb('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+')':null,
                 data:dataSet
             }) 
         })
@@ -155,7 +155,8 @@ class GeneralChart extends Component {
                                 this.props.columnHeaders,
                                 this.props.value,
                                 this.props.averageStatus,
-                                this.props.averageByField)} />
+                                this.props.averageByField,
+                                this.props.chartType)} />
                         </div>;
         }else if(chartType ==="Bar"){
             chart = <div>
@@ -190,7 +191,8 @@ class GeneralChart extends Component {
                                 this.props.columnHeaders,
                                 this.props.value,
                                 this.props.averageStatus,
-                                this.props.averageByField)} />
+                                this.props.averageByField,
+                                this.props.chartType)} />
                         </div>;
         }else if(chartType ==="Pie"){
             chart =<Pie data={this.generateDataToChart} />;
