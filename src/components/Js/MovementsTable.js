@@ -32,7 +32,7 @@ class MovemetsTable extends Component {
                                 <td>{m.className}</td>
                                 <td>{m.orderDate}</td>
                                 <td>{m.effectiveDate}</td>
-                                <td>{m.type}</td>
+                                {(m.type==="Redemption")?<td style={{color:"red"}}>{m.type}</td>:<td style={{color:"green"}}>{m.type}</td>}
                                 <td>{m.quantity}</td>
                                 <td>{m.originalCurrency}</td>
                                 <td>{m.amount}</td>

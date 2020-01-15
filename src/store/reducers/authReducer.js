@@ -2,32 +2,32 @@ import * as actionTypes from '../actions/actionTypes'
 
 
 const initialState = {
-    movements:[],
-    usdFx:0
+    token: null,
+    err:''
+
 }
 
 const reducer = (state = initialState ,action) => {
-
     switch(action.type){
-        
-        case actionTypes.INSERT_MOVEMENTS:
+
+
+        case actionTypes.AUTH_SUCCESS:
         {
             return {
                ...state,
-               movements:action.val
+               token:action.val
                
             }
         }
-        case actionTypes.GET_FX_USD:
+        case actionTypes.AUTH_FAIL:
             {
                 return {
                    ...state,
-                   usdFx:action.val
+                   err:action.val
                    
                 }
             }
-           
-       
+        
     }
     
     return state;
@@ -35,3 +35,5 @@ const reducer = (state = initialState ,action) => {
 
 
 export default reducer;
+
+

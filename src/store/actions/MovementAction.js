@@ -124,3 +124,29 @@ export const getAllMovements = () =>
             });   
     }
 }
+
+
+////////////////////////////GET USD FX //////////////////
+export const insertUSDFx = (usdFx) =>
+{
+    return {
+            type: actionTypes.GET_FX_USD,
+            val:usdFx
+            };
+      
+}
+
+
+
+export const getUSDFx = () =>
+{
+    return dispatch  =>
+    {
+            axios.get("/DataQ/ImportFx/FxUSD").then(response => {
+                dispatch(insertUSDFx(response.data));
+            }).catch(error=>{
+                alert("Somthing went wrong, usd fx didn't recieved: "+error.response.data.message);
+                console.log(error.response);
+            });   
+    }
+}

@@ -11,7 +11,7 @@ class RepositoryPage extends Component {
     state = { 
         showTable:false,
         CsamRows:[],
-        sortAsOfDate:'all'
+        sortAsOfDates:['all']
      }
 
     componentDidMount=()=>{
@@ -28,7 +28,11 @@ class RepositoryPage extends Component {
     //     this.setState({showTable: !this.state.showTable});
     // }
     setAsOfDate = (e) =>{
-      this.setState({sortAsOfDate:e.target.value});
+        let selectElement = e.target;
+        let selectedValues = Array.from(selectElement.selectedOptions)
+                .map(option => option.value);
+        console.log("list: "+selectedValues)
+      this.setState({sortAsOfDates:selectedValues});
     }
 
     render() { 
@@ -39,13 +43,20 @@ class RepositoryPage extends Component {
                 <table className="table table-hover" id='repositoryTable'>
                 <thead style={{backgroundColor:'rgb(6, 117, 168)',fontSize:'120%'}}>{globalFun.extractHeadersToTh(this.state.CsamRows[0])}</thead>
                 <tbody>
-                {this.state.CsamRows.filter(a=>{
-                    return a.isin !== null && 
-                            (this.state.sortAsOfDate==='all')?true:a.asOfDate ===  this.state.sortAsOfDate}).map(a => {
-                    return (
-                        globalFun.tableRowCreator(a)
-                    )
-                })}
+                {(this.state.sortAsOfDates[0]==='all')?
+                        this.state.CsamRows.filter(a=>{return a.isin !== null }).map(a => {
+                        return (
+                            globalFun.tableRowCreator(a)
+                        )
+                    }):this.state.sortAsOfDates.map(date=>{
+                        return (this.state.CsamRows.filter(a=>{return a.isin !== null && a.asOfDate === date}).map(a => {
+                                return (
+                                    globalFun.tableRowCreator(a)
+                                )
+                        }))
+                    })
+                    
+                }
                 </tbody>
             </table>
             ) 
@@ -63,7 +74,7 @@ class RepositoryPage extends Component {
                         <tr>
                             <td>As of Date</td>
                             <td>
-                                <select className='form-control' style={{fontSize:'80%'}} onChange={(e)=>this.setAsOfDate(e)}>
+                                <select className='form-control' style={{fontSize:'80%'}} multiple onChange={(e)=>this.setAsOfDate(e)}>
                                     <option value='all' selected>All</option>
                                 {this.props.asOfDateList.filter(a=>{return a!== null}).map(a=>{
                                     return <option key={a}>{a}</option>

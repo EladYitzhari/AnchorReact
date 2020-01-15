@@ -14,7 +14,7 @@ import Spinner from './Spinner';
 class NavCsamRowTable extends Component {
     state = { 
         lastMonthArray:[],
-        theMaxAsOfDate:'01-01-2017',
+        theMaxAsOfDate:'2017-01-01',
         navDataToPass:{
             totalInterest:0,
             totalMonthlyAmortization:0,
@@ -28,7 +28,7 @@ class NavCsamRowTable extends Component {
      }
 
     componentDidMount=()=>{
-        let maxAsOfDateToMonth= '01-01-2017';
+        let maxAsOfDateToMonth= '2017-01-01';
         let month = Number(this.props.dateDetails.navMonth);
         let year= Number(this.props.dateDetails.navYear);
         this.props.csamRows.map((c,index)=>{
@@ -59,14 +59,17 @@ class NavCsamRowTable extends Component {
             year = year -1;
             month = 12;
         }
-        let maxAsOfDateToMonth= '01-01-2017';
+        console.log("month: "+month+" year: "+year);
+        let maxAsOfDateToMonth= '2017-01-01';
         this.props.csamRows.map((c,index)=>{
-            if(new Date(c.asOfDate).getMonth()+1 === month &&
+            if(new Date(c.asOfDate).getMonth() === month &&
                 new Date(c.asOfDate).getFullYear() === year &&
                 new Date(c.asOfDate).getTime()>new Date(maxAsOfDateToMonth).getTime() ){
                     maxAsOfDateToMonth = c.asOfDate;
                 }
-        })
+        });
+        console.log("last month as of date "+maxAsOfDateToMonth)
+
         return maxAsOfDateToMonth;
     }
     CreateLastMonthArray=()=>{
@@ -107,13 +110,14 @@ class NavCsamRowTable extends Component {
         let couponDayInMonth = new Date(thisMonthQuat["issueFirstCouponDate"]).getDate();
         if(settlementDate.getMonth() === asOfDate.getMonth() && settlementDate.getFullYear() === asOfDate.getFullYear())
         {
-            return ((numOfDaysInMonth-settlementDate.getDate())/numOfDaysInMonth*interest/100/12*quantity).toFixed(0);
+            return ((numOfDaysInMonth-settlementDate.getDate())/numOfDaysInMonth*interest/100/365*numOfDaysInMonth*quantity).toFixed(0);
         }else if(lastMonthInterest === interest){
-            return (interest/100/12*quantity).toFixed(0);
+            return (interest/100/365*numOfDaysInMonth*quantity).toFixed(0);
         }else if(lastMonthInterest !== 'No Data' && lastMonthInterest !== interest){
             console.log(thisMonthQuat["issuer_Name"]+ " lastMonthInterest: "+lastMonthInterest+" interest: "+interest);
            
-            return ((numOfDaysInMonth-couponDayInMonth)/numOfDaysInMonth*interest/12/100*quantity+couponDayInMonth/numOfDaysInMonth*lastMonthInterest/12/100*quantity).toFixed(0);
+            return ((numOfDaysInMonth-couponDayInMonth)/numOfDaysInMonth*interest/100/365*numOfDaysInMonth*quantity+
+                        couponDayInMonth/numOfDaysInMonth*lastMonthInterest/100/365*numOfDaysInMonth*quantity).toFixed(0);
         }else{
             return 'No Data';
         }

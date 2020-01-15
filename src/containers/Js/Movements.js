@@ -7,7 +7,7 @@ import {connect} from 'react-redux';
 import * as movementActions from '../../store/actions/MovementAction';
 import MovemetsTable from '../../components/Js/MovementsTable';
 import Spinner from '../../components/Js/Spinner';
-
+import DollarPrice from '../../components/Js/DollarPrice'
 
 class Movements extends Component {
     state = { 
@@ -100,17 +100,17 @@ class Movements extends Component {
                         Movement Page
 
                     </div>
-
+            <DollarPrice></DollarPrice>
             <div id="showMovmentControlDiv" style={{width: "100%",textAlign:"center"}}>
                 <table id="showMovmentControlTable">
                     <tr>
-                        <th>Show movements by</th>
-                        <th id="byClassHeader"  style={{display: "none"}}>By Class</th>
-                        <th id="byPortfolioHeader"  style={{display: "none"}}>By Portfolio</th>
-                        <th> From -Effective Date</th>
-                        <th>through</th>
-                        <th></th>
-                        <th>Download History</th>
+                        <td>Show movements by</td>
+                        <td id="byClassHeader"  style={{display: "none"}}>By Class</td>
+                        <td id="byPortfolioHeader"  style={{display: "none"}}>By Portfolio</td>
+                        <td> From -Effective Date</td>
+                            <td>through</td>
+                            
+                            <td>Download History</td>
                     </tr>
                     <tr>
                         <td>
@@ -134,14 +134,12 @@ class Movements extends Component {
                                     <option value="Active">Active</option>
                                 </select>
                         </td>
-                        <td>
-                            <input type="date" id="fromDateShowControl" onChange={(e)=>this.changeParam(e,'fromDate')}/>
+                 
+                        <td style={{padding:'0px'}}>
+                            <input type="date" id="fromDateShowControl"  onChange={(e)=>this.changeParam(e,'fromDate')}/>
                         </td>
-                        <td>
-                            <input type="date" id="throughDateShowControl" onChange={(e)=>this.changeParam(e,'toDate')}/>
-                        </td>
-                        <td>
-                            <button class="btn btn-success btn-lg" onclick="getAllMovementsList()">Show all Class moves</button>
+                        <td style={{padding:'0px'}}>
+                            <input type="date" id="throughDateShowControl"  onChange={(e)=>this.changeParam(e,'toDate')}/>
                         </td>
                         <td>
                         <ReactToExcel className="btn "
@@ -151,10 +149,10 @@ class Movements extends Component {
                             buttonText={<img style={{marginRight:"3%"}} alt="excelImg" src={excelIcon} />}
                             />
                         </td>
-                        <td>
-
-                        </td>
                     </tr>
+            
+                       
+                    
                 </table>
             </div>
 

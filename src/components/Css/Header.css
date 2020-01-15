@@ -35,10 +35,17 @@
   
   .header_anchorIcon
   {
-    position: absolute;
-    /* margin:1%; */
-    right: 1%;
-    top:1%;
+    float: right;
+    margin-right:1%;
+    margin-left:1%;
+    margin-top: 1%;
+
+    /* right: 1%;
+    top:1%; */
+  }
+
+  .login{
+    float: right;
   }
 
   .dropdown-content {

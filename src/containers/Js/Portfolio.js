@@ -143,8 +143,8 @@ class Portfolio extends Component {
                                                             rowsHeaders={[this.props.portfolioName]}
                                                             columnFileName={'asOfDate'}
                                                             columnHeaders={this.TopChartSortDateArray()}
-                                                            value={this.state.lineField} 
-                                                            averageStatus={'yes'} 
+                                                            value={this.state.lineField}
+                                                            averageStatus={'yes'}
                                                             averageByField={'quantity'} />
         ;
 
@@ -159,6 +159,7 @@ class Portfolio extends Component {
                         <option value='marketValueSettledCommitmentBook'>Setteled</option>
                         <option value='trancheOC'>Tranche OC</option>
                         <option value='trancheOcCushion'>Tranche OC Cushion</option>
+                        <option value='deltaFromSettled'>Price Delta From Setteled</option>
                     </select>
                     <select multiple id="CLOSelectorMulti" onChange={(e)=>this.ChooseCloChartArea(e)}>
                             <option value='all' selected>All</option>
@@ -194,6 +195,7 @@ class Portfolio extends Component {
                             <option value='warf'>WARF</option>
                             <option value='trancheOC'>Tranche OC</option>
                             <option value='trancheOcCushion'>Tranche OC Cushion</option>
+                            <option value='deltaFromSettled'>Price Delta From Setteled</option>
                         </select>
                         <label style={{margin:'1%'}} for="fromDate">Start date:</label>
                         <input id="fromDate" type="date"   onChange={(e)=>this.ChangeChartDate(e,'fromDate')}/>

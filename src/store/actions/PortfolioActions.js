@@ -18,7 +18,9 @@ export const getAllClasses = () =>
 {
     return dispatch  =>
     {
-        axios.get("/DataQ/Class/Classes").then(response => {
+
+
+        axios.get("/DataQ/Class/Classes",{headers:{"Authorization":localStorage.getItem('token')}}).then(response => {
             console.log(response.data);
             dispatch(axiosAllClasses(response.data));
         });
@@ -42,7 +44,8 @@ export const getAllPortfoliosAssets = (month,year) =>
 {
     return dispatch  =>
     {
-        axios.get("/DataQ/IsinRow/AllPortfoliosAssetsForTheMonth/"+month+"/"+year).then(response => {
+
+        axios.get("/DataQ/IsinRow/AllPortfoliosAssetsForTheMonth/"+month+"/"+year,{headers:{"Authorization":localStorage.getItem('token')}}).then(response => {
             dispatch(axiosAllPortfoliosAssets(response.data));
         });
 
@@ -64,7 +67,8 @@ export const axiosTzurNav = (tzurNav) =>
 export const getTzurNav = (month,year,portfolioName) => {
     return dispatch  =>
     {
-    axios.get("/DataQ/Nav/Nav/"+month+"/"+year+"/"+portfolioName).then(response => {
+
+    axios.get("/DataQ/Nav/Nav/"+month+"/"+year+"/"+portfolioName,{headers:{"Authorization":localStorage.getItem('token')}}).then(response => {
         dispatch(axiosTzurNav(response.data));
     });
     }
@@ -83,7 +87,15 @@ export const axiosAsOfDateList = (asOfDateList) =>
 export const getAsOfDateList = (portfolioName) =>
 {
     return dispatch  =>
-    {
+    {        
+        // let config = { headers: {'Authorization' : localStorage.getItem('token')},
+        // withCredentials: true
+        // };
+        // console.log("the config is: ");
+        // console.log(config);
+        
+
+        console.log("the cookies in portfolio are:"+ document.cookie);
         axios.get("/DataQ/IsinRow/AsOfDateList/"+portfolioName).then(response => {
             console.log(response.data);
             dispatch(axiosAsOfDateList(response.data));
@@ -120,9 +132,16 @@ export const getACsamRowsOfPortfolio = (portfolioName) =>
     return dispatch  =>
     {
         dispatch(axiosGetACsamRowsOfPortfolio([]));
-        axios.get("/DataQ/IsinRow/IsinRows/"+portfolioName).then(response => {
+
+        axios.get("/DataQ/IsinRow/IsinRows/"+portfolioName,{headers:{"Authorization":localStorage.getItem('token')}}).then(response => {
             console.log(response.data);
-            dispatch(axiosGetACsamRowsOfPortfolio(response.data));
+            let array = []; 
+            response.data.filter(f=>{ return f.markPrice !== f.costPriceSettled  && f.costPriceSettled !== 0 && f.costPriceSettled !== null}).map(m=>{
+                            let instans ={...m}; 
+                            instans.deltaFromSettled = (m.markPrice-m.costPriceSettled)/m.markPrice*100;
+                            array.push(instans);
+                            });
+            dispatch(axiosGetACsamRowsOfPortfolio(array));
             dispatch(udateAllCloList([...globalFunction.uniqArrayFromTable(response.data,'issuer_Name')]));    
         });
         
