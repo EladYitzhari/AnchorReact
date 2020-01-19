@@ -1,8 +1,6 @@
 
 import React from 'react';
 
-
-
 export const uniqArrayFromTable=(array,filed)=>{
     let middleXArray =[];
     array.map(r=>{
@@ -35,6 +33,27 @@ export const createTableFromArray = array =>
         </table>);
      
 }
+
+export const deltaOfMonthsBetweenDates=(date_old,date_new)=>
+{
+    let year_old = new Date(date_old).getFullYear();
+    let year_new = new Date(date_new).getFullYear();
+    let month_old = new Date(date_old).getMonth();
+    let month_new = new Date(date_new).getMonth();
+
+    return (year_new-year_old)*12+month_new-month_old;
+
+}
+
+export const deltaOfDaysBetweenDates=(date_old,date_new)=>
+{
+    let timeDiff = Math.abs(new Date(date_new).getTime() - new Date(date_old).getTime());
+    let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+
+    return diffDays;
+
+}
+
 
 export const extractHeadersToTh = instanse =>
 {

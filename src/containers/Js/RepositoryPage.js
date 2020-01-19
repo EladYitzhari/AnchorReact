@@ -6,12 +6,15 @@ import * as globalFun from '../../components/Functions/globalFunction'
 import Spinner from '../../components/Js/Spinner';
 import ReactToExcel from 'react-html-table-to-excel';
 import excelIcon from '../../images/Microsoft-Excel-icon.png';
+import ExportCSV from '../../components/Js/ExportCSV'
+
 
 class RepositoryPage extends Component {
     state = { 
         showTable:false,
         CsamRows:[],
-        sortAsOfDates:['all']
+        sortAsOfDates:['all'],
+        exportJson:[]
      }
 
     componentDidMount=()=>{
@@ -19,6 +22,7 @@ class RepositoryPage extends Component {
         this.props.GetAllCsamRows();
         setTimeout(() => {
             this.setState({CsamRows:[...this.props.CsamRows]});
+            this.setState({exportJson:[...this.props.CsamRows]});
             console.log("success bring all csam rows");
         }, 2000);
     }
@@ -35,12 +39,17 @@ class RepositoryPage extends Component {
       this.setState({sortAsOfDates:selectedValues});
     }
 
+    
     render() { 
+
+          
+
 
         let table=null;
         if(this.state.CsamRows.length !== 0){
+            //create the table
             table =(
-                <table className="table table-hover" id='repositoryTable'>
+               <React.Fragment>
                 <thead style={{backgroundColor:'rgb(6, 117, 168)',fontSize:'120%'}}>{globalFun.extractHeadersToTh(this.state.CsamRows[0])}</thead>
                 <tbody>
                 {(this.state.sortAsOfDates[0]==='all')?
@@ -55,10 +64,10 @@ class RepositoryPage extends Component {
                                 )
                         }))
                     })
-                    
+                   
                 }
                 </tbody>
-            </table>
+                </React.Fragment>
             ) 
             
         }else{
@@ -81,19 +90,23 @@ class RepositoryPage extends Component {
                                 })}
                                 </select>
                             </td>
-                            <td> <ReactToExcel className="btn "
-                                table='repositoryTable'
-                                filename="Repository Report"
-                                sheet={this.state.sortAsOfDate}
-                                buttonText={<img style={{marginRight:"3%"}} alt="excelImg" src={excelIcon} />}
-                                />
+                            <td> 
+                            <ExportCSV csvData={
+                                    (this.state.sortAsOfDates[0]==='all')?
+                                    this.state.CsamRows.filter(a=>{return a.isin !== null })
+                                    :this.state.CsamRows.filter(a=>{return a.isin !== null && this.state.sortAsOfDates.indexOf(a.asOfDate) !== -1})
+                            
+                                } fileName={this.state.sortAsOfDates} />
                              </td>
                             <td></td>
                         </tr>
         
                     </table>
+
+                            
+                    <table className="table table-hover" id='repositoryTable'>
                     {table}
-              
+                    </table>
 
 
 

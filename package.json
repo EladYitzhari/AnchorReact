@@ -12,6 +12,7 @@
     "axios": "^0.19.0",
     "bootstrap": "^4.4.1",
     "chart.js": "^2.9.3",
+    "file-saver": "^2.0.2",
     "file-server": "^2.1.0",
     "gh-pages": "^2.1.1",
     "jquery": "^3.4.1",
@@ -31,7 +32,7 @@
     "redux": "^4.0.4",
     "redux-thunk": "^2.3.0",
     "universal-cookie": "^4.0.3",
-    "xlsx": "^0.15.3"
+    "xlsx": "^0.15.4"
   },
   "scripts": {
     "start": "react-scripts start",

@@ -32,7 +32,7 @@ class UploadExcel extends Component {
                 this.props.convertToCsamRowObject(rows);
             }else{
                 alert('MOVEMENTS File Detected');
-                this.props.movementsAction(rows);
+                this.props.convertEcelToMovementRows(rows);
             }
 
             console.log(rows);
@@ -105,7 +105,7 @@ const mapDispatchToProps = dispatch =>
         uploadExcel: (rows) => dispatch({type:actionTypes.UPLOAD_EXCEL,val:rows}),
         convertToCsamRowObject: (rows) => dispatch(excelAction.convertEcelToCsamRows(rows)),
         toggleSpinner: ()=>dispatch({type:actionTypes.TOGGLE_SPINNER}),
-        movementsAction: (rows) => dispatch(movementsAction.convertEcelToMovementRows(rows))
+        convertEcelToMovementRows: (rows) => dispatch(movementsAction.convertEcelToMovementRows(rows))
     }
 }
 

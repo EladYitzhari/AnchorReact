@@ -134,11 +134,13 @@ export const getACsamRowsOfPortfolio = (portfolioName) =>
         dispatch(axiosGetACsamRowsOfPortfolio([]));
 
         axios.get("/DataQ/IsinRow/IsinRows/"+portfolioName,{headers:{"Authorization":localStorage.getItem('token')}}).then(response => {
-            console.log(response.data);
+            
             let array = []; 
-            response.data.filter(f=>{ return f.markPrice !== f.costPriceSettled  && f.costPriceSettled !== 0 && f.costPriceSettled !== null}).map(m=>{
-                            let instans ={...m}; 
-                            instans.deltaFromSettled = (m.markPrice-m.costPriceSettled)/m.markPrice*100;
+            response.data.filter(f=>{ return f.dailyAssetPrice !== f.costPriceSettled  && f.costPriceSettled !== 0 && f.costPriceSettled !== null}).map(m=>{
+                            let instans ={...m};
+                            let deltaBetweenPurchaseAndAsOfDate = globalFunction.deltaOfMonthsBetweenDates(m.settlementDate,m.asOfDate)+1;
+                            let amortization =(m.settlementDate !== null)? (100-m.costPriceSettled)/(m.wal*12)*deltaBetweenPurchaseAndAsOfDate: 0;
+                            instans.deltaFromSettled = (m.dailyAssetPrice-m.costPriceSettled+amortization)/m.costPriceSettled*100;
                             array.push(instans);
                             });
             dispatch(axiosGetACsamRowsOfPortfolio(array));

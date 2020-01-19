@@ -106,7 +106,12 @@ const calculateEffectiveDate = (orderDate) =>
     {
         return  new Date(orderYear+"-12-31");
     }else{
-        return  new Date(orderYear+"-03-31");
+        if(orderMonth <= 12){
+            return  new Date(Number(orderYear+1)+"-03-31")
+        }else{
+            return  new Date(orderYear+"-03-31");
+        }
+       
     }
 }
 ////////////////////////FINISH HELP FUNCTIONS/////////////////////

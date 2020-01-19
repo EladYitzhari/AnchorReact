@@ -29,7 +29,7 @@ class GeneralChart extends Component {
         console.log("upload chart, averageStatus: "+String(averageStatus));
         let dataLabels = [...columnHeaders];
         let datasets =[];
-        rowsHeaders.map( r=>{
+        rowsHeaders.map( (r,index)=>{
             let dataSet =[];
             columnHeaders.map(c=>{
                 let flag= false;
@@ -49,15 +49,20 @@ class GeneralChart extends Component {
                 }else{
                    dataSet.push(',');
                 }
-            })
-            datasets.push({
-                label:r,
-                // borderColor :'green',
-                // borderColor:this.colorThems[index],
-                borderColor:(type ==="Line")?'rgb('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+')':"rgb(255, 255, 255)",
-                backgroundColor:(type !=="Line")?'rgb('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+')':null,
-                data:dataSet
-            }) 
+            });
+
+            if(this.checkIfEmptyRow(dataSet)){
+                delete dataLabels[index];
+                console.log("delete test "+ dataLabels[index]);
+            }else{
+                datasets.push({
+                    label:r,
+                    borderColor:(type ==="Line")?'rgb('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+')':"rgb(255, 255, 255)",
+                    backgroundColor:(type !=="Line")?'rgb('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+')':null,
+                    data:dataSet
+                }) 
+            }
+
         })
 
         
@@ -69,6 +74,19 @@ class GeneralChart extends Component {
 
     }
 
+
+    checkIfEmptyRow = (ArrayRow) => {
+        let flag_is_empty = true;
+        for(let i=0;i<ArrayRow.length;i++){
+            if(ArrayRow[i] !== ","){
+                flag_is_empty = false;
+                break;
+            }
+        }
+           
+        
+        return flag_is_empty;
+    }
 
     toggleTable =()=>{
         this.setState({showTable: !this.state.showTable});
@@ -141,6 +159,7 @@ class GeneralChart extends Component {
                             defaultFontSize:"30px",
                             width:"40",
                             height:"40",
+                            hover:true,
                             
                             legend:{
                                 display:true,
@@ -177,7 +196,7 @@ class GeneralChart extends Component {
                             defaultFontSize:"30px",
                             width:"40",
                             height:"40",
-                            
+                            hover:true,
                             legend:{
                                 display:true,
                                 position:'right'
