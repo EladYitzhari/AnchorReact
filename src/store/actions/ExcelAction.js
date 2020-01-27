@@ -1,9 +1,10 @@
 
-import axios from 'axios';
 import * as actionTypes from './actionTypes.js'
 import * as DFunctions from '../../components/Functions/dateFunctions'
 import * as globalFun from '../../components/Functions/globalFunction'
-
+import 'whatwg-fetch'
+import * as httpFunctions from '../../components/Functions/httpRequestFunctions';
+import * as location from '../../components/Functions/location';
 
 /////////////////////////UPLOAD ALL CSAMROWS////////////////////////////
 export const insertCsamRows = (CsamRows) =>
@@ -25,7 +26,7 @@ export const toggleSpinner = () =>
 
 export const convertEcelToCsamRows = (excelRows) =>
 {
-    return dispatch  =>
+    return (dispatch,getState)  =>
     {
             let csamRowsArray =[];
             let labelsArray = [...excelRows[0]];
@@ -37,14 +38,24 @@ export const convertEcelToCsamRows = (excelRows) =>
                 }
             });
             //upload to db
-            axios.post("/DataQ/IsinRow/IsinRows",csamRowsArray).then(response => {
-                alert("Upload successfully to the Database");
-                dispatch(toggleSpinner());
-            }).catch(error=>{
-                alert("Somthing went wrong, send that message to the admin: "+error.response.data.message);
-                console.log(error.response);
-                dispatch(toggleSpinner());
-            });   
+            fetch(location.serverAdress()+"/DataQ/IsinRow/IsinRows", {
+                method: 'POST',
+                body: JSON.stringify(csamRowsArray),
+                headers: {
+                  'Authorization': getState().auth.token,
+                  'Content-Type': 'application/json'
+                }
+              })
+            .then(httpFunctions.checkStatus)
+            .then(function() {
+              console.log('request succeeded: '+location.serverAdress()+"/DataQ/Movement/newMovementsArray");
+              alert("Upload successfully to the Database");
+              dispatch(toggleSpinner());
+            }).catch(function(error) {
+              console.log('Somthing went wrong, send that message to the admin: ', error);
+              alert("Somthing went wrong, send that message to the admin: "+ error);
+              dispatch(toggleSpinner());
+            })  
             dispatch(insertCsamRows(csamRowsArray));
         
         

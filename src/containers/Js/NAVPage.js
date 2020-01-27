@@ -22,7 +22,7 @@ class NavPage extends Component {
     toggleCsamTable=()=>{
         this.setState({showCsamTable: !this.state.showCsamTable});
         this.props.GetAllAssetAmountForAllThePortfolios(this.state.navMonth,this.state.navYear);
-        this.props.GetTzurNav(this.state.navMonth,this.state.navYear,this.state.portfolioName);
+        
     }
 
     changePortfolio = (e) =>{
@@ -110,8 +110,7 @@ const mapDispatchToProps = dispatch =>
     return {
         ChangePortfolioName: (portfolioName) => dispatch(portfolioActions.changePortfolioName(portfolioName)),    
         GetACsamRowsOfPortfolio:(portfolioName) => dispatch(portfolioActions.getACsamRowsOfPortfolio(portfolioName)),
-        GetAllAssetAmountForAllThePortfolios:(month,year)=> dispatch(portfolioActions.getAllPortfoliosAssets(month,year)),
-        GetTzurNav:(month,year,portfolioName)=> dispatch(portfolioActions.getTzurNav(month,year,portfolioName))
+        GetAllAssetAmountForAllThePortfolios:(month,year)=> dispatch(portfolioActions.getAllPortfoliosAssets(month,year))
     }
 }
 export default connect(mapStateToProp,mapDispatchToProps)(NavPage);

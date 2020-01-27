@@ -1,8 +1,9 @@
 
-import axios from 'axios';
 import * as actionTypes from './actionTypes.js'
 import * as globalFunction from '../../components/Functions/globalFunction';
-
+import 'whatwg-fetch'
+import * as httpFunctions from '../../components/Functions/httpRequestFunctions';
+import * as location from '../../components/Functions/location';
 
 /////////////////////////GETING ALL CALSSES////////////////////////////
 export const axiosAllClasses = (classes) =>
@@ -16,14 +17,26 @@ export const axiosAllClasses = (classes) =>
 
 export const getAllClasses = () =>
 {
-    return dispatch  =>
+    return (dispatch,getState)  =>
     {
 
+        fetch(location.serverAdress()+"/DataQ/Class/Classes", {
+            method: 'GET',
+            credentials: "same-origin",
+            headers: {
+              'Authorization': localStorage.getItem("token")
+            }
+          })
+        .then(httpFunctions.checkStatus)
+        .then(httpFunctions.parseJSON)
+        .then(function(data) {
+          console.log('request succeeded: '+ location.serverAdress()+"/DataQ/Class/Classes", data)
+          dispatch(axiosAllClasses(data));
+        }).catch(function(error) {
+          console.log('request failed', error)
+        })
 
-        axios.get("/DataQ/Class/Classes",{headers:{"Authorization":localStorage.getItem('token')}}).then(response => {
-            console.log(response.data);
-            dispatch(axiosAllClasses(response.data));
-        });
+
         
     }
 }
@@ -42,12 +55,24 @@ export const axiosAllPortfoliosAssets = (totalPortfoliosAssets) =>
 
 export const getAllPortfoliosAssets = (month,year) =>
 {
-    return dispatch  =>
+    return (dispatch,getState)  =>
     {
 
-        axios.get("/DataQ/IsinRow/AllPortfoliosAssetsForTheMonth/"+month+"/"+year,{headers:{"Authorization":localStorage.getItem('token')}}).then(response => {
-            dispatch(axiosAllPortfoliosAssets(response.data));
-        });
+        fetch(location.serverAdress()+"/DataQ/IsinRow/AllPortfoliosAssetsForTheMonth/"+month+"/"+year, {
+            method: 'GET',
+            credentials: "same-origin",
+            headers: {
+              'Authorization': localStorage.getItem("token")
+            }
+          })
+        .then(httpFunctions.checkStatus)
+        .then(httpFunctions.parseJSON)
+        .then(function(data) {
+          console.log("request succeeded" +location.serverAdress()+"/DataQ/IsinRow/AllPortfoliosAssetsForTheMonth/"+month+"/"+year, data)
+          dispatch(axiosAllPortfoliosAssets(data));
+        }).catch(function(error) {
+          console.log('request failed', error)
+        })
 
         
     }
@@ -55,24 +80,7 @@ export const getAllPortfoliosAssets = (month,year) =>
 
 /////////////////////////GETING TZUR NAV////////////////////////////
 
-export const axiosTzurNav = (tzurNav) =>
-{
-    return {
-            type: actionTypes.GET_TZUR_NAV_DETAILS,
-            val:tzurNav
-            };
-      
-}
 
-export const getTzurNav = (month,year,portfolioName) => {
-    return dispatch  =>
-    {
-
-    axios.get("/DataQ/Nav/Nav/"+month+"/"+year+"/"+portfolioName,{headers:{"Authorization":localStorage.getItem('token')}}).then(response => {
-        dispatch(axiosTzurNav(response.data));
-    });
-    }
-}
 /////////////////////////GETING ALL AS OF DATE LIST////////////////////////////
 
 export const axiosAsOfDateList = (asOfDateList) =>
@@ -86,24 +94,32 @@ export const axiosAsOfDateList = (asOfDateList) =>
 
 export const getAsOfDateList = (portfolioName) =>
 {
-    return dispatch  =>
+    return (dispatch,getState)  =>
     {        
-        // let config = { headers: {'Authorization' : localStorage.getItem('token')},
-        // withCredentials: true
-        // };
-        // console.log("the config is: ");
-        // console.log(config);
-        
+             
+              fetch(location.serverAdress()+"/DataQ/IsinRow/AsOfDateList/"+portfolioName, {
+                    method: 'GET',
+                    credentials: "same-origin",
+                    headers: {
+                      'Authorization': localStorage.getItem("token")
+                    }
+                  })
+                .then(httpFunctions.checkStatus)
+                .then(httpFunctions.parseJSON)
+                .then(function(data) {
+                  console.log('request succeeded: '+location.serverAdress()+"/DataQ/IsinRow/AsOfDateList/"+portfolioName, data)
+                  dispatch(axiosAsOfDateList(data));
+                }).catch(function(error) {
+                  console.log('request failed', error)
+                })
 
-        console.log("the cookies in portfolio are:"+ document.cookie);
-        axios.get("/DataQ/IsinRow/AsOfDateList/"+portfolioName).then(response => {
-            console.log(response.data);
-            dispatch(axiosAsOfDateList(response.data));
-        });
         
     }
 }
 
+export const  parseJSON=(response)=> {
+    return response.json()
+  }
 /////////////////////////CHANGE PORTFOLIO NAME////////////////////////////
 
 export const changePortfolioName = (portfolioName) =>
@@ -129,23 +145,39 @@ export const axiosGetACsamRowsOfPortfolio = (asOfDateList) =>
 
 export const getACsamRowsOfPortfolio = (portfolioName) =>
 {
-    return dispatch  =>
+    return (dispatch,getState)  =>
     {
         dispatch(axiosGetACsamRowsOfPortfolio([]));
 
-        axios.get("/DataQ/IsinRow/IsinRows/"+portfolioName,{headers:{"Authorization":localStorage.getItem('token')}}).then(response => {
-            
-            let array = []; 
-            response.data.filter(f=>{ return f.dailyAssetPrice !== f.costPriceSettled  && f.costPriceSettled !== 0 && f.costPriceSettled !== null}).map(m=>{
-                            let instans ={...m};
-                            let deltaBetweenPurchaseAndAsOfDate = globalFunction.deltaOfMonthsBetweenDates(m.settlementDate,m.asOfDate)+1;
-                            let amortization =(m.settlementDate !== null)? (100-m.costPriceSettled)/(m.wal*12)*deltaBetweenPurchaseAndAsOfDate: 0;
-                            instans.deltaFromSettled = (m.dailyAssetPrice-m.costPriceSettled+amortization)/m.costPriceSettled*100;
-                            array.push(instans);
-                            });
-            dispatch(axiosGetACsamRowsOfPortfolio(array));
-            dispatch(udateAllCloList([...globalFunction.uniqArrayFromTable(response.data,'issuer_Name')]));    
-        });
+        fetch(location.serverAdress()+"/DataQ/IsinRow/IsinRows/"+portfolioName, {
+            method: 'GET',
+            credentials: "same-origin",
+            headers: {
+              'Authorization': localStorage.getItem("token")
+            }
+          })
+        .then(httpFunctions.checkStatus)
+        .then(httpFunctions.parseJSON)
+        .then(function(data) {
+          console.log('request succeeded: '+location.serverAdress()+"/DataQ/IsinRow/IsinRows/"+portfolioName, data)
+         
+          let array = [];
+          data.filter(f=>{ return f.dailyAssetPrice !== f.costPriceSettled  && f.costPriceSettled !== 0 && f.costPriceSettled !== null}).map(m=>{
+                          let instans ={...m};
+                          let deltaBetweenPurchaseAndAsOfDate = globalFunction.deltaOfMonthsBetweenDates(m.settlementDate,m.asOfDate)+1;
+                          let amortization =(m.settlementDate !== null)? (100-m.costPriceSettled)/(m.wal*12)*deltaBetweenPurchaseAndAsOfDate: 0;
+                          instans.deltaFromSettled = (m.dailyAssetPrice-m.costPriceSettled+amortization)/m.costPriceSettled*100;
+                          array.push(instans);
+                          });
+          dispatch(axiosGetACsamRowsOfPortfolio(array));
+          dispatch(udateAllCloList([...globalFunction.uniqArrayFromTable(data,'issuer_Name')]));
+
+
+        }).catch(function(error) {
+          console.log('request failed', error)
+        })
+
+
         
     }
 }

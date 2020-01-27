@@ -1,8 +1,9 @@
-import axios from 'axios';
 import * as actionTypes from './actionTypes.js'
 import * as globalFun from '../../components/Functions/globalFunction';
 import * as datesFun from '../../components/Functions/dateFunctions';
-
+import 'whatwg-fetch'
+import * as httpFunctions from '../../components/Functions/httpRequestFunctions';
+import * as location from '../../components/Functions/location';
 
 /////////////////////////INSERT NEW MOVEMENTS////////////////////////////
 export const insertMovements = (movementRowsArray) =>
@@ -25,7 +26,7 @@ export const toggleSpinner = () =>
 ///////////////CONVERT THE EXCEL TO MOVES OBJECTS
 export const convertEcelToMovementRows = (excelRows) =>
 {
-    return dispatch  =>
+    return (dispatch,getState)  =>
     {
             let movementRowsArray =[];
             let labelsArray = [...excelRows[0]];
@@ -38,14 +39,26 @@ export const convertEcelToMovementRows = (excelRows) =>
             console.log("the final movement array: ");
             console.log(movementRowsArray);
             //upload to db
-            axios.post("/DataQ/Movement/newMovementsArray",movementRowsArray).then(response => {
-                alert("Upload movements successfully to the Database");
-                dispatch(toggleSpinner());
-            }).catch(error=>{
-                alert("Somthing went wrong, send that message to the admin: "+error.response.data.message);
-                console.log(error.response);
-                dispatch(toggleSpinner());
-            });   
+
+            fetch(location.serverAdress()+"/DataQ/Movement/newMovementsArray", {
+                method: 'POST',
+                body: JSON.stringify(movementRowsArray),
+                headers: {
+                  'Authorization': localStorage.getItem("token"),
+                  'Content-Type': 'application/json'
+                }
+              })
+            .then(httpFunctions.checkStatus)
+            .then(function() {
+              console.log('request succeeded: '+location.serverAdress()+"/DataQ/Movement/newMovementsArray");
+              alert("The Movements Upload successfuly!");
+              dispatch(toggleSpinner());
+            }).catch(function(error) {
+              console.log('Somthing went wrong, send that message to the admin: ', error);
+              alert("Somthing went wrong, send that message to the admin: "+ error);
+              dispatch(toggleSpinner());
+            })
+
             dispatch(insertMovements(movementRowsArray));
         
         
@@ -119,14 +132,25 @@ const calculateEffectiveDate = (orderDate) =>
 //////////////bring all movements////////////////////
 export const getAllMovements = () =>
 {
-    return dispatch  =>
+    return (dispatch,getState)  =>
     {
-            axios.get("/DataQ/Movement/Movements").then(response => {
-                dispatch(insertMovements(response.data));
-            }).catch(error=>{
-                alert("Somthing went wrong, send that message to the admin: "+error.response.data.message);
-                console.log(error.response);
-            });   
+        fetch(location.serverAdress()+"/DataQ/Movement/Movements", {
+            method: 'GET',
+            headers: {
+              'Authorization': localStorage.getItem("token")
+            }
+          })
+        .then(httpFunctions.checkStatus)
+        .then(httpFunctions.parseJSON)
+        .then(function(data) {
+          console.log('request succeeded: '+location.serverAdress()+"/DataQ/Movement/Movements", data)
+          dispatch(insertMovements(data));
+        }).catch(function(error) {
+          console.log('request failed', error.data)
+          alert("Somthing went wrong, send that message to the admin: "+error.data);
+
+        })
+ 
     }
 }
 
@@ -145,13 +169,25 @@ export const insertUSDFx = (usdFx) =>
 
 export const getUSDFx = () =>
 {
-    return dispatch  =>
+    return (dispatch,getState)  =>
     {
-            axios.get("/DataQ/ImportFx/FxUSD").then(response => {
-                dispatch(insertUSDFx(response.data));
-            }).catch(error=>{
-                alert("Somthing went wrong, usd fx didn't recieved: "+error.response.data.message);
-                console.log(error.response);
-            });   
+
+        fetch(location.serverAdress()+"/DataQ/ImportFx/FxUSD", {
+            method: 'GET',
+            headers: {
+              'Authorization': localStorage.getItem("token")
+            }
+          })
+        .then(httpFunctions.checkStatus)
+        .then(httpFunctions.parseJSON)
+        .then(function(data) {
+          console.log('request succeeded: '+location.serverAdress()+"/DataQ/ImportFx/FxUSD", data)
+          dispatch(insertUSDFx(data));
+        }).catch(function(error) {
+          console.log('request failed', error)
+          alert("Somthing went wrong, send that message to the admin: "+error);
+
+        })
+ 
     }
 }

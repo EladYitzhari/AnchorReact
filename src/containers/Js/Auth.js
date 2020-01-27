@@ -22,7 +22,7 @@ class Auth extends Component {
             <div style={{width:'100%',textAlign:'center'}}>
             <div className="loginForm">
                
-                    <input style={{width:'20%',textAlign:'center'}} onChange={(e)=>this.formHandler(e,'email')} type="email" placeholder="your email" />
+                    <input style={{width:'20%',textAlign:'center',margin:'1%'}} onChange={(e)=>this.formHandler(e,'email')} type="email" placeholder="your email" />
                     <br />
                     <input style={{width:'20%',textAlign:'center'}} onChange={(e)=>this.formHandler(e,'password')} type="password" placeholder="password" />
                     <br />

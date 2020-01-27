@@ -29,7 +29,7 @@ class GeneralChart extends Component {
         console.log("upload chart, averageStatus: "+String(averageStatus));
         let dataLabels = [...columnHeaders];
         let datasets =[];
-        rowsHeaders.map( (r,index)=>{
+        rowsHeaders.map((r,index)=>{
             let dataSet =[];
             columnHeaders.map(c=>{
                 let flag= false;
@@ -51,22 +51,21 @@ class GeneralChart extends Component {
                 }
             });
 
-            if(this.checkIfEmptyRow(dataSet)){
-                delete dataLabels[index];
-                console.log("delete test "+ dataLabels[index]);
-            }else{
-                datasets.push({
-                    label:r,
-                    borderColor:(type ==="Line")?'rgb('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+')':"rgb(255, 255, 255)",
-                    backgroundColor:(type !=="Line")?'rgb('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+')':null,
-                    data:dataSet
-                }) 
-            }
+            datasets.push({
+                label:r,
+                borderColor:(type ==="Line")?'rgb('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+')':"rgb(255, 255, 255)",
+                backgroundColor:(type !=="Line")?'rgb('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+')':null,
+                data:dataSet
+            }) 
+            
 
         })
 
-        
+        // let correct = this.checkIfEmptyRowReturnLabelsAndDatasets(dataLabels,datasets)
+        // console.log(correct)
         return {
+            // labels:correct["dataLabels"],
+            // datasets:correct["datasets"]
             labels:dataLabels,
             datasets:datasets
         }
@@ -75,17 +74,32 @@ class GeneralChart extends Component {
     }
 
 
-    checkIfEmptyRow = (ArrayRow) => {
-        let flag_is_empty = true;
-        for(let i=0;i<ArrayRow.length;i++){
-            if(ArrayRow[i] !== ","){
-                flag_is_empty = false;
-                break;
+    checkIfEmptyRowReturnLabelsAndDatasets = (labels,dataSets) => {
+        let newLabels =[...labels];
+        let newDatasets =[...dataSets];
+      
+        labels.map((l,index)=>{
+            let flag_is_empty = true;
+            for(let i=0;i<dataSets.length;i++){
+                
+                if(dataSets[i].data[index] !== ",")
+                {
+                    flag_is_empty = false;
+                    break;
+                }
             }
-        }
+            if(flag_is_empty){
+                console.log("find empty array at: "+l)
+                let position = newLabels.indexOf(l);
+                newLabels.splice(position,1);
+                newDatasets.map(r=>{
+                    r.data.splice(position,1);
+                });
+            }
+
+        })
            
-        
-        return flag_is_empty;
+        return {"dataLabels":newLabels,"dataSets":newDatasets};
     }
 
     toggleTable =()=>{

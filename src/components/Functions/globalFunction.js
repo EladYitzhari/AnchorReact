@@ -68,7 +68,7 @@ export const tableRowCreator = instance =>
 {
     const keysList = Object.keys(instance);
     return (
-        <tr>
+        <tr >
             { keysList.map((k,index) =>{
                 return(<td key={k+Math.random()} data-toggle="tooltip" data-placement="top" title={k}>
                     {(typeof instance[k] !== 'number')?instance[k]:

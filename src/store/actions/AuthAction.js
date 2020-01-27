@@ -1,9 +1,8 @@
-import axios from 'axios';
 import * as actionTypes from './actionTypes.js'
-import * as globalFunction from '../../components/Functions/globalFunction';
-import Cookies from 'universal-cookie';
-
-
+import 'whatwg-fetch'
+import * as httpFunctions from '../../components/Functions/httpRequestFunctions';
+import * as location from '../../components/Functions/location';
+import cookie from 'react-cookies'
 
 /////////////////////////GETING ALL CALSSES////////////////////////////
 export const authSuccess = (token) =>
@@ -38,20 +37,29 @@ export const tryAuth = (email,pass) =>
             password:pass
         };
 
-        // const cookies = new Cookies();
-        console.log("the cookies are:"+ document.cookie);
-
-        axios.post("/Login",authData).then(response => {
-            console.log(response.data);
-            dispatch(authSuccess(response.data));
-            // axios.headers.common['Authorization'] = response.data;
-            localStorage.setItem('token',response.data);
-            // cookies.set('token',response.data);
-            document.cookie = "token="+response.data;
-            console.log("passed the axios");
-        }).catch(err=>{
-            dispatch(authFail(err));
-        });
-        
+        fetch(location.serverAdress()+"/Login", {
+            method: 'POST',
+            body: JSON.stringify(authData),
+            headers: {
+              'Content-Type': 'application/json',
+              credentials: 'include'
+            }
+          })
+        .then(httpFunctions.checkStatus)
+        .then(response=>{
+            return response.text();
+        })
+        .then(function(data) {
+          console.log('request succeeded: '+location.serverAdress()+"/Login");
+          console.log(data);
+          cookie.save("token",data, { path: '/' })
+          
+          dispatch(authSuccess(data));
+          localStorage.setItem('token',data);
+        }).catch(function(error) {
+          console.log('Somthing went wrong, send that message to the admin: ', error);
+          alert("Try again, the Login failed");
+          dispatch(authFail(error));
+        })        
     }
 }
