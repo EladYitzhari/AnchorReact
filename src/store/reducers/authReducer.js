@@ -23,7 +23,8 @@ const reducer = (state = initialState ,action) => {
             {
                 return {
                    ...state,
-                   err:action.val
+                   err:action.val,
+                   token: null
                    
                 }
             }

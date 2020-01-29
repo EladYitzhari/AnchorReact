@@ -22,7 +22,6 @@ export const getAllClasses = () =>
 
         fetch(location.serverAdress()+"/DataQ/Class/Classes", {
             method: 'GET',
-            credentials: "same-origin",
             headers: {
               'Authorization': localStorage.getItem("token")
             }
@@ -60,7 +59,6 @@ export const getAllPortfoliosAssets = (month,year) =>
 
         fetch(location.serverAdress()+"/DataQ/IsinRow/AllPortfoliosAssetsForTheMonth/"+month+"/"+year, {
             method: 'GET',
-            credentials: "same-origin",
             headers: {
               'Authorization': localStorage.getItem("token")
             }
@@ -99,7 +97,7 @@ export const getAsOfDateList = (portfolioName) =>
              
               fetch(location.serverAdress()+"/DataQ/IsinRow/AsOfDateList/"+portfolioName, {
                     method: 'GET',
-                    credentials: "same-origin",
+      
                     headers: {
                       'Authorization': localStorage.getItem("token")
                     }
@@ -151,7 +149,6 @@ export const getACsamRowsOfPortfolio = (portfolioName) =>
 
         fetch(location.serverAdress()+"/DataQ/IsinRow/IsinRows/"+portfolioName, {
             method: 'GET',
-            credentials: "same-origin",
             headers: {
               'Authorization': localStorage.getItem("token")
             }
