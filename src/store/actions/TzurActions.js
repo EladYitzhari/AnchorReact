@@ -23,7 +23,7 @@ export const getAllTzurArray = () =>
 {
     return (dispatch)  =>
     {
-        fetch(location.serverAdress()+"/DataQ/Tzur/allTzurListWithGroupe", {
+        fetch(location.serverAdress()+"/DataQ/Tzur/allTzurList", {
             method: 'GET',
             headers: {
               'Authorization': localStorage.getItem("token")
@@ -32,7 +32,7 @@ export const getAllTzurArray = () =>
         .then(httpFunctions.checkStatus)
         .then(httpFunctions.parseJSON)
         .then(function(data) {
-          console.log('request succeeded: '+location.serverAdress()+"/DataQ/Tzur/allTzurListWithGroupe", data)
+          console.log('request succeeded: '+location.serverAdress()+"/DataQ/Tzur/allTzurList", data)
           dispatch(recieveTzurArray(data));
         }).catch(function(error) {
           console.log('request failed', error.data)

@@ -12,7 +12,7 @@ import Auth from '../../containers/Js/Auth';
 import {connect} from 'react-redux';
 import * as portfolioActions from '../../store/actions/PortfolioActions'
 import RepositoryPage from '../../containers/Js/RepositoryPage'
-
+import TzurRepository from '../../containers/Js/TzurRepository'
 class Header extends Component {
     state = {  }
     render() { 
@@ -30,8 +30,9 @@ class Header extends Component {
                     <li className="header_li"><NavLink to="/Movements">Movments</NavLink></li>
                     <li className="header_li"><NavLink to="/UploadExcel">Upload Excel</NavLink></li>
                     <li className="header_li"><NavLink to="/Research">Research</NavLink></li>
-                    <li className="header_li"><NavLink to="/Repository">Report Repository</NavLink></li>
+                    <li className="header_li"><NavLink to="/Repository">CSAM Repository</NavLink></li>
                     <li className="header_li"><NavLink to="/Tzur">Tzur</NavLink></li>
+                    <li className="header_li"><NavLink to="/TzurRepository">Tzur Repository</NavLink></li>
                     <li className="header_anchorIcon"><img src={anchorIcom} alt="anchorIcom"/></li>
                     <li className="header_li login"><NavLink to="/Auth">Login</NavLink></li>
                    
@@ -44,6 +45,7 @@ class Header extends Component {
             <Route path="/Movements" exact component={ Movements}   />
             <Route path="/Research" exact component={ ResearchPage}   />
             <Route path="/Repository" exact component={ RepositoryPage}   />
+            <Route path="/TzurRepository" exact component={ TzurRepository}   />
             <Route path="/Tzur" exact component={Tzur}   />
             <Route path="/Auth" exact component={Auth}   />
             </div>

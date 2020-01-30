@@ -1,0 +1,17 @@
+.tzurRepository_header
+{
+    width: 100%;
+    text-align:center;
+    font-size: 200%;;
+    text-decoration: underline;
+}
+.tzurRepository_controllerTable
+{
+    width:30%;
+    margin-left: 35%;
+}
+.tzurRepository_controllerArea
+{
+    width: 100%;
+    text-align:center;
+}
