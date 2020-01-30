@@ -182,9 +182,49 @@ export const clssesIsins =[
 
 ]
 
+/////////////////////////////TZUR OBJECT ++ ////////////////////////
+export const tzurKies ={
+    "Account Num": "acountNum",
+    "Account Description": "acountDescription",
+    "Change": "changeAmont"
+}
 
-
-
+export const tzurGroupes = [
+    {'acountNum': "61500",'acountGroupe': 'Interest Expense'},
+    {'acountNum': "64300",'acountGroupe': 'Misc.'},
+    {'acountNum': "61000",'acountGroupe': 'Interest Income'},
+    {'acountNum': "72004",'acountGroupe': 'Insurance Expense'},
+    {'acountNum': "72000",'acountGroupe': 'Bank Interest Income'},
+    {'acountNum': "61300",'acountGroupe': 'Interest Expense'},
+    {'acountNum': "64900",'acountGroupe': 'Misc.'},
+    {'acountNum': "64200",'acountGroupe': 'CSAM'},
+    {'acountNum': "56020",'acountGroupe': 'Realized Capital Gain/Loss'},
+    {'acountNum': "46020",'acountGroupe': 'M t M - Unrealized'},
+    {'acountNum': "62700",'acountGroupe': 'Misc.'},
+    {'acountNum': "62300",'acountGroupe': 'Tzur'},
+    {'acountNum': "68111",'acountGroupe': 'Misc.'},
+    {'acountNum': "64000",'acountGroupe': 'Management'},
+    {'acountNum': "62200",'acountGroupe': 'Set Up'},
+    {'acountNum': "50030",'acountGroupe': 'FX Hedge'},
+    {'acountNum': "59930",'acountGroupe': 'FX Hedge'},
+    {'acountNum': "57130",'acountGroupe': 'FX Hedge'},
+    {'acountNum': "57030",'acountGroupe': 'FX Hedge'},
+    {'acountNum': "57020",'acountGroupe': 'Realized Off BAL'},
+    {'acountNum': "45930",'acountGroupe': 'FX Hedge'},
+    {'acountNum': "42830",'acountGroupe': 'FX Hedge'},
+    {'acountNum': "40030",'acountGroupe': 'FX Hedge'},
+    {'acountNum': "47130",'acountGroupe': 'Unrealized FX'},
+    {'acountNum': "47030",'acountGroupe': 'Unrealized FX'},
+    {'acountNum': "47020",'acountGroupe': 'FX Hedge'},
+    {'acountNum': "14100",'acountGroupe': 'Previous Month Incentive Fee'},
+    {'acountNum': "65900",'acountGroupe': 'Credit Loss Allowance 0.12%'},
+    {'acountNum': "51030",'acountGroupe': 'FX Hedge'},
+    {'acountNum': "71000",'acountGroupe': 'Misc.'},
+    {'acountNum': "61200",'acountGroupe': 'Interest Expense'},
+    {'acountNum': "41030",'acountGroupe': 'FX Hedge'},
+    {'acountNum': "46030",'acountGroupe': 'FX Hedge'},
+    {'acountNum': "0",'acountGroupe': 'M t M - Unrealized'},   
+]
 
 
 

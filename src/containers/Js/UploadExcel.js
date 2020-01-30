@@ -16,6 +16,10 @@ import * as movementsAction from '../../store/actions/MovementAction'
 class UploadExcel extends Component {
     state = { 
         trows:this.props.rows,
+        tzurSection:false,
+        tzurMonth:null,
+        tzurYear:null,
+        tzurReportType:null
         
      }
 
@@ -25,23 +29,43 @@ class UploadExcel extends Component {
     handleFiles =(files) =>{
         readXlsxFile(files[0]).then((rows) => {
             //check if movements file or CSAM
-            if(rows[0][0] !== "ISIN")
+            if(rows[0][0] !== "ISIN" && rows[0][0] !== "Fund")
             {
                 alert('CSAM File Detected');
                 this.props.uploadExcel(rows);
                 this.props.convertToCsamRowObject(rows);
-            }else{
+                this.props.toggleSpinner();
+            }else if(rows[0][0] !== "Fund"){
                 alert('MOVEMENTS File Detected');
                 this.props.convertEcelToMovementRows(rows);
+                this.props.toggleSpinner();
+            }else{
+                alert('Tzur Nav File Detected');
+                if(this.state.tzurMonth !== null && this.state.tzurYear !== null && this.state.tzurReportType !== null ){
+                    this.props.convertEcelToTzurRows(rows,this.state.tzurMonth,this.state.tzurYear,this.state.tzurReportType);
+                    this.props.toggleSpinner();
+                }else{
+                    alert("You didn't set the detail of the report,please set them first");
+                }
+                
             }
 
             console.log(rows);
-            this.props.toggleSpinner();
+            
            
           })
     }
 
+    toggleTzurUploadSection = ()=> {
+        this.setState({ tzurSection: !this.state.tzurSection });
+
+        
+    }
    
+    setTzurDetails=(e,key)=>{
+        this.setState({[key]: e.target.value});
+
+    }
     
 
 
@@ -54,7 +78,29 @@ class UploadExcel extends Component {
         {
             spinner=<Spinner/>;
         }
-       
+       let tzurSection = null;
+       if(this.state.tzurSection){
+            tzurSection = (
+                <div style={{marginTop:"2%"}}>
+                    Month
+                    <select className="monthSelector" style={{marginLeft:'1%',marginRight:'1%'}} onChange={(e)=> this.setTzurDetails(e,"tzurMonth")}>
+                    <option value=""></option><option value="1">1</option> <option value="2">2</option> <option value="3">3</option> <option value="4">4</option>
+                    <option value="5">5</option> <option value="6">6</option> <option value="7">7</option> <option value="8">8</option>
+                    <option value="9">9</option> <option value="10">10</option> <option value="11">11</option> <option value="12">12</option>
+                    </select>
+                    Year
+                    <select className="yearSelector" style={{marginLeft:'1%',marginRight:'1%'}} onChange={(e)=> this.setTzurDetails(e,"tzurYear")}>
+                    <option value=""></option><option value="2018">2018</option> <option value="2019">2019</option> <option value="2020">2020</option> <option value="2021">2021</option>
+                    <option value="2022">2022</option> <option value="2023">2023</option> <option value="2024">2024</option> 
+                    </select>
+                    Report Type
+                    <select className="reportSelector" style={{marginLeft:'1%',marginRight:'1%'}} onChange={(e)=> this.setTzurDetails(e,"tzurReportType")}>
+                    <option value=""></option><option value="Active">Active</option> <option value="HTM">HTM</option> <option value="HTM-Leverage">HTM-Leverage</option> <option value="cash">Cash</option>
+                    <option value="entire">Entire</option>
+                    </select>
+                </div>
+            )
+       }
 
      
         return ( 
@@ -81,7 +127,10 @@ class UploadExcel extends Component {
                     buttonText={<img style={{marginRight:"3%"}} alt="excelImg" src={excelIcon} />}
                 />
                 </div>
+                <br />
+                <button onClick={()=>this.toggleTzurUploadSection()}>Upload Tzur reports</button>
                 {spinner}
+                {tzurSection}
                 <UploadTable />
 
             </div>
@@ -105,7 +154,8 @@ const mapDispatchToProps = dispatch =>
         uploadExcel: (rows) => dispatch({type:actionTypes.UPLOAD_EXCEL,val:rows}),
         convertToCsamRowObject: (rows) => dispatch(excelAction.convertEcelToCsamRows(rows)),
         toggleSpinner: ()=>dispatch({type:actionTypes.TOGGLE_SPINNER}),
-        convertEcelToMovementRows: (rows) => dispatch(movementsAction.convertEcelToMovementRows(rows))
+        convertEcelToMovementRows: (rows) => dispatch(movementsAction.convertEcelToMovementRows(rows)),
+        convertEcelToTzurRows: (rows,month,year,reportType) => dispatch(excelAction.convertEcelToTzurRows(rows,month,year,reportType))
     }
 }
 

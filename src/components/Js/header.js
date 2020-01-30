@@ -7,6 +7,7 @@ import UploadExcel from '../../containers/Js/UploadExcel';
 import NavPage from '../../containers/Js/NAVPage';
 import Movements from '../../containers/Js/Movements';
 import ResearchPage from '../../containers/Js/ResearchPage';
+import Tzur from '../../containers/Js/Tzur';
 import Auth from '../../containers/Js/Auth';
 import {connect} from 'react-redux';
 import * as portfolioActions from '../../store/actions/PortfolioActions'
@@ -30,6 +31,7 @@ class Header extends Component {
                     <li className="header_li"><NavLink to="/UploadExcel">Upload Excel</NavLink></li>
                     <li className="header_li"><NavLink to="/Research">Research</NavLink></li>
                     <li className="header_li"><NavLink to="/Repository">Report Repository</NavLink></li>
+                    <li className="header_li"><NavLink to="/Tzur">Tzur</NavLink></li>
                     <li className="header_anchorIcon"><img src={anchorIcom} alt="anchorIcom"/></li>
                     <li className="header_li login"><NavLink to="/Auth">Login</NavLink></li>
                    
@@ -42,6 +44,7 @@ class Header extends Component {
             <Route path="/Movements" exact component={ Movements}   />
             <Route path="/Research" exact component={ ResearchPage}   />
             <Route path="/Repository" exact component={ RepositoryPage}   />
+            <Route path="/Tzur" exact component={Tzur}   />
             <Route path="/Auth" exact component={Auth}   />
             </div>
 

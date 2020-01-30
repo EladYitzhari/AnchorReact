@@ -108,3 +108,91 @@ const getPortfolioName=(name)=>
 
 
 /////////////////////////END HELP FUNCTIONS////////////////////////////////////////
+
+
+//////////////////Tzur upload Row//////////////////////
+
+export const convertEcelToTzurRows = (excelRows,month,year,reportType) =>
+{
+    return (dispatch,getState)  =>
+    {
+            let tzurArray =[];
+            let labelsArray = [...excelRows[0]];
+            excelRows.map((r,index)=>{
+                let theRow ={...r}
+            if(index !== 0){
+                    tzurArray.push(crateTzurObject(labelsArray,theRow,month,year,reportType)) 
+                }
+            });
+            console.log("the tzur array is: ",tzurArray);
+            //upload to db
+            fetch(location.serverAdress()+"DataQ/Tzur/newTzurList", {
+                method: 'POST',
+                body: JSON.stringify(tzurArray),
+                headers: {
+                  'Authorization': getState().auth.token,
+                  'Content-Type': 'application/json'
+                }
+              })
+            .then(httpFunctions.checkStatus)
+            .then(function() {
+              console.log('request succeeded: '+location.serverAdress()+"/DataQ/Tzur/newTzurList");
+              alert("Upload successfully to the Database");
+              dispatch(toggleSpinner());
+            }).catch(function(error) {
+              console.log('Somthing went wrong, send that message to the admin: ', error);
+              alert("Somthing went wrong, send that message to the admin: "+ error);
+              dispatch(toggleSpinner());
+            })  
+            
+        
+        
+    }
+}
+
+        ////HELP FUNCTION FOR TZUR/////////////////////////////////////////////////
+const crateTzurObject=(keys,values,month,year,reportType)=> {
+    let jsonObj={};
+    let serverTzurRowKies = globalFun.tzurKies;
+    jsonObj["tzurId"]= generateTzurId(values[1],month,year,reportType);
+    keys.map((k,index)=>{
+
+        if(serverTzurRowKies[k] !== null && typeof serverTzurRowKies[k] !== "undefined")
+        {
+            jsonObj[serverTzurRowKies[k]]  = values[index];
+        }
+        
+        
+    })
+    //insert id and another fileds
+    jsonObj["acountGroup"] = findTzurGroupe(jsonObj["acountNum"]);
+    jsonObj["month"]= month;
+    jsonObj["year"]= year;
+    jsonObj["reportType"]= reportType;
+
+    return jsonObj;
+}
+
+const generateTzurId=(acountNum,month,year,reportType)=>
+{
+    return acountNum+"-"+month+"-"+year+"-"+reportType;
+}
+
+const findTzurGroupe = (acountNum)=>
+{
+    let groupe= "";
+    globalFun.tzurGroupes.map(a=>{
+        if(a.acountNum  === acountNum){
+            groupe = a.acountGroupe;
+        }
+    })
+
+    return groupe;
+}
+
+
+
+
+
+
+/////////////////////////////////////////////////////

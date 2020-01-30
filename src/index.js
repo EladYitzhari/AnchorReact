@@ -16,7 +16,7 @@ import selctors from '../src/store/reducers/selecorsReducer';
 import excelReducer from '../src/store/reducers/uploadExcelReducer';
 import movementReducer from '../src/store/reducers/movementsReducer';
 import authReducer from '../src/store/reducers/authReducer';
-
+import tzurReducer from '../src/store/reducers/tzurReducer';
 
 // axios.defaults.baseURL ="http://localhost:8080/";
 axios.defaults.baseURL ="https://env-4171164.j.box.co.il/AnchorOpen/";
@@ -34,7 +34,8 @@ const rootReducer = combineReducers({
     select:selctors,
     repository:repositoryReducer,
     movements:movementReducer,
-    auth:authReducer
+    auth:authReducer,
+    tzur:tzurReducer
 });
 
 
