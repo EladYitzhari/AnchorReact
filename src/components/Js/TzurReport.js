@@ -27,7 +27,7 @@ class TzurReport extends Component {
 
     render() { 
         return ( 
-            <table className='table table-hover' id="tzurTable">
+            <table className='table table-hover' id="tzurTable" style={{padding:'2%'}}>
                 <thead>
                     <tr>
                         <th>Acount Group</th>

@@ -63,7 +63,7 @@ class Tzur extends Component {
                     />
                 </div>
             
-                <div>
+                <div >
                    {tzurReport}
                 </div>
 
