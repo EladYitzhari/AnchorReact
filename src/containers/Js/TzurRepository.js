@@ -1,18 +1,18 @@
 import React, { Component } from 'react';
 import '../Css/TzurRepository.css';
 import {connect} from 'react-redux';
-import ReactToExcel from 'react-html-table-to-excel';
-import excelIcon from '../../images/Microsoft-Excel-icon.png';
 import * as tzurAction from '../../store/actions/TzurActions'
 import generatIcon from '../../images/Generate-tables-icon.png'
-
+import TzurRepositoryTable from '../../components/Js/TzurRepositoryTable'
+import ExportCSV from '../../components/Js/ExportCSV'
 
 
 class TzurRepository extends Component {
     state = { 
         selectedPortfolio:'all',
         fromDate:'2000-01-01',
-        toDate:'2050-01-01'
+        toDate:'2050-01-01',
+        showTable:false
      }
 
     componentDidMount=()=>{
@@ -23,8 +23,27 @@ class TzurRepository extends Component {
         this.setState({[key]:e.target.value});
       }
 
+      toggleTable=()=>{
+          this.setState({showTable: !this.state.showTable});
+      }
+
+
 
     render() { 
+
+        let fullTable =null;
+        if(this.state.showTable)
+        {
+            fullTable = <TzurRepositoryTable tzurArray={
+                (this.state.selectedPortfolio === 'all')?this.props.tzurArray.filter(f=>{return (
+                new Date(f.year+"-"+f.month+"-01") >= new Date(this.state.fromDate) && 
+                new Date(f.year+"-"+f.month+"-01") <= new Date(this.state.toDate)
+                )}):this.props.tzurArray.filter(f=>{return (
+                    new Date(f.year+"-"+f.month+"-01") >= new Date(this.state.fromDate) && 
+                    new Date(f.year+"-"+f.month+"-01") <= new Date(this.state.toDate) &&
+                f.reportType === this.state.selectedPortfolio)})}/>
+        }
+
         return ( 
             <React.Fragment>
             <div className="tzurRepository_header">
@@ -46,7 +65,7 @@ class TzurRepository extends Component {
                             <input type="date" id="throughDateShowControl"  onChange={(e)=>this.changeParam(e,'toDate')}/>
                         </td>
                         <td>
-                            <select className="btn btn-info" style={{fontSize:'100%'}}>
+                            <select className="btn btn-info" style={{fontSize:'100%'}} onChange={(e)=>this.changeParam(e,'selectedPortfolio')}>
                                 <option value='all'>All</option>
                                 <option value='entire'>Entire</option>
                                 <option value='HTM-Leverage'>HTM-Leverage</option>
@@ -55,11 +74,14 @@ class TzurRepository extends Component {
                                 <option value='cash'>Cash</option>
                             </select>
                         </td>
-                        <td><img src={generatIcon} alt="generatIcon" /></td>
+                        <td><img src={generatIcon} alt="generatIcon" onClick={()=>this.toggleTable()}/></td>
+                        <td>  <ExportCSV csvData={
+                                    this.props.tzurArray
+                                } fileName={"Tzur Table"} /></td>
                     </tbody>
                 </table>
             </div>
-
+            {fullTable}
 
 
 

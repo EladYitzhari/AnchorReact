@@ -32,10 +32,7 @@ class NavDetails extends Component {
                 <td>Section</td>
                 <td style={{textAlign: 'center'}}>$</td>
                 <td style={{textAlign: 'center'}}>%</td>
-                <td style={{textAlign: 'center'}}>Tzur 
-                    <img  src={editImg} alt='editImg' style={{margin:'3%'}} />
-                    <button className='btn btn-primary sm'  style={{margin:'3%',color:'black'}}>Save</button>
-                </td>
+                <td style={{textAlign: 'center'}}>Tzur </td>
             </tr>	
             <tr>
                 <td>Total Assets – All the Anchor fund</td>
