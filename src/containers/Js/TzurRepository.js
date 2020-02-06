@@ -16,6 +16,11 @@ class TzurRepository extends Component {
      }
 
     componentDidMount=()=>{
+        ///Check if token exist, if not send the client to the login page
+        if(this.props.token === null){
+            alert("Login details didn't found, Please login again");
+            this.props.history.push('/Auth')
+        }
         this.props.getAllTzurArray();
       }
 
@@ -95,7 +100,8 @@ class TzurRepository extends Component {
 const mapStateToProp = state =>
 {
     return {
-            tzurArray: state.tzur.tzur
+            tzurArray: state.tzur.tzur,
+            token:state.auth.token
         }
 }
  

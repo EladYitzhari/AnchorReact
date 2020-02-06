@@ -36,6 +36,11 @@ class Portfolio extends Component {
      }
 
     componentDidMount =() => {
+        ///Check if token exist, if not send the client to the login page
+        if(this.props.token === null){
+            alert("Login details didn't found, Please login again");
+            this.props.history.push('/Auth')
+        }
         //deal with the portfolio name
         let portfolioName = String(this.props.location.hash).replace('#','');
         //insert into the general state
@@ -256,7 +261,8 @@ const mapStateToProp = state =>
             csamRows:state.portfolio.csamRows,
             CloList: state.portfolio.CloList,
             ChartAreaChoosenCLO:state.portfolio.ChartAreaChoosenCLO,
-            selectedAsOdDate:state.select.selectedAsOdDatePortfolioPage
+            selectedAsOdDate:state.select.selectedAsOdDatePortfolioPage,
+            token:state.auth.token
         }
 }
  

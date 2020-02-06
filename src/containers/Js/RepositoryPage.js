@@ -18,6 +18,12 @@ class RepositoryPage extends Component {
      }
 
     componentDidMount=()=>{
+       ///Check if token exist, if not send the client to the login page
+       if(this.props.token === null){
+        alert("Login details didn't found, Please login again");
+        this.props.history.push('/Auth')
+        }
+
         this.props.GetAllAsOfDates();
         this.props.GetAllCsamRows();
         setTimeout(() => {
@@ -119,7 +125,8 @@ const mapStateToProp = state =>
 {
     return {
             CsamRows:state.repository.csamRows,
-            asOfDateList:state.repository.allAsOfDates
+            asOfDateList:state.repository.allAsOfDates,
+            token:state.auth.token
         }
 }
  

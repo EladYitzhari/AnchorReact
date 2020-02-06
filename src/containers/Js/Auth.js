@@ -2,11 +2,13 @@ import React, { Component } from 'react';
 import * as authActions from '../../store/actions/AuthAction'
 import {connect} from 'react-redux';
 import '../Css/Auth.css'
+import Spinner from '../../components/Js/Spinner';
 
 class Auth extends Component {
     state = { 
         email:'',
-        password:''
+        password:'',
+        loading:false
      }
 
     formHandler =(e,key)=>{
@@ -15,9 +17,19 @@ class Auth extends Component {
 
     handleSubmit=(email,pass)=>{
         this.props.tryAuth(email,pass);
+        this.setState({loading: true});
+        setTimeout(() => {
+            this.props.history.push("/PortfolioHTML#HTM-Leverage");
+        }, 2000);
+        
     }
     
     render() { 
+
+        let spinner = null;
+        if(this.state.loading){
+            spinner = <Spinner />
+        }
         return ( 
             <div style={{width:'100%',textAlign:'center'}}>
             <div className="loginForm">
@@ -28,6 +40,7 @@ class Auth extends Component {
                     <br />
                     <input className='btn login-submit'  type='submit' value='Login'  onClick={()=>this.handleSubmit(this.state.email,this.state.password)}/>
             </div>
+                {spinner}
             </div>
          );
     }

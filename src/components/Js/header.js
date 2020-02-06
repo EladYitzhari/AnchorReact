@@ -15,8 +15,11 @@ import RepositoryPage from '../../containers/Js/RepositoryPage'
 import TzurRepository from '../../containers/Js/TzurRepository'
 class Header extends Component {
     state = {  }
+
+
     render() { 
         return (
+            <React.Fragment>
             <div className="header_main">
                 <ul className="header_ul">
                     <li className="header_li dropdown"><NavLink to={{pathname:"/Portfolio",search:'HTM-Leverage'}}>Portfolio</NavLink>
@@ -50,17 +53,14 @@ class Header extends Component {
             <Route path="/Auth" exact component={Auth}   />
             </div>
 
+          
+            </React.Fragment>
          );
     }
 }
  
 
 
-const mapDispatchToProps = dispatch =>
-{
-    return {
-        // ChangePortfolioName: (portfolioName) => dispatch(portfolioActions.changePortfolioName(portfolioName))
-    }
-}
 
-export default connect(null,mapDispatchToProps)(Header);
+
+export default Header;

@@ -24,7 +24,13 @@ class UploadExcel extends Component {
      }
 
 
-
+     componentDidMount=()=>{
+         ///Check if token exist, if not send the client to the login page
+        if(this.props.token === null){
+            alert("Login details didn't found, Please login again");
+            this.props.history.push('/Auth')
+        }
+     }
     
     handleFiles =(files) =>{
         readXlsxFile(files[0]).then((rows) => {
@@ -143,7 +149,8 @@ const mapStateToProp = state =>
 {
     return {
             rows: state.excel.rows,
-            spinnerShow: state.excel.spinnerShow
+            spinnerShow: state.excel.spinnerShow,
+            token:state.auth.token
         }
 }
  

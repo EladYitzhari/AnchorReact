@@ -22,6 +22,12 @@ class Movements extends Component {
 
 
     componentDidMount=()=>{
+        ///Check if token exist, if not send the client to the login page
+        if(this.props.token === null){
+            alert("Login details didn't found, Please login again");
+            this.props.history.push('/Auth')
+        }
+
         this.props.GetAllMovements();
         this.setState({'showSpinner':true});
         setTimeout(() => {
@@ -170,7 +176,8 @@ class Movements extends Component {
 const mapStateToProp = state =>
 {
     return {
-            movements: state.movements.movements
+            movements: state.movements.movements,
+            token:state.auth.token
         }
 }
 const mapDispatchToProps = dispatch =>
