@@ -1,11 +1,12 @@
 import React, { Component } from 'react';
 import '../Css/NAVPage.css'
 import {connect} from 'react-redux';
-import ReactToExcel from 'react-html-table-to-excel';
-import excelIcon from '../../images/Microsoft-Excel-icon.png';
+import * as tzurAction from '../../store/actions/TzurActions'
 import * as portfolioActions from '../../store/actions/PortfolioActions';
 import NavCsamRowTable from '../../components/Js/NavCsamRowTable'
 import NavDetailsTable from '../../components/Js/NavDetailsTable';
+import * as tzurFunc from '../../components/Functions/tzurForNavFunctions';
+
 class NavPage extends Component {
     state = { 
         navMonth:'01',
@@ -16,12 +17,13 @@ class NavPage extends Component {
 
     componentDidMount=() => {
         ///Check if token exist, if not send the client to the login page
-        if(this.props.token === null){
+        if(this.props.token === null && localStorage.getItem("token") === null){
             alert("Login details didn't found, Please login again");
             this.props.history.push('/Auth')
         }
         this.props.GetACsamRowsOfPortfolio('HTM-Leverage');
         this.props.ChangePortfolioName('HTM-Leverage');
+        this.props.getAllTzurArray();
     }
 
     toggleCsamTable=()=>{
@@ -51,6 +53,8 @@ class NavPage extends Component {
             csamTable =  <NavCsamRowTable csamRows={this.props.CsamRows} dateDetails={this.state}/>
         }
 
+        let navDetailsTable= <NavDetailsTable portfolioName={this.props.portfolioName}
+                                 tzurData={tzurFunc.createTzurNavDetails(this.props.tzurArray,this.state.navMonth,this.state.navYear,this.props.portfolioName)}/>;
         return ( 
             <div className='NAVPage_mainDiv'>
 
@@ -93,7 +97,8 @@ class NavPage extends Component {
                         </tr>
         
                     </table>
-                    <NavDetailsTable />
+   
+                    {navDetailsTable}
                    {csamTable}
             </div>
          );
@@ -105,8 +110,8 @@ const mapStateToProp = state =>
     return {
             CsamRows:state.portfolio.csamRows,
             portfolioName: state.portfolio.portfolioName,
-            tzurNav: state.portfolio.tzurNav,
-            token:state.auth.token
+            token:state.auth.token,
+            tzurArray: state.tzur.tzur
         }
 }
  
@@ -116,7 +121,8 @@ const mapDispatchToProps = dispatch =>
     return {
         ChangePortfolioName: (portfolioName) => dispatch(portfolioActions.changePortfolioName(portfolioName)),    
         GetACsamRowsOfPortfolio:(portfolioName) => dispatch(portfolioActions.getACsamRowsOfPortfolio(portfolioName)),
-        GetAllAssetAmountForAllThePortfolios:(month,year)=> dispatch(portfolioActions.getAllPortfoliosAssets(month,year))
+        GetAllAssetAmountForAllThePortfolios:(month,year)=> dispatch(portfolioActions.getAllPortfoliosAssets(month,year)),
+        getAllTzurArray: () => dispatch(tzurAction.getAllTzurArray())
     }
 }
 export default connect(mapStateToProp,mapDispatchToProps)(NavPage);

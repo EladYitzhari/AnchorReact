@@ -19,7 +19,7 @@ class RepositoryPage extends Component {
 
     componentDidMount=()=>{
        ///Check if token exist, if not send the client to the login page
-       if(this.props.token === null){
+       if(this.props.token === null && localStorage.getItem("token") === null){
         alert("Login details didn't found, Please login again");
         this.props.history.push('/Auth')
         }

@@ -28,7 +28,14 @@ const reducer = (state = initialState ,action) => {
                    
                 }
             }
-        
+        case actionTypes.AUTH_RESET:
+            {
+                return {
+                    ...state,
+                    token: null
+                    
+                }
+        }
     }
     
     return state;

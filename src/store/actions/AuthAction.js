@@ -22,6 +22,13 @@ export const authFail = (err) =>
             };
       
 }
+export const authReset = (err) =>
+{
+    return {
+            type: actionTypes.AUTH_RESET
+            };
+      
+}
 export const authStart =()=>{
     return {
         type: actionTypes.AUTH_START
@@ -56,6 +63,13 @@ export const tryAuth = (email,pass) =>
           
           dispatch(authSuccess(data));
           localStorage.setItem('token',data);
+          
+          //delete the token after an hour
+          setTimeout(() => {
+            localStorage.removeItem("token");
+            dispatch(authReset(data));
+          }, 1000*60*60);
+        
         }).catch(function(error) {
           console.log('Somthing went wrong, send that message to the admin: ', error);
           alert("Try again, the Login failed");
