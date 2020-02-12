@@ -74,7 +74,7 @@ class NavDetails extends Component {
 
             <tr>
                 <td>CSAM Fee</td>
-                <td id="CSAMFeeTd" className='numTd'></td>
+                <td id="CSAMFeeTd" className='numTd'>{Number(this.props.navData.totalAssetsForCsamFees).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                 <td></td>
                 <td>{this.props.tzurData.CsamFee.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
             </tr>

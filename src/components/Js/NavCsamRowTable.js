@@ -165,13 +165,16 @@ class NavCsamRowTable extends Component {
         let totalInterest =0;
         let totalMonthlyAmortization=0;
         let totalAssets =0;
+        let totalAssetsForCsamFees=0;
         let noDataFlag = false;
         let totalCreditLossProvision = 0;
         this.props.csamRows.map((c,index)=>{
             if(c.asOfDate === this.state.theMaxAsOfDate){
                 let rowInteret = this.CalculateInterest(c,this.FindLastMonth_CLO_Quat(c["issuer_Name"]));
                 totalMonthlyAmortization += (c["settlementDate"] !== null)? this.MonthlyAmortization(c): 0;
-                (c.portfolioName ==='Active')? totalAssets+= c.marketValueSettledCommitmentBook : totalAssets+=c.quantity*(c.costPriceSettled/100);
+                (c.portfolioName ==='Active')? totalAssets += c.marketValueSettledCommitmentBook : totalAssets+=c.quantity*(c.costPriceSettled/100);
+                totalAssetsForCsamFees += (c.portfolioName !=='HTM-Leverage')? c.marketValueSettledCommitmentBook*0.005/12 :
+                                        (new Date(c.asOfDate).getFullYear()<2020)? c.marketValueSettledCommitmentBook*0.005/12 : c.marketValueSettledCommitmentBook*0.0034/12 ;
                 totalCreditLossProvision += this.CreditLossProvisionPerRow(c,this.state.theMaxAsOfDate);
                 totalInterest += (rowInteret !== 'No Data' && rowInteret !== null)? Number(rowInteret): noDataFlag = true;
             }
@@ -180,6 +183,7 @@ class NavCsamRowTable extends Component {
         newNavDataToPass2.totalInterest = totalInterest;
         newNavDataToPass2.totalMonthlyAmortization = totalMonthlyAmortization;
         newNavDataToPass2.totalAssets = totalAssets;
+        newNavDataToPass2.totalAssetsForCsamFees = totalAssetsForCsamFees;
         newNavDataToPass2.noDataFlag = noDataFlag;
         newNavDataToPass2.totalCreditLossProvision = totalCreditLossProvision-this.CreditLossProvisionPositiveAmountFromSellingLastMonthClos();
         this.props.UpdateNavData(newNavDataToPass2);
