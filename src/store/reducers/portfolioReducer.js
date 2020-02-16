@@ -5,6 +5,7 @@ const initialState = {
     classes: [],
     portfolioName:'HTM-Leverage',
     asOfDateList: [],
+    asOfDateListMonthOnly:[],
     csamRows:[],
     CloList:[],
     ChartAreaChoosenCLO:[],
@@ -38,7 +39,15 @@ const reducer = (state = initialState ,action) => {
                     asOfDateList:action.val
                     
                 }
-        }   
+        }  
+        case actionTypes.GET_ALL_AS_OF_DATAS_MONTHLY_ONLY:
+            {
+                return {
+                   ...state,
+                   asOfDateListMonthOnly:action.val
+                   
+                }
+            } 
         case actionTypes.GET_ALL_CSAM_ROWS_FOR_PORTFOLIO:
                 {
                     return {

@@ -49,6 +49,7 @@ class Portfolio extends Component {
         this.setState({ portfolioName: portfolioName});
         //bring all the AS OF DATE of the portfolio
         this.props.GetAllAsOfDate(portfolioName);
+        this.props.GetAsOfDateListMonthOnly(portfolioName);
         //bring all the SCAM ROWS of the portfolio
         this.props.GetACsamRowsOfPortfolio(portfolioName);
         //bring all the classes
@@ -78,8 +79,8 @@ class Portfolio extends Component {
         this.setState({[dateField]: e.target.value});      
     }
 
-    TopChartSortDateArray =()=>{
-        let oldArray = [...this.props.asOfDateList]
+    TopChartSortDateArray =(field)=>{
+        let oldArray =(String(field).search("rice") !== -1)? [...this.props.asOfDateList] : [...this.props.asOfDateListMonthOnly];
         let newDateArray=[];
         let fromDate = this.state.fromDate;
         let toDate = this.state.toDate;
@@ -147,7 +148,7 @@ class Portfolio extends Component {
                                                             rowFiledName={'portfolioName'}
                                                             rowsHeaders={[this.props.portfolioName]}
                                                             columnFileName={'asOfDate'}
-                                                            columnHeaders={this.TopChartSortDateArray()}
+                                                            columnHeaders={this.TopChartSortDateArray(this.state.lineField)}
                                                             value={this.state.lineField}
                                                             averageStatus={'yes'}
                                                             averageByField={'quantity'} />
@@ -177,7 +178,7 @@ class Portfolio extends Component {
                                                             rowFiledName={'issuer_Name'}
                                                             rowsHeaders={this.props.ChartAreaChoosenCLO}
                                                             columnFileName={'asOfDate'}
-                                                            columnHeaders={this.TopChartSortDateArray()}
+                                                            columnHeaders={this.TopChartSortDateArray(this.state.lineButtomField)}
                                                             value={this.state.lineButtomField}
                                                             averageStatus={'No'}
                                                             averageByField={'noFiledGroubBy'}
@@ -258,6 +259,7 @@ const mapStateToProp = state =>
             classes: state.portfolio.classes,
             portfolioName: state.portfolio.portfolioName,
             asOfDateList: state.portfolio.asOfDateList,
+            asOfDateListMonthOnly: state.portfolio.asOfDateListMonthOnly,
             csamRows:state.portfolio.csamRows,
             CloList: state.portfolio.CloList,
             ChartAreaChoosenCLO:state.portfolio.ChartAreaChoosenCLO,
@@ -273,6 +275,7 @@ const mapDispatchToProps = dispatch =>
         GetAllClasses: () => dispatch(portfolioActions.getAllClasses()),
         ChangePortfolioName: (portfolioName) => dispatch(portfolioActions.changePortfolioName(portfolioName)),
         GetAllAsOfDate:(portfolioName) => dispatch(portfolioActions.getAsOfDateList(portfolioName)),
+        GetAsOfDateListMonthOnly:(portfolioName) => dispatch(portfolioActions.getAsOfDateListMonthOnly(portfolioName)),
         GetACsamRowsOfPortfolio:(portfolioName) => dispatch(portfolioActions.getACsamRowsOfPortfolio(portfolioName)),
         UpdateCloList:(choosenCloList)=>dispatch(portfolioActions.udateChoosenCloList(choosenCloList))
     }

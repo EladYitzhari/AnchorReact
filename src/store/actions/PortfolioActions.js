@@ -90,11 +90,20 @@ export const axiosAsOfDateList = (asOfDateList) =>
       
 }
 
+
+export const axiosAsOfDateListMonthOnly = (asOfDateList) =>
+{
+    return {
+            type: actionTypes.GET_ALL_AS_OF_DATAS_MONTHLY_ONLY,
+            val:asOfDateList
+            };
+      
+}
+
 export const getAsOfDateList = (portfolioName) =>
 {
     return (dispatch,getState)  =>
-    {        
-             
+    {                 
               fetch(location.serverAdress()+"/DataQ/IsinRow/AsOfDateList/"+portfolioName, {
                     method: 'GET',
       
@@ -110,8 +119,28 @@ export const getAsOfDateList = (portfolioName) =>
                 }).catch(function(error) {
                   console.log('request failed', error)
                 })
+    }
+}
 
-        
+export const getAsOfDateListMonthOnly = (portfolioName) =>
+{
+    return (dispatch,getState)  =>
+    {                 
+              fetch(location.serverAdress()+"/DataQ/IsinRow/AllAsOfDateListMonthOnly/"+portfolioName, {
+                    method: 'GET',
+      
+                    headers: {
+                      'Authorization': localStorage.getItem("token")
+                    }
+                  })
+                .then(httpFunctions.checkStatus)
+                .then(httpFunctions.parseJSON)
+                .then(function(data) {
+                  console.log('request succeeded: '+location.serverAdress()+"/DataQ/IsinRow/AllAsOfDateListMonthOnly/"+portfolioName, data)
+                  dispatch(axiosAsOfDateListMonthOnly(data));
+                }).catch(function(error) {
+                  console.log('request failed', error)
+                })
     }
 }
 
