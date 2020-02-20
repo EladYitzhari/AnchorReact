@@ -43,6 +43,7 @@ class UploadExcel extends Component {
                 this.props.toggleSpinner();
             }else if(rows[0][0] !== "Fund"){
                 alert('MOVEMENTS File Detected');
+                console.log("from the excel",rows);
                 this.props.convertEcelToMovementRows(rows);
                 this.props.toggleSpinner();
             }else{

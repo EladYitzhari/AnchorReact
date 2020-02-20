@@ -67,25 +67,27 @@ export const convertEcelToMovementRows = (excelRows) =>
 
 /////////////////////////HELP FUNCTIONS////////////////////////////////////////
 const crateMovementRowObject=(keys,values)=> {
-    let jsonObj={};
-    let serverMovementsRowKies = globalFun.movementKeys;
-    keys.map((k,index)=>{
 
-            //check if date and convert to sql date-if find the char "/" that separate date
+    let jsonObj={};
+    const serverMovementsRowKies =globalFun.movementKeys;
+
+    keys.map((k,index)=>{
+            
+     
+            // check if date and convert to sql date-if find the char "/" that separate date
             if(String(values[index]).search("/") !== -1 )
             {
                 jsonObj[serverMovementsRowKies[k]] = datesFun.convertDateToSqlDate(values[index]);
             }else{
                 jsonObj[serverMovementsRowKies[k]]  = values[index];
             }   
-        
-        
-        
+  
     })
     //insert id and portfolio
     jsonObj["className"]= findClass(jsonObj["isin"]);
     jsonObj["effectiveDate"]= calculateEffectiveDate(jsonObj["orderDate"]);
     delete jsonObj['undefined'];
+    console.log("the object",jsonObj);
     return jsonObj;
 }
 

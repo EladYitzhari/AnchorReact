@@ -132,29 +132,14 @@ export const isinRowKeys = {
 //only the relevant cells take care, all the athers stand here for option if we will want it ub future
 export const movementKeys={
     "ISIN":"isin",
-    // "Fund name":"",
-    // "Bank":"",
-    // "Participant":"",
-    // "account number":"",
     "FundSettle order number":"fundSettleId",
-    // "Redemption Date":"",
     "Order type":"type",
     "Order date":"orderDate",
-    // "Trade date":"",
-    // "Contractual":"",
-    // "Settlement date":"",
-    // "Effective Settlement date":"",
-    // "Life cycle step - Status":"",
-    // "Reason code":"",
+    "Effective Settlement date":"effectiveDate",
     "Number of shares":"quantity",
-    // "Price 1":"",
     "Instructed gross cash amount":"amount",
-    // "Confirmed gross cash amount":"",
-    "Currency":"originalCurrency"
-    // "Dividend policy":"",
-    // "Account Id":"",
-    // "Commission recipient":""
-
+    "Currency":"originalCurrency",
+    "Details":"details"
 }
 
 export const clssesIsins =[
@@ -179,7 +164,7 @@ export const clssesIsins =[
 	{"isin":"KYG706222984","class":"J2-USD","portfolio":"Active"},
 	{"isin":"KYG706223065","class":"K-USD","portfolio":"Active"},
     {"isin":"XDO417744626","class":"L-USD","portfolio":"HTM-Leverage"},
-
+    {"isin":"GP-USD","class":"GP-USD","portfolio":""}
 ]
 
 /////////////////////////////TZUR OBJECT ++ ////////////////////////

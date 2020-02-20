@@ -25,6 +25,7 @@ class Portfolio extends Component {
         asOfDateList: [...this.props.asOfDateList],
         fromDate:'2018-12-01',
         toDate:'2022-12-01',
+        reportType:"all",
         showSearchControlls : false,
         csamRows:[...this.props.csamRows],
         showCsamRowsTable:false,
@@ -80,7 +81,7 @@ class Portfolio extends Component {
     }
 
     TopChartSortDateArray =(field)=>{
-        let oldArray =(String(field).search("rice") !== -1)? [...this.props.asOfDateList] : [...this.props.asOfDateListMonthOnly];
+        let oldArray =(this.state.reportType === "all")? [...this.props.asOfDateList] : [...this.props.asOfDateListMonthOnly];
         let newDateArray=[];
         let fromDate = this.state.fromDate;
         let toDate = this.state.toDate;
@@ -134,6 +135,7 @@ class Portfolio extends Component {
             this.setState({lineField: e.target.value});
             
         }
+
 
         const changeBottomChartData = (e) =>
         {
@@ -207,6 +209,11 @@ class Portfolio extends Component {
                         <input id="fromDate" type="date"   onChange={(e)=>this.ChangeChartDate(e,'fromDate')}/>
                         <label style={{margin:'1%'}}  for="toDate">End date:</label>
                         <input id="toDate" type="date"  onChange={(e)=>this.ChangeChartDate(e,'toDate')}/>
+                        <label style={{margin:'1%'}}  for="toDate">Report Type</label>
+                        <select  onChange={(e)=>this.ChangeChartDate(e,'reportType')}>
+                            <option value='all' selected>All</option>
+                            <option value='monthly'>Monthly Only</option>
+                        </select>
                 </div>
                
                 
