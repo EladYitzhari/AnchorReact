@@ -28,8 +28,8 @@ class TzurReport extends Component {
     render() { 
         return ( 
             <table className='table table-hover' id="tzurTable" style={{padding:'2%',width:"70%",marginLeft:"15%"}}>
-                <thead >
-                    <tr style={{backgroundColor:"rgb(10, 75, 136)"}}>
+                <thead style={{backgroundColor:"rgb(10, 75, 136)",color:"white",fontSize:"80%"}}>
+                    <tr >
                         <th>Acount Group</th>
                         <th>Acount Num</th>
                         <th>Acount Description</th>
