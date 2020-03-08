@@ -14,7 +14,7 @@ import CsamRowsTable from '../../components/Js/CsamRowsTable';
 import Chart from '../../components/Js/Chart'
 import GeneralChart from '../../components/Js/GeneralChart';
 import * as globalFunction from '../../components/Functions/globalFunction';
-
+import chartImg from '../../images/Graph-Magnifier-icon.png';
 
 
 class Portfolio extends Component {
@@ -30,6 +30,8 @@ class Portfolio extends Component {
         csamRows:[...this.props.csamRows],
         showCsamRowsTable:false,
         lineField:'dailyAssetPrice',
+        showOptionsCharts:false,
+        minYaxis:80,
         lineButtomField:'dailyAssetPrice',
         ChartArea:false
         
@@ -63,6 +65,10 @@ class Portfolio extends Component {
     toggleClassTable =() =>
     {
         this.setState({showClasses: ! this.state.showClasses});
+    }
+    toggleShowOptions =() =>
+    {
+        this.setState({showOptionsCharts: ! this.state.showOptionsCharts});
     }
     toggleSearchControlls =() =>
     {
@@ -146,6 +152,7 @@ class Portfolio extends Component {
 
         let topPortfolioChart = 
                     <GeneralChart chartType="Line" chrtTableId='TopChartTable' width={'1300'} height={'500'}
+                                                            minYaxis={this.state.minYaxis}
                                                             array={this.props.csamRows}
                                                             rowFiledName={'portfolioName'}
                                                             rowsHeaders={[this.props.portfolioName]}
@@ -175,7 +182,9 @@ class Portfolio extends Component {
                                 return <option key={index+'selectOptionChartArea'}>{c}</option>
                             })}
                     </select>
+                    
                     <GeneralChart chartType="Line" chrtTableId='chartAreaTable' width={'1700'} height={'700'}
+                                                            minYaxis={this.state.minYaxis}
                                                             array={this.props.csamRows}
                                                             rowFiledName={'issuer_Name'}
                                                             rowsHeaders={this.props.ChartAreaChoosenCLO}
@@ -214,6 +223,8 @@ class Portfolio extends Component {
                             <option value='all' selected>All</option>
                             <option value='monthly'>Monthly Only</option>
                         </select>
+                        <img onClick={()=>this.toggleShowOptions()} style={{marginLeft:"1%",marginRight:"1%"}}  src={chartImg} alt="chartImg" />
+                        {(this.state.showOptionsCharts)?<span>Min Yaxis<input type="number" onChange={(e)=>this.ChangeChartDate(e,'minYaxis')} /></span>:null}
                 </div>
                
                 

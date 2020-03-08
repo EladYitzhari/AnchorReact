@@ -174,7 +174,13 @@ class GeneralChart extends Component {
                             width:"40",
                             height:"40",
                             hover:true,
-                            
+                            scales: {
+                                yAxes: [{
+                                    ticks: {
+                                        suggestedMin: this.props.minYaxis
+                                    }
+                                  }]
+                               },
                             legend:{
                                 display:true,
                                 position:'right'
