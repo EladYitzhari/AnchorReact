@@ -5,7 +5,8 @@ import * as repositoryAction from '../../store/actions/RepositoryActions'
 import researchImg from '../../images/researchPaper.png';
 import Spinner from '../../components/Js/Spinner';
 import GeneralChart from '../../components/Js/GeneralChart';
-
+import ReactToExcel from 'react-html-table-to-excel';
+import excelIcon from '../../images/Microsoft-Excel-icon.png';
 
 class ResearchPage extends Component {
     state = { 
@@ -171,14 +172,34 @@ class ResearchPage extends Component {
                     </span>
                 </div>
 
-                <div id="isinRowTableArea" style={{margin:"2%",width:"100%"}}>
-                    <table className="table table-hover">
+                <div id="isinRowTableArea" style={{margin:"2%",width:"100%",float:"left"}}>
+                    <div style={{width:"100%"}}>
+                        <ReactToExcel className="btn " 
+                            table={"csamTable"}
+                            filename="CSAM Table"
+                            sheet="CSAM Table"
+                            buttonText={<img style={{marginRight:"3%"}} alt="excelImg" src={excelIcon} />}
+                            />  
+                    </div>
+                   
+                    <table className="table table-hover" id="csamTable">
                         <thead>
                             <tr>
-                                <th>Issuer Name</th>
-                                <th>As Of Date</th>
-                                <th>Portfolio</th>
-                                <th>Price</th>
+                            <th>As of Date</th>
+                            <th>Issuer_Name</th>
+                            <th>Portfolio</th>
+                            <th>Currency</th>
+                            <th>Spread</th>
+                            <th>Asset Maturity Date</th>
+                            <th>Cost Price</th>
+                            <th>Daily Asset Price</th>
+                            <th>Mark Price</th>
+                            <th>Quantity</th>
+                            <th>Asset Issue Amount</th>
+                            <th>Collateral Administrator</th>
+                            <th>Abs Type</th>
+                            <th>Settlement Date</th>
+                            <th>Market/Offering</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -187,12 +208,23 @@ class ResearchPage extends Component {
                                 .sort(function(a,b){
                                     return new Date(a.asOfDate).getTime() > new Date(b.asOfDate).getTime();
                                 })
-                                .map(a=>{
-                                    return (<tr>
-                                            <td>{a.issuer_Name}</td>
-                                            <td>{a.asOfDate}</td>
-                                            <td>{a.portfolioName}</td>
-                                            <td>{a.dailyAssetPrice}</td>
+                                .map(c=>{
+                                    return (<tr key={c['asOfDate']+c['asset_Name']}>
+                                    <td  data-toggle="tooltip" data-placement="top" title='As of Date'>{c['asOfDate']}</td>
+                                    <td data-toggle="tooltip" data-placement="top" title='Issuer_Name'>{c['issuer_Name']}</td>
+                                    <td data-toggle="tooltip" data-placement="top" title='Asset_Name'>{c['portfolioName']}</td>
+                                    <td data-toggle="tooltip" data-placement="top" title='Currency'>{c['currency']}</td>
+                                    <td data-toggle="tooltip" data-placement="top" title='Spread'>{c['spread']}</td>
+                                    <td data-toggle="tooltip" data-placement="top" title='Asset Maturity Date'>{c['assetMaturityDate']}</td>
+                                    <td data-toggle="tooltip" data-placement="top" title='Cost Price'>{c['costPriceSettled']}</td>
+                                    <td data-toggle="tooltip" data-placement="top" title='Daily Asset Price'>{c['dailyAssetPrice'].toFixed(3)}</td>
+                                    <td data-toggle="tooltip" data-placement="top" title='Mark Price'>{c['markPrice'].toFixed(3)}</td>
+                                    <td data-toggle="tooltip" data-placement="top" title='Quantity'>{c['quantity'].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                                    <td data-toggle="tooltip" data-placement="top" title='Asset Issue Amount'>{c['assetIssueAmount'].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                                    <td data-toggle="tooltip" data-placement="top" title='Collateral Administrator'>{c['collateralAdministrator']}</td>
+                                    <td data-toggle="tooltip" data-placement="top" title='Abs Type'>{c['absType']}</td>
+                                    <td data-toggle="tooltip" data-placement="top" title='Settlement Date'>{c['settlementDate']}</td>
+                                    <td data-toggle="tooltip" data-placement="top" title='Market/Offering'>{c['boughtInMrkrtOrOffering']}</td>
                                     </tr>)
                             })}
                         </tbody>
