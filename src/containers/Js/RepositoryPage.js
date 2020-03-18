@@ -7,14 +7,17 @@ import Spinner from '../../components/Js/Spinner';
 import ReactToExcel from 'react-html-table-to-excel';
 import excelIcon from '../../images/Microsoft-Excel-icon.png';
 import ExportCSV from '../../components/Js/ExportCSV'
-
+import CsamRowCard from '../../components/Js/CsamRowCard';
+import editImg from '../../images/edit-icon.png';
 
 class RepositoryPage extends Component {
     state = { 
         showTable:false,
         CsamRows:[],
         sortAsOfDates:['all'],
-        exportJson:[]
+        exportJson:[],
+        showEditCard:true,
+        csamRowEdit:null
      }
 
     componentDidMount=()=>{
@@ -45,10 +48,11 @@ class RepositoryPage extends Component {
       this.setState({sortAsOfDates:selectedValues});
     }
 
+
     
     render() { 
 
-          
+ 
 
 
         let table=null;
@@ -56,7 +60,7 @@ class RepositoryPage extends Component {
             //create the table
             table =(
                <React.Fragment>
-                <thead style={{backgroundColor:'rgb(6, 117, 168)',fontSize:'120%'}}>{globalFun.extractHeadersToTh(this.state.CsamRows[0])}</thead>
+                <thead style={{backgroundColor:'rgb(6, 117, 168)',fontSize:'120%'}}>{globalFun.extractHeadersToTh({...this.state.CsamRows[0],"actions":"test"})}</thead>
                 <tbody>
                 {(this.state.sortAsOfDates[0]==='all')?
                         this.state.CsamRows.filter(a=>{return a.isin !== null }).map(a => {
@@ -109,7 +113,7 @@ class RepositoryPage extends Component {
         
                     </table>
 
-                            
+                           
                     <table className="table table-hover" id='repositoryTable'>
                     {table}
                     </table>

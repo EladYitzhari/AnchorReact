@@ -77,7 +77,7 @@ const crateCsamRowObject=(keys,values,dates)=> {
         
     })
     //insert id and portfolio
-    jsonObj["id"]= generateId(values[0],values[4],values[39]);
+    jsonObj["id"]= generateId(values[0],values[4],jsonObj["asOfDate"]);
     jsonObj["portfolioName"]= getPortfolioName(values[0]);
     jsonObj["monthlyOrWeekly"]= (jsonObj["warf"] !== null && jsonObj["warf"] !== 0)? "monthly" : "weekly";
     return jsonObj;

@@ -1,0 +1,17 @@
+.research_Header
+{
+    width: 100%;
+    text-align:center;
+    font-size: 200%;;
+    text-decoration: underline;
+}
+.research_chartHeader{
+    width: 100%;
+    text-align:left;
+    font-size: 100%;;
+    text-decoration: underline;
+}
+.researchInput{
+    margin-right: 2%;
+    margin-left: 2%;
+}

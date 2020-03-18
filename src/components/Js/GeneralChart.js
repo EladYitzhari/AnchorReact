@@ -10,10 +10,11 @@ import excelIcon from '../../images/Microsoft-Excel-icon.png';
 
 class GeneralChart extends Component {
     state = { 
-        showTable:false
+        showTable:false,
+        colorThems :["rgb(0, 102, 204)",'rgb(102, 153, 153)','rgb(153, 0, 51)','rgb(204, 0, 204)','rgb(204, 0, 204)']
      }
 
-    colorThems = ['green','red','blue','black','gray'];
+    ;
 
     generateTable =()=>{
         let labels =[...this.state.labels];
@@ -51,10 +52,19 @@ class GeneralChart extends Component {
                 }
             });
 
+            let pieColors = []; 
+            columnHeaders.map((c,index)=>{
+                if(index<this.state.colorThems.length){
+                    pieColors.push(this.state.colorThems[index]);
+                }else{
+                    pieColors.push('rgb('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+')');
+                }
+            })
             datasets.push({
                 label:r,
                 borderColor:(type ==="Line")?'rgb('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+')':"rgb(255, 255, 255)",
-                backgroundColor:(type !=="Line")?'rgb('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+')':null,
+                backgroundColor:(type ==="Bar")?'rgb('+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+','+Math.floor(Math.random()*255)+')':
+                                (type ==="Pie")?pieColors:null,
                 data:dataSet
             }) 
             
@@ -234,7 +244,41 @@ class GeneralChart extends Component {
                                 this.props.chartType)} />
                         </div>;
         }else if(chartType ==="Pie"){
-            chart =<Pie data={this.generateDataToChart} />;
+            chart = <div>
+                <img  src={tableImg} alt='tableImg' onClick={this.toggleTable}/>
+                <ReactToExcel className="btn "
+                    table={this.props.chrtTableId}
+                    filename="Chart Date"
+                    sheet="Chart Data"
+                    buttonText={<img style={{marginRight:"3%"}} alt="excelImg" src={excelIcon} />}
+                    />
+                {table}
+                        <Pie  
+                    width={this.props.width} height={this.props.height}
+                        options={{
+                            // padding:"0px",
+                            responsive:false,
+                            maintainAspectRatio:false,
+                            defaultFontSize:"30px",
+                            width:"40",
+                            height:"40",
+                            hover:true,
+                            legend:{
+                                display:true,
+                                position:'right'
+                            }}}
+                    
+                    data={this.generateDataToChart(
+                                this.props.array,
+                                this.props.rowFiledName,
+                                this.props.rowsHeaders,
+                                this.props.columnFileName,
+                                this.props.columnHeaders,
+                                this.props.value,
+                                this.props.averageStatus,
+                                this.props.averageByField,
+                                this.props.chartType)} />
+                        </div>;
         }
 
         return ( 
