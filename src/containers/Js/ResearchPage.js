@@ -7,7 +7,7 @@ import Spinner from '../../components/Js/Spinner';
 import GeneralChart from '../../components/Js/GeneralChart';
 import ReactToExcel from 'react-html-table-to-excel';
 import excelIcon from '../../images/Microsoft-Excel-icon.png';
-
+import * as gf from '../../components/Functions/globalFunction';
 class ResearchPage extends Component {
     state = { 
         allCloNames:[],
@@ -20,7 +20,10 @@ class ResearchPage extends Component {
         toDate:"2200-01-01",
         value:"dailyAssetPrice",
         monthly:"all",
-        dateAxios:[]
+        dateAxios:[],
+        //csam columns
+        tableColumns:['asOfDate','issuer_Name','portfolioName','currency','spread','assetMaturityDate','costPriceSettled','dailyAssetPrice','markPrice'
+        ,'quantity','assetIssueAmount','collateralAdministrator','absType','settlementDate','boughtInMrkrtOrOffering']
      }
 
   
@@ -92,7 +95,19 @@ class ResearchPage extends Component {
         return newArray;
     }
 
- 
+    ChooseTableColumns=(e)=>{
+        let selectElement = e.target;
+        let selectedValues = Array.from(selectElement.selectedOptions)
+                .map(option => option.value);
+        if(selectedValues[0]==='compact'){
+            this.setState({tableColumns:['asOfDate','issuer_Name','portfolioName','currency','spread','assetMaturityDate','costPriceSettled','dailyAssetPrice','markPrice'
+            ,'quantity','assetIssueAmount','collateralAdministrator','absType','settlementDate','boughtInMrkrtOrOffering']})
+        }else{
+            this.setState({tableColumns:[...selectedValues]});
+        }
+        
+        
+    }
 
     render() {
         
@@ -181,28 +196,22 @@ class ResearchPage extends Component {
                             buttonText={<img style={{marginRight:"3%"}} alt="excelImg" src={excelIcon} />}
                             />  
                     </div>
-                   
+                   Columns <select  size="3" multiple onChange={(e)=>this.ChooseTableColumns(e)}>
+                       <option value="compact" style={{backgroundColor:"lightBlue"}}>Compact</option>
+                       {Object.keys(gf.isinRowKeys).map(k=>{
+                           return <option key={k+"option"}>{gf.isinRowKeys[k]}</option>
+                       })}
+                   </select>
                     <table className="table table-hover" id="csamTable">
                         <thead>
                             <tr>
-                            <th>As of Date</th>
-                            <th>Issuer_Name</th>
-                            <th>Portfolio</th>
-                            <th>Currency</th>
-                            <th>Spread</th>
-                            <th>Asset Maturity Date</th>
-                            <th>Cost Price</th>
-                            <th>Daily Asset Price</th>
-                            <th>Mark Price</th>
-                            <th>Quantity</th>
-                            <th>Asset Issue Amount</th>
-                            <th>Collateral Administrator</th>
-                            <th>Abs Type</th>
-                            <th>Settlement Date</th>
-                            <th>Market/Offering</th>
+                            {this.state.tableColumns.map(t=>{
+                                return <th key={t+"theader"}>{t}</th>
+                            })}
                             </tr>
                         </thead>
                         <tbody>
+
                             {this.props.CsamRows
                                 .filter(f=>{return f.issuer_Name===this.state.selectedClo})
                                 .sort(function(a,b){
@@ -210,21 +219,10 @@ class ResearchPage extends Component {
                                 })
                                 .map(c=>{
                                     return (<tr key={c['asOfDate']+c['asset_Name']}>
-                                    <td  data-toggle="tooltip" data-placement="top" title='As of Date'>{c['asOfDate']}</td>
-                                    <td data-toggle="tooltip" data-placement="top" title='Issuer_Name'>{c['issuer_Name']}</td>
-                                    <td data-toggle="tooltip" data-placement="top" title='Asset_Name'>{c['portfolioName']}</td>
-                                    <td data-toggle="tooltip" data-placement="top" title='Currency'>{c['currency']}</td>
-                                    <td data-toggle="tooltip" data-placement="top" title='Spread'>{c['spread']}</td>
-                                    <td data-toggle="tooltip" data-placement="top" title='Asset Maturity Date'>{c['assetMaturityDate']}</td>
-                                    <td data-toggle="tooltip" data-placement="top" title='Cost Price'>{c['costPriceSettled']}</td>
-                                    <td data-toggle="tooltip" data-placement="top" title='Daily Asset Price'>{c['dailyAssetPrice'].toFixed(3)}</td>
-                                    <td data-toggle="tooltip" data-placement="top" title='Mark Price'>{c['markPrice'].toFixed(3)}</td>
-                                    <td data-toggle="tooltip" data-placement="top" title='Quantity'>{c['quantity'].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
-                                    <td data-toggle="tooltip" data-placement="top" title='Asset Issue Amount'>{c['assetIssueAmount'].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
-                                    <td data-toggle="tooltip" data-placement="top" title='Collateral Administrator'>{c['collateralAdministrator']}</td>
-                                    <td data-toggle="tooltip" data-placement="top" title='Abs Type'>{c['absType']}</td>
-                                    <td data-toggle="tooltip" data-placement="top" title='Settlement Date'>{c['settlementDate']}</td>
-                                    <td data-toggle="tooltip" data-placement="top" title='Market/Offering'>{c['boughtInMrkrtOrOffering']}</td>
+                                        {this.state.tableColumns.map(t=>{
+                                            return <td  data-toggle="tooltip" data-placement="top" title={t}>{c[t]}</td>
+                                        })}
+                                    
                                     </tr>)
                             })}
                         </tbody>
