@@ -118,7 +118,7 @@ class ResearchPage extends Component {
         return ( 
             <div>
                 <div className='research_Header'>
-                    Welcom to the Researh Page <img src={researchImg} alt="researchImg"/>
+                    Welcome to the Researh Page <img src={researchImg} alt="researchImg"/>
                                        
                 </div>
                 <div style={{width:"100%",textAlign:"center"}}>
@@ -213,7 +213,7 @@ class ResearchPage extends Component {
                         <tbody>
 
                             {this.props.CsamRows
-                                .filter(f=>{return f.issuer_Name===this.state.selectedClo})
+                                .filter(f=>{return f.issuer_Name===this.state.selectedClo && f.issuer_Name !== null})
                                 .sort(function(a,b){
                                     return new Date(a.asOfDate).getTime() > new Date(b.asOfDate).getTime();
                                 })

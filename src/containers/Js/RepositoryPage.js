@@ -87,7 +87,7 @@ class RepositoryPage extends Component {
         return ( 
             <React.Fragment>
                 <div className='repository_Header'>
-                    Welcom to the repository Page
+                    Welcome to the repository Page
                 </div>
                     <table id="controlTable" className="table">
                         <tr>
