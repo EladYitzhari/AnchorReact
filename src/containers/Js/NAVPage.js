@@ -44,6 +44,7 @@ class NavPage extends Component {
     setVarInState =(e,key)=>{
         this.setState({[key]:e.target.value});
         this.setState({ showCsamTable:false});
+        console.log(this.state)
     }
     render() { 
 

@@ -102,10 +102,9 @@ class Movements extends Component {
 
         return ( 
             <div>
-                  <div id="header">
+                <div id="header">
                         Movement Page
-
-                    </div>
+                </div>
             <DollarPrice></DollarPrice>
             <div id="showMovmentControlDiv" style={{width: "100%",textAlign:"center"}}>
                 <table id="showMovmentControlTable">
