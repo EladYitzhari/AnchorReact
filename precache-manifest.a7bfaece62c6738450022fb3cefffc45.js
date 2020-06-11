@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "1b7525b17dc0db0949281a6df74f6298",
+    "revision": "27978dcfcd365b215116e35a6b8cf757",
     "url": "/AnchorReact/index.html"
   },
   {
@@ -8,7 +8,7 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/AnchorReact/static/css/2.64a99b10.chunk.css"
   },
   {
-    "revision": "174105fa339736bff0f6",
+    "revision": "55de33856f1ab00350c9",
     "url": "/AnchorReact/static/css/main.f43cbc52.chunk.css"
   },
   {
@@ -20,8 +20,8 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/AnchorReact/static/js/2.785c4654.chunk.js.LICENSE"
   },
   {
-    "revision": "174105fa339736bff0f6",
-    "url": "/AnchorReact/static/js/main.9fa57457.chunk.js"
+    "revision": "55de33856f1ab00350c9",
+    "url": "/AnchorReact/static/js/main.58fa029e.chunk.js"
   },
   {
     "revision": "9f33f0edfb6aa14dd7c7",
