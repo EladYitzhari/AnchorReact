@@ -68,7 +68,7 @@ const crateCsamRowObject=(keys,values,dates)=> {
     let serverIsinRowKies = globalFun.isinRowKeys;
     keys.map((k,index)=>{
         //check if date and convert to sql date-if find the char "/" that separate date
-        if(String(values[index]).search("/") !== -1 )
+        if(String(values[index]).search("/") !== -1 && String(values[index]).match(new RegExp('/', "gi") || []).length>1)
         {
             jsonObj[serverIsinRowKies[k]] = DFunctions.convertDateToSqlDate(values[index]);
         }else{

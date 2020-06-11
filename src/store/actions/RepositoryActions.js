@@ -44,10 +44,10 @@ export const getAllCsamRows = () =>
                   }else{
                       
                       let deltaOfDaysBetweenDates =  globalFunction.deltaOfDaysBetweenDates(m.settlementDate,m.asOfDate);
-                      let DailyAmortization = (m.portfolioName === "Active")? 0: Number((100-m.costPriceSettled)/(m.wal*365)*m.settledCommitmentBook/100).toFixed(3);
+                      let DailyAmortization = (m.portfolioName === "Active")? 0: Number((100-m.costPriceSettled)/100/(m.wal*360)*m.quantity).toFixed(3);
                       let AggregateAmortization = DailyAmortization*deltaOfDaysBetweenDates;
-                      let CalculatedAmortizedCost =  Number(m.marketValueSettledCommitmentBook + AggregateAmortization).toFixed(3);
-                      let CalculatedAmortizedPrice = Number(CalculatedAmortizedCost/m.settledCommitmentBook*100).toFixed(3);
+                      let CalculatedAmortizedCost =  Number(m.quantity*m.costPriceSettled/100 + AggregateAmortization).toFixed(3);
+                      let CalculatedAmortizedPrice = Number((100-m.costPriceSettled)/(m.wal*360)*deltaOfDaysBetweenDates+m.costPriceSettled).toFixed(3);
                       instans.DailyAmortization_c =  DailyAmortization;
                       instans.AggregateAmortization_c  =   AggregateAmortization;
                       instans.CalculatedAmortizedCost_c =   CalculatedAmortizedCost;

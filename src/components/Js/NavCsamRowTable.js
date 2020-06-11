@@ -108,7 +108,7 @@ class NavCsamRowTable extends Component {
         let interest = thisMonthQuat["interestRate"];
         let lastMonthInterest = lastMonthQuat["interestRate"];
         let numOfDaysInMonth = dateFunc.numOfDaysInMonth(asOfDate.getMonth());
-        let couponDayInMonth = new Date(thisMonthQuat["issueFirstCouponDate"]).getDate();
+        let couponDayInMonth = new Date(lastMonthQuat["accrualEndDate"]).getDate();
         if(settlementDate.getMonth() === asOfDate.getMonth() && settlementDate.getFullYear() === asOfDate.getFullYear())
         {
             return ((numOfDaysInMonth-settlementDate.getDate())/numOfDaysInMonth*interest/100/360*numOfDaysInMonth*quantity).toFixed(0);
