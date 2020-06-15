@@ -8,3 +8,7 @@
   - The main changes:
     - The Interest calculation changed, the day that the Libor interest changed from the "first cuppon date" to the "accrualEndDate"-but         still not helped my a lot to get close to Nick-continuing with Iris.
     - THE AMORTIZATION CALCULATION FIXED- A HAD A MISTAKE IN THE FORMOLA AND IT FIXED.
+- Branch 15-6-20
+  - The main changes:
+    - Add new Portfolio to the DB- HTM-IG.
+    - All the Isin rows from the bginig of this portfolio deleted and uploaded from the begining,s o the procces in the react sid can recognize the correct portfolio and generate the correct Id AND PORTFOLIO NAME(happaned in the client side when new excel uploaded)
