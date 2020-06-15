@@ -27,6 +27,7 @@ class Header extends Component {
                         <NavLink to={{pathname:"/PortfolioHTML",hash:'HTM-Leverage'}}>HTM-Leverage</NavLink>
                         <NavLink to={{pathname:"/PortfolioHTM",hash:'HTM'}}>HTM</NavLink>
                         <NavLink to={{pathname:"/PortfolioACTIVE",hash:'Active'}}>Active</NavLink>
+                        <NavLink to={{pathname:"/PortfolioHTMIG",hash:'HTM-IG'}}>HTM-IG</NavLink>
                         </div>
                     </li>
                     <li className="header_li"><NavLink to="/NAV">Nav</NavLink></li>  
@@ -43,6 +44,7 @@ class Header extends Component {
             <Route path="/PortfolioHTM" exact component={Portfolio}   />
             <Route path="/PortfolioHTML" exact component={Portfolio}   />
             <Route path="/PortfolioACTIVE" exact component={Portfolio}   />
+            <Route path="/PortfolioHTMIG" exact component={Portfolio}   />
             <Route path="/UploadExcel" exact component={UploadExcel}   />
             <Route path="/NAV" exact component={NavPage} />
             <Route path="/Movements" exact component={ Movements}   />

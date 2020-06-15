@@ -88,10 +88,14 @@ const generateId=(name,isin,asOfDate)=>
     if(name.search("HTM Le") !== -1)
     {
         return 'HTM-Leverage-'+isin+'-'+DFunctions.convertDateToSqlDate(asOfDate);
-    }else if(name.search("HTM") !== -1){
-        return 'HTM-'+isin+'-'+DFunctions.convertDateToSqlDate(asOfDate);
-    }else{
+    }else if(name.search("Active") !== -1){
         return 'Active-'+isin+'-'+DFunctions.convertDateToSqlDate(asOfDate);
+        
+    }else if(name.search("IG") !== -1){
+        return 'HTM-IG-'+isin+'-'+DFunctions.convertDateToSqlDate(asOfDate);
+        
+    }else {
+        return 'HTM-'+isin+'-'+DFunctions.convertDateToSqlDate(asOfDate);
     }
 }
 
@@ -100,10 +104,12 @@ const getPortfolioName=(name)=>
     if(name.search("HTM Le") !== -1)
     {
         return 'HTM-Leverage';
-    }else if(name.search("HTM") !== -1){
-        return 'HTM';
-    }else{
+    }else if(name.search("Active") !== -1){
         return 'Active';
+    }else if(name.search("IG") !== -1){
+        return 'HTM-IG';
+    }else{
+        return 'HTM';
     }
 }
 
