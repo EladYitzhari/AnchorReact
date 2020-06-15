@@ -11,4 +11,5 @@
 - Branch 15-6-20
   - The main changes:
     - Add new Portfolio to the DB- HTM-IG.
-    - All the Isin rows from the bginig of this portfolio deleted and uploaded from the begining, so the procces in the react sid can recognize the correct portfolio and generate the correct Id AND PORTFOLIO NAME(happaned in the client side when new excel uploaded)
+    - Add HTM-IG also to the NAV page in the react.
+    - All the Isin rows from the bginig of this portfolio deleted and uploaded from the begining, so the procces in the react sid can           recognize the correct portfolio and generate the correct Id AND PORTFOLIO NAME(happaned in the client side when new excel uploaded)
