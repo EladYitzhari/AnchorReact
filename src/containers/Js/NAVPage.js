@@ -71,6 +71,7 @@ class NavPage extends Component {
                                 <option value="HTM">HTM</option>
                                 <option value="HTM-Leverage" selected>HTM-Leverage</option>
                                 <option value="Active">Active</option>
+                                <option value="HTM-IG">HTM-IG</option>
                             </select></td>
                             <td> <select  id="navMonth" onChange={(e)=>this.setVarInState(e,'navMonth')}>
                                     <option value="01">01</option>
