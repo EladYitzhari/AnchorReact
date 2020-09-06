@@ -19,10 +19,10 @@ import authReducer from '../src/store/reducers/authReducer';
 import tzurReducer from '../src/store/reducers/tzurReducer';
 
 // axios.defaults.baseURL ="http://localhost:8080/";
-axios.defaults.baseURL ="https://env-4171164.j.box.co.il/AnchorOpen/";
+// axios.defaults.baseURL ="https://env-4171164.j.box.co.il/AnchorOpen/";
 // axios.defaults.baseURL ="https://anchor-bf513.firebaseio.com/";
 // axios.defaults.withCredentials = true
-axios.defaults.headers.common['Authorization'] = 'TEST AUTH COMMON';
+// axios.defaults.headers.common['Authorization'] = 'TEST AUTH COMMON';
 // axios.defaults.headers.common['Access-Control-Allow-Origin'] =  '*';
 // axios.defaults.headers.post['Content-type']= 'application/json';
 // axios.defaults.withCredentials = true;

@@ -12,6 +12,7 @@ import editImg from '../../images/edit-icon.png';
 
 class RepositoryPage extends Component {
     state = { 
+        showSpinner:false,
         showTable:false,
         CsamRows:[],
         sortAsOfDates:['all'],
@@ -28,24 +29,25 @@ class RepositoryPage extends Component {
         }
 
         this.props.GetAllAsOfDates();
-        this.props.GetAllCsamRows();
+        this.props.getAllCsamRowsByAsOfDate("2020-08-31");
+
         setTimeout(() => {
+
             this.setState({CsamRows:[...this.props.CsamRows]});
             this.setState({exportJson:[...this.props.CsamRows]});
-            console.log("success bring all csam rows");
+            
         }, 2000);
     }
 
 
-    // ToggleTable=()=>{
-    //     this.setState({showTable: !this.state.showTable});
-    // }
+
     setAsOfDate = (e) =>{
-        let selectElement = e.target;
-        let selectedValues = Array.from(selectElement.selectedOptions)
-                .map(option => option.value);
-        console.log("list: "+selectedValues)
-      this.setState({sortAsOfDates:selectedValues});
+      this.setState({showSpinner:true})
+      this.setState({sortAsOfDates:e.target.value});
+      this.props.getAllCsamRowsByAsOfDate(e.target.value);
+      setTimeout(() => {
+        this.setState({showSpinner:false})
+      }, 2000);
     }
 
 
@@ -53,59 +55,51 @@ class RepositoryPage extends Component {
     render() { 
 
  
-
+        let spinner=null;
+        if(this.state.showSpinner){
+            spinner=<Spinner />
+        }
 
         let table=null;
-        if(this.state.CsamRows.length !== 0){
+        
             //create the table
             table =(
                <React.Fragment>
-                <thead style={{backgroundColor:'rgb(6, 117, 168)',fontSize:'120%'}}>{globalFun.extractHeadersToTh({...this.state.CsamRows[0],"actions":"test"})}</thead>
+                <thead style={{backgroundColor:'rgb(6, 117, 168)',fontSize:'120%'}}>{globalFun.extractHeadersToTh({...this.props.CsamRows[0],"actions":"test"})}</thead>
                 <tbody>
-                {(this.state.sortAsOfDates[0]==='all')?
-                        this.state.CsamRows.filter(a=>{return a.isin !== null }).map(a => {
+                {
+                        this.props.CsamRows.filter(a=>{return a.isin !== null }).map(a => {
                         return (
                             globalFun.tableRowCreator(a)
                         )
-                    }):this.state.sortAsOfDates.map(date=>{
-                        return (this.state.CsamRows.filter(a=>{return a.isin !== null && a.asOfDate === date}).map(a => {
-                                return (
-                                    globalFun.tableRowCreator(a)
-                                )
-                        }))
-                    })
-                   
-                }
+              
+                })}
                 </tbody>
                 </React.Fragment>
             ) 
             
-        }else{
-            table = <div style={{width:'100%',textAlign:'center'}}><Spinner /></div>
-        }
+       
        
         return ( 
             <React.Fragment>
                 <div className='repository_Header'>
                     Welcome to the repository Page
                 </div>
+                
                     <table id="controlTable" className="table">
                         <tr>
                             <td>As of Date</td>
                             <td>
-                                <select className='form-control' style={{fontSize:'80%'}} multiple onChange={(e)=>this.setAsOfDate(e)}>
-                                    <option value='all' selected>All</option>
+                                <select className='form-control' style={{fontSize:'80%'}} onChange={(e)=>this.setAsOfDate(e)}>
                                 {this.props.asOfDateList.filter(a=>{return a!== null}).map(a=>{
                                     return <option key={a}>{a}</option>
                                 })}
                                 </select>
+                                {spinner}
                             </td>
                             <td> 
-                            <ExportCSV csvData={
-                                    (this.state.sortAsOfDates[0]==='all')?
-                                    this.state.CsamRows.filter(a=>{return a.isin !== null })
-                                    :this.state.CsamRows.filter(a=>{return a.isin !== null && this.state.sortAsOfDates.indexOf(a.asOfDate) !== -1})
-                            
+                            <ExportCSV csvData={     
+                                    this.props.CsamRows.filter(a=>{return a.isin !== null })
                                 } fileName={this.state.sortAsOfDates} />
                              </td>
                             <td></td>
@@ -139,7 +133,8 @@ const mapDispatchToProps = dispatch =>
 {
     return {
         GetAllCsamRows:() => dispatch(repositoryAction.getAllCsamRows()),
-        GetAllAsOfDates:() => dispatch(repositoryAction.getAllAsOfDates())
+        GetAllAsOfDates:() => dispatch(repositoryAction.getAllAsOfDates()),
+        getAllCsamRowsByAsOfDate:(asOfDate)=>dispatch(repositoryAction.getAllCsamRowsByAsOfDate(asOfDate))
     }
 }
 export default connect(mapStateToProp,mapDispatchToProps)(RepositoryPage);
