@@ -35,9 +35,10 @@ class UploadExcel extends Component {
     handleFiles =(files) =>{
         readXlsxFile(files[0]).then((rows) => {
             //check if movements file or CSAM
-            if(rows[0][0] !== "ISIN" && rows[0][0] !== "Fund")
+            if(rows[0][0] !== "ISIN" && rows[0][0] !== "Fund" )
             {
                 alert('CSAM File Detected');
+                console.log(rows);
                 this.props.uploadExcel(rows);
                 this.props.convertToCsamRowObject(rows);
                 this.props.toggleSpinner();

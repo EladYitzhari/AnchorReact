@@ -29,8 +29,8 @@ class NavCsamRowTable extends Component {
 
     componentDidMount=()=>{
         let maxAsOfDateToMonth= '2017-01-01';
-        let month = Number(this.props.dateDetails.navMonth);
-        let year= Number(this.props.dateDetails.navYear);
+        let month = Number(this.props.dataDetails.navMonth);
+        let year= Number(this.props.dataDetails.navYear);
         this.props.csamRows.map((c,index)=>{
             if(new Date(c.asOfDate).getMonth() === month-1 &&
                 new Date(c.asOfDate).getFullYear() === year &&
@@ -51,8 +51,8 @@ class NavCsamRowTable extends Component {
     }
 
     FindLastMonthMaxAsOfDate=()=>{
-        let month = Number(this.props.dateDetails.navMonth);
-        let year= Number(this.props.dateDetails.navYear);
+        let month = Number(this.props.dataDetails.navMonth);
+        let year= Number(this.props.dataDetails.navYear);
         if(month !== 1){
             month = month-1;
         }else{
@@ -102,26 +102,54 @@ class NavCsamRowTable extends Component {
     }
 
     CalculateInterest = (thisMonthQuat,lastMonthQuat)=>{
+        let theMainObject={};
         let settlementDate = new Date(thisMonthQuat["settlementDate"]);
         let asOfDate = new Date(thisMonthQuat["asOfDate"]);
         let quantity = thisMonthQuat["quantity"];
-        let interest = thisMonthQuat["interestRate"];
-        let lastMonthInterest = lastMonthQuat["interestRate"];
-        let numOfDaysInMonth = dateFunc.numOfDaysInMonth(asOfDate.getMonth());
+        ///find the interest if mode prediction or not
+        let interest;
+        let lastMonthInterest;
+        if(this.props.dataDetails.mode === "regular")
+        {
+            interest =Number(thisMonthQuat["interestRate"]);
+            lastMonthInterest = lastMonthQuat["interestRate"];
+        }else{
+            let preMonthEnd = (Number(this.props.dataDetails.predictedMonth===12))?1:Number(this.props.dataDetails.predictedMonth)+1;
+            let preYearEnd = (Number(this.props.dataDetails.predictedYear===12))?Number(this.props.dataDetails.predictedYear)+1:Number(this.props.dataDetails.predictedYear);
+            if(dateFunc.diffBetweenDates(thisMonthQuat["accrualStartDate"],String(preYearEnd)+"-"+String(preMonthEnd)+"-"+"01")>90 ){
+                interest =(Number(thisMonthQuat["spread"])+Number(this.props.dataDetails.libor));
+                if(dateFunc.diffBetweenDates(thisMonthQuat["accrualStartDate"],String(preYearEnd)+"-"+String(preMonthEnd)+"-"+"01")>120 ){
+                    lastMonthInterest = (Number(thisMonthQuat["spread"])+Number(this.props.dataDetails.libor));;
+                }else{
+                    lastMonthInterest = lastMonthQuat["interestRate"];
+                } 
+            }else{
+                interest =Number(thisMonthQuat["interestRate"]);
+                lastMonthInterest = lastMonthQuat["interestRate"];
+            }
+        }
+        let numOfDaysInMonth = (this.props.dataDetails.mode === "regular")?dateFunc.numOfDaysInMonth(asOfDate.getMonth()):dateFunc.numOfDaysInMonth(Number(this.props.dataDetails.predictedMonth)-1);
         let couponDayInMonth = new Date(lastMonthQuat["accrualEndDate"]).getDate();
+        ///Add all the middle calculation into the main object for using afterword
+        theMainObject.numOfDaysInMonth = numOfDaysInMonth;
+        theMainObject.couponDayInMonth = couponDayInMonth;
+        theMainObject.interest = interest;
+        theMainObject.lastMonthInterest = lastMonthInterest;
+        
         if(settlementDate.getMonth() === asOfDate.getMonth() && settlementDate.getFullYear() === asOfDate.getFullYear())
         {
-            return ((numOfDaysInMonth-settlementDate.getDate())/numOfDaysInMonth*interest/100/360*numOfDaysInMonth*quantity).toFixed(0);
-        }else if(lastMonthInterest === interest){
-            return (interest/100/360*numOfDaysInMonth*quantity).toFixed(0);
-        }else if(lastMonthInterest !== 'No Data' && lastMonthInterest !== interest){
-            console.log(thisMonthQuat["issuer_Name"]+ " lastMonthInterest: "+lastMonthInterest+" interest: "+interest);
-           
-            return ((numOfDaysInMonth-couponDayInMonth)/numOfDaysInMonth*interest/100/360*numOfDaysInMonth*quantity+
+            theMainObject.accuredInterest = ((numOfDaysInMonth-settlementDate.getDate())/numOfDaysInMonth*interest/100/360*numOfDaysInMonth*quantity).toFixed(0);
+             
+        }else if(Number(lastMonthInterest) === Number(interest)){
+            theMainObject.accuredInterest =  (interest/100/360*numOfDaysInMonth*quantity).toFixed(0);
+        }else if(lastMonthInterest !== 'No Data' && lastMonthInterest !== interest){           
+            theMainObject.accuredInterest =  ((numOfDaysInMonth-couponDayInMonth)/numOfDaysInMonth*interest/100/360*numOfDaysInMonth*quantity+
                         couponDayInMonth/numOfDaysInMonth*lastMonthInterest/100/360*numOfDaysInMonth*quantity).toFixed(0);
         }else{
-            return 'No Data';
+            theMainObject.accuredInterest =  'No Data';
         }
+
+        return theMainObject;
     }
 
     MonthlyAmortization = (csamRow)=>
@@ -171,7 +199,7 @@ class NavCsamRowTable extends Component {
         let totalCreditLossProvision = 0;
         this.props.csamRows.map((c,index)=>{
             if(c.asOfDate === this.state.theMaxAsOfDate){
-                let rowInteret = this.CalculateInterest(c,this.FindLastMonth_CLO_Quat(c["issuer_Name"]));
+                let rowInteret = this.CalculateInterest(c,this.FindLastMonth_CLO_Quat(c["issuer_Name"])).accuredInterest;
                 totalMonthlyAmortization += (c["settlementDate"] !== null)? this.MonthlyAmortization(c): 0;
                 (c.portfolioName ==='Active')? totalAssets += c.marketValueSettledCommitmentBook : totalAssets+=c.quantity*(c.costPriceSettled/100);
                 totalAssetsForCsamFees += (c.portfolioName !=='HTM-Leverage')? c.marketValueSettledCommitmentBook*0.005/12 :
@@ -231,12 +259,19 @@ class NavCsamRowTable extends Component {
                         <th className='th-sm'>mark Price</th>
                         <th className='th-sm'>Begin Month Intrest</th>
                         <th className='th-sm'>Interest Rate</th>
+                        {(this.props.dataDetails.mode === "regular")?null:(
+                            <React.Fragment>
+                            <th className='th-sm' style={{color:"green"}}>New Begin Month Intrest</th>
+                            <th className='th-sm' style={{color:"green"}}>New Interest Rate</th>
+                            </React.Fragment>
+                        )}
                         <th className='th-sm'>Accrued Interest</th>
                         <th className='th-sm'>spread</th>
                         <th className='th-sm'>Wal</th>
                         <th className='th-sm'>Issue First Coupon Date</th>
                         <th className='th-sm'>Maturity Date</th>
-                        <th className='th-sm'>Market/Offering</th>      
+                        <th className='th-sm'>Market/Offering</th>  
+                        <th className='th-sm'>Accrual Start Date</th>    
                         <th className='th-sm'>As of Date</th>             
                     </tr>
                 </thead>
@@ -258,13 +293,19 @@ class NavCsamRowTable extends Component {
                                             <td data-toggle="tooltip" data-placement="top" title="Market Value SettledCommitmentBook" class='numTd'>{c["marketValueSettledCommitmentBook"].toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                                             <td  data-toggle="tooltip" data-placement="top" title="Mark Price"class='numTd'>{c["markPrice"].toFixed(2)}</td>
                                             <td data-toggle="tooltip" data-placement="top" title="Begin Month Intrest" style={{color:'darkblue'}}>{this.FindLastMonth_CLO_Quat(c["issuer_Name"]).interestRate}</td>
-                                            <td data-toggle="tooltip" data-placement="top" title="Interest Rate">{c["interestRate"]}</td>
-                                            <td data-toggle="tooltip" data-placement="top" title="Accrued Interest" style={{color:'darkblue'}}>{this.CalculateInterest(c,this.FindLastMonth_CLO_Quat(c["issuer_Name"])).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                                            <td data-toggle="tooltip" data-placement="top" title="Interest Rate">{c["interestRate"]}</td>                      
+                                            {(this.props.dataDetails.mode === "regular")?null:(
+                                                <React.Fragment>
+                                                  <td data-toggle="tooltip" data-placement="top" title="New Begin Month Intrest" style={{color:"green"}}>{this.CalculateInterest(c,this.FindLastMonth_CLO_Quat(c["issuer_Name"])).lastMonthInterest}</td>
+                                                  <td data-toggle="tooltip" data-placement="top" title="New Interest Rate" style={{color:"green"}}>{this.CalculateInterest(c,this.FindLastMonth_CLO_Quat(c["issuer_Name"])).interest}</td>
+                                                </React.Fragment>
+                                            )}                                            <td data-toggle="tooltip" data-placement="top" title="Accrued Interest" style={{color:'darkblue'}}>{this.CalculateInterest(c,this.FindLastMonth_CLO_Quat(c["issuer_Name"])).accuredInterest.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                                             <td data-toggle="tooltip" data-placement="top" title="Spread">{c["spread"]}</td>
                                             <td data-toggle="tooltip" data-placement="top" title="Wal">{c["wal"]}</td>
                                             <td data-toggle="tooltip" data-placement="top" title="Issue First Coupon Date">{c["issueFirstCouponDate"]}</td>
                                             <td data-toggle="tooltip" data-placement="top" title="Asset Maturity Date">{c["assetMaturityDate"]}</td>
                                             <td data-toggle="tooltip" data-placement="top" title="Bought In MrkrtOrOffering">{c["boughtInMrkrtOrOffering"]}</td>
+                                            <td data-toggle="tooltip" data-placement="top" title="Accrual Start Date">{c["accrualStartDate"]}</td>
                                             <td data-toggle="tooltip" data-placement="top" title="As Of Date">{c["asOfDate"]}</td>
                                     </tr>
                                 )

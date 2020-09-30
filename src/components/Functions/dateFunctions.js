@@ -70,3 +70,7 @@ Date.prototype.toDateInputValue = (function() {
     local.setMinutes(this.getMinutes() - this.getTimezoneOffset());
     return local.toJSON().slice(0,10);
 });
+
+export const diffBetweenDates =(oldDateString,newDateString)=>{
+    return Math.floor(( Date.parse(newDateString) - Date.parse(oldDateString) ) / 86400000); 
+}  

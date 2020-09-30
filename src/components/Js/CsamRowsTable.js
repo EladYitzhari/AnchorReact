@@ -40,6 +40,7 @@ class CsamRowsTable extends Component {
                         <td data-toggle="tooltip" data-placement="top" title='Collateral Administrator'>{c['collateralAdministrator']}</td>
                         <td data-toggle="tooltip" data-placement="top" title='Abs Type'>{c['absType']}</td>
                         <td data-toggle="tooltip" data-placement="top" title='Settlement Date'>{c['settlementDate']}</td>
+                        <td data-toggle="tooltip" data-placement="top" title='Reinv End Date'>{c['reinvEndDate']}</td>
                         <td data-toggle="tooltip" data-placement="top" title='Market/Offering'>{c['boughtInMrkrtOrOffering']}</td>
                     </tr>
                     </tbody>
@@ -69,6 +70,7 @@ class CsamRowsTable extends Component {
                     <th>Collateral Administrator</th>
                     <th>Abs Type</th>
                     <th>Settlement Date</th>
+                    <th>Reinv End Date</th>
                     <th>Market/Offering</th>
 
    

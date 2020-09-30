@@ -37,6 +37,7 @@ export const convertEcelToCsamRows = (excelRows) =>
                     csamRowsArray.push(crateCsamRowObject(labelsArray,theRow,datesCells)) 
                 }
             });
+            console.log("test conversion excel: ",csamRowsArray)
             //upload to db
             fetch(location.serverAdress()+"/DataQ/IsinRow/IsinRows", {
                 method: 'POST',

@@ -123,6 +123,7 @@ export const isinRowKeys = {
 "Settlement Date":"settlementDate",
 "Bought In (Market/Offering)":"boughtInMrkrtOrOffering",
 "As Of Date":"asOfDate",
+"Reinv End Date":"reinvEndDate",
 "id":"id",
 "portfolioName":"portfolioName"
 

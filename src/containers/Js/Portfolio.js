@@ -221,7 +221,7 @@ class Portfolio extends Component {
                         <label style={{margin:'1%'}}  for="toDate">Report Type</label>
                         <select  onChange={(e)=>this.ChangeChartDate(e,'reportType')}>
                             <option value='all' selected>All</option>
-                            <option value='monthly'>Monthly Only</option>
+                            <option value='monthly'>Full Report</option>
                         </select>
                         <img onClick={()=>this.toggleShowOptions()} style={{marginLeft:"1%",marginRight:"1%"}}  src={chartImg} alt="chartImg" />
                         {(this.state.showOptionsCharts)?<span>Min Yaxis<input type="number" onChange={(e)=>this.ChangeChartDate(e,'minYaxis')} /></span>:null}
