@@ -48,7 +48,7 @@ class NavDetails extends Component {
             </tr>
             <tr>
                 <td>Lev Interest</td>
-                <td id="LevInterestTd" className='numTd'></td>
+                <td id="LevInterestTd" className='numTd'>last month Tzur num: {(this.props.portfolioName === "HTM-Leverage")?this.props.tzurData.lastMonth.levInterest.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","):0}</td>
                 <td></td>
                 <td>{(this.props.portfolioName === "HTM-Leverage")?this.props.tzurData.levInterest.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","):0}</td>
             </tr>
@@ -74,19 +74,25 @@ class NavDetails extends Component {
 
             <tr>
                 <td>CSAM Fee</td>
-                <td id="CSAMFeeTd" className='numTd'>{Number(this.props.navData.totalAssetsForCsamFees).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                <td id="CSAMFeeTd" className='numTd'>{Number(this.props.navData.totalAssetsForCsamFees*(-1)).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                 <td></td>
                 <td>{this.props.tzurData.CsamFee.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
             </tr>
             <tr>
+                <td>Other Income Expenses </td>
+                <td id="OtherIncomeExpTd" style={{color: 'red'}} className='numTd'></td>
+                <td></td>
+                <td>{this.props.tzurData.TzurFee.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+            </tr>
+            <tr>
                 <td>Tzur Fees </td>
-                <td id="TzurTd" style={{color: 'red'}} className='numTd'></td>
+                <td id="TzurTd" style={{color: 'red'}} className='numTd'>last month Tzur num: {this.props.tzurData.lastMonth.TzurFee.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                 <td></td>
                 <td>{this.props.tzurData.TzurFee.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
             </tr>
             <tr>
                 <td>Other costs </td>
-                <td id="OthercostsTd" className='numTd'style={{color: 'red'}}></td>
+                <td id="OthercostsTd" className='numTd'style={{color: 'red'}}>last month Tzur num: {this.props.tzurData.lastMonth.otherCosts.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                 <td></td>
                 <td>{this.props.tzurData.otherCosts.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
             </tr>

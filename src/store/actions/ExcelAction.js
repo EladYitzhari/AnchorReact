@@ -93,7 +93,7 @@ const generateId=(name,isin,asOfDate)=>
         return 'Active-'+isin+'-'+DFunctions.convertDateToSqlDate(asOfDate);
         
     }else if(name.search("IG") !== -1){
-        return 'HTM-IG-'+isin+'-'+DFunctions.convertDateToSqlDate(asOfDate);
+        return 'IG-'+isin+'-'+DFunctions.convertDateToSqlDate(asOfDate);
         
     }else {
         return 'HTM-'+isin+'-'+DFunctions.convertDateToSqlDate(asOfDate);
@@ -108,7 +108,7 @@ const getPortfolioName=(name)=>
     }else if(name.search("Active") !== -1){
         return 'Active';
     }else if(name.search("IG") !== -1){
-        return 'HTM-IG';
+        return 'IG';
     }else{
         return 'HTM';
     }

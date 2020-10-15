@@ -8,12 +8,14 @@ import GeneralChart from '../../components/Js/GeneralChart';
 import ReactToExcel from 'react-html-table-to-excel';
 import excelIcon from '../../images/Microsoft-Excel-icon.png';
 import * as gf from '../../components/Functions/globalFunction';
+import { Divider, Grid } from 'semantic-ui-react';
 class ResearchPage extends Component {
     state = { 
         allCloNames:[],
         selectNamesArray:[],
         spinner:true,
         selectedClo:null,
+        selectedCloIsinArray:[],
         selectedAsOfDate:"empty",
         //line chart params
         fromDate:"2000-01-01",
@@ -44,8 +46,10 @@ class ResearchPage extends Component {
             });
             this.setState({allCloNames:allNames.sort(),
                                 selectNamesArray:allNames.sort(),
-                                selectedClo:allNames[0]
-            })
+                                selectedClo:allNames[0],
+                                selectedCloIsinArray:[...this.props.CsamRows.filter(f=>{return f.issuer_Name === allNames[0]})]
+            });
+
             console.log(allNames.sort());  
             console.log(allNames[0]);
             
@@ -62,6 +66,9 @@ class ResearchPage extends Component {
     changeState = (key,value)=>
     {
         this.setState({[key]:value});
+        if(key==="selectedClo"){
+            this.setState({selectedCloIsinArray:[...this.props.CsamRows.filter(f=>{return f.issuer_Name === value})]})
+        }
     }
     
     craeteAsOfDates=()=>
@@ -109,6 +116,40 @@ class ResearchPage extends Component {
         
     }
 
+    foundPurchases=(portfolioName)=>{
+        let purchases = [];
+        let theArray =[...this.state.selectedCloIsinArray.filter(f=>{return f.portfolioName === portfolioName})];
+        for(let i=0;i<theArray.length;i++){
+            if(i===0){
+                purchases.push({date:theArray[i]["asOfDate"],quantity:theArray[i]["quantity"],price:theArray[i]["costPriceSettled"]}); 
+            }else if(theArray[i]["quantity"]!==theArray[i-1]["quantity"]){
+                purchases.push({date:theArray[i]["asOfDate"],quantity:theArray[i]["quantity"],price:theArray[i]["costPriceSettled"]})
+            }
+        }
+
+        return purchases;
+    }
+
+    foundExposureByPortfolio=(portfolio)=>{
+        let portRows = [...this.props.CsamRows.filter(f=>{return f.portfolioName === portfolio})];
+        let maxDate = gf.maxDateInList(gf.uniqArrayFromTable(portRows,"asOfDate"));
+        let totalPortfolioValue =0;
+        let cloValue = 0;
+        portRows.map(p=>{
+            if(p.asOfDate === maxDate ){
+                totalPortfolioValue = totalPortfolioValue + Number(p.quantity)*Number(p.costPriceSettled)/100;
+                if(p.issuer_Name===this.state.selectedClo){
+                    cloValue += Number(p.quantity)*Number(p.costPriceSettled)/100;
+                }
+            }
+            
+        })
+
+        return {date:maxDate,totalPortfolioValue:totalPortfolioValue,cloValue:cloValue}
+    }
+
+
+
     render() {
         
         let spinner = null;
@@ -130,6 +171,79 @@ class ResearchPage extends Component {
                     })}
                     </select>
               
+                </div>
+                <div style={{width:"100%",margin:"3%"}}>
+                    <div style={{textDecoration:"underline"}}>CLO CARD</div>
+                   <Grid>
+                   <Grid.Row>
+                       <Grid.Column>
+                       <Grid.Row>
+                                <Grid.Column>ISIN  </Grid.Column>
+                                <Grid.Column style={{marginLeft:"2%",color:"green"}}>{(this.state.selectedCloIsinArray[0]===undefined)?null:this.state.selectedCloIsinArray[0].isin}</Grid.Column>
+                            </Grid.Row>
+                            <Grid.Row>
+                                <Grid.Column>WAL  </Grid.Column>
+                                <Grid.Column style={{marginLeft:"2%",color:"green"}}>{(this.state.selectedCloIsinArray[0]===undefined)?null:this.state.selectedCloIsinArray[0].wal}</Grid.Column>
+                            </Grid.Row>
+                            <Grid.Row>
+                                <Grid.Column>Spred  </Grid.Column>
+                                <Grid.Column style={{marginLeft:"2%",color:"green"}}>{(this.state.selectedCloIsinArray[0]===undefined)?null:this.state.selectedCloIsinArray[0].spread}</Grid.Column>
+                            </Grid.Row>
+                            <Grid.Row>
+                                <Grid.Column>Collateral Administrator  </Grid.Column>
+                                <Grid.Column style={{marginLeft:"2%",color:"green"}}>{(this.state.selectedCloIsinArray[0]===undefined)?null:this.state.selectedCloIsinArray[0].collateralAdministrator}</Grid.Column>
+                            </Grid.Row>
+                       </Grid.Column>
+
+                      {/* //////////ALL PURCHASES LISTS BY PORTFOLIO */}
+                       {(this.state.selectedCloIsinArray[0]===undefined)?null:
+                            gf.uniqArrayFromTable(this.state.selectedCloIsinArray,"portfolioName").map((p,i)=>{
+                                   return (
+                                    
+                                    <Grid.Column key={p+"purchases"} style={{marginRight:"10%",marginLeft:"10%"}}>
+                                    <Grid.Row style={{textDecoration:"underline"}}>{p}</Grid.Row>
+                                    <Grid.Row>
+                                        <Grid.Column>Total Portfolio For Date</Grid.Column>
+                                        <Grid.Column style={{marginLeft:"2%",color:"green"}}>{this.foundExposureByPortfolio(p).date}</Grid.Column>
+                                    </Grid.Row>
+                                    <Grid.Row>
+                                        <Grid.Column>Total Portfolio Value</Grid.Column>
+                                        <Grid.Column style={{marginLeft:"2%",color:"green"}}>{this.foundExposureByPortfolio(p).totalPortfolioValue.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Grid.Column>
+                                    </Grid.Row>
+                                    <Grid.Row>
+                                        <Grid.Column>Total Clo Value</Grid.Column>
+                                        <Grid.Column style={{marginLeft:"2%",color:"green"}}>{this.foundExposureByPortfolio(p).cloValue.toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Grid.Column>
+                                    </Grid.Row>
+                                    <Grid.Row>
+                                        <Grid.Column>% from Port</Grid.Column>
+                                        <Grid.Column style={{marginLeft:"2%",color:"green"}}>{Number(this.foundExposureByPortfolio(p).cloValue/this.foundExposureByPortfolio(p).totalPortfolioValue*100).toFixed(2)+ "%"}</Grid.Column>
+                                    </Grid.Row>
+                                        {this.foundPurchases(p).map((d,i)=>{
+                                            return (
+                                                <React.Fragment>
+                                                <Grid.Row key={p+d.date}>
+                                                    <Grid.Column>As Of Date</Grid.Column>
+                                                    <Grid.Column style={{marginLeft:"2%",color:"green"}}>{d.date}</Grid.Column>
+                                                </Grid.Row>
+                                                <Grid.Row>
+                                                    <Grid.Column>Quantity</Grid.Column>
+                                                    <Grid.Column style={{marginLeft:"2%",color:"green"}}>{d.quantity.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</Grid.Column>
+                                                </Grid.Row>
+                                                <Grid.Row>
+                                                    <Grid.Column>Price</Grid.Column>
+                                                    <Grid.Column style={{marginLeft:"2%",color:"green"}}>{d.price}</Grid.Column>
+                                                </Grid.Row>
+                                                <Divider>----</Divider>
+                                                </React.Fragment>
+                                            )
+                                        })}
+                                    
+                                    </Grid.Column>)
+                                       
+                                    
+                            })}
+                           </Grid.Row>
+                   </Grid>
                 </div>
                 <div id="researchChartArea" style={{width:"100%",margin:"2%"}}>
                     <span style={{width:"50%",float:"right"}}>

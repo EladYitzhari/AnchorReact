@@ -218,3 +218,20 @@ export const tzurGroupes = [
 
 
 
+export const sumBy=(array,fieldCategory,category,sumField)=>{
+    let sum=0;
+    array.filter(f=>{return f[fieldCategory]===category}).map(m=>{
+        sum+= m[sumField]
+    });
+    return Number(sum.toFixed(0));
+}
+
+export const maxDateInList =(dateList)=>{
+    let max = dateList[0];
+    dateList.map(d=>{
+        if(new Date(d).getTime()>new Date(max).getTime()){
+            max = d;
+        }
+    });
+    return max;
+}

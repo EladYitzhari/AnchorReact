@@ -105,6 +105,7 @@ class UploadExcel extends Component {
                     <select className="reportSelector" style={{marginLeft:'1%',marginRight:'1%'}} onChange={(e)=> this.setTzurDetails(e,"tzurReportType")}>
                     <option value=""></option><option value="Active">Active</option> <option value="HTM">HTM</option> <option value="HTM-Leverage">HTM-Leverage</option> <option value="cash">Cash</option>
                     <option value="entire">Entire</option>
+                    <option value="IG">IG</option>
                     </select>
                 </div>
             )

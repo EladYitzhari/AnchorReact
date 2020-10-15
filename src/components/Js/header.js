@@ -27,7 +27,7 @@ class Header extends Component {
                         <NavLink to={{pathname:"/PortfolioHTML",hash:'HTM-Leverage'}}>HTM-Leverage</NavLink>
                         <NavLink to={{pathname:"/PortfolioHTM",hash:'HTM'}}>HTM</NavLink>
                         <NavLink to={{pathname:"/PortfolioACTIVE",hash:'Active'}}>Active</NavLink>
-                        <NavLink to={{pathname:"/PortfolioHTMIG",hash:'HTM-IG'}}>HTM-IG</NavLink>
+                        <NavLink to={{pathname:"/PortfolioHTMIG",hash:'IG'}}>IG</NavLink>
                         </div>
                     </li>
                     <li className="header_li"><NavLink to="/NAV">Nav</NavLink></li>  

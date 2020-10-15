@@ -36,6 +36,7 @@ class TzurReport extends Component {
                         <th>Source Active</th>
                         <th>Source HTM</th>
                         <th>Source HTM-Leverage</th>
+                        <th>Source IG</th>
                         <th>Source Cash</th>
                         <th>Source Entire</th>
                         <th>Month</th>
@@ -50,6 +51,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("61000","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("61000","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("61000","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("61000","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("61000","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("61000","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -62,6 +64,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("46020","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("46020","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("46020","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("46020","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("46020","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("46020","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -74,6 +77,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("56020","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("56020","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("56020","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("56020","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("56020","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("56020","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -86,6 +90,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("57020","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("57020","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("57020","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("57020","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("57020","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("57020","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -98,6 +103,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("61200","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("61200","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("61200","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("61200","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("61200","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("61200","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -110,6 +116,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("61300","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("61300","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("61300","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("61300","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("61300","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("61300","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -122,6 +129,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("61500","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("61500","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("61500","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("61500","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("61500","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("61500","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -134,6 +142,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("72000","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("72000","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("72000","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("72000","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("72000","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("72000","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -146,6 +155,8 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("64200","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("64200","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("64200","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("64200","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+
                         <td>{ this.amountByAcountNum("64200","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("64200","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -158,6 +169,8 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("72004","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("72004","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("72004","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("72004","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+
                         <td>{ this.amountByAcountNum("72004","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("72004","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -170,6 +183,8 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("65900","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("65900","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("65900","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("65900","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+
                         <td>{ this.amountByAcountNum("65900","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("65900","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -182,6 +197,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("64000","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("64000","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("64000","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("64000","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("64000","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("64000","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -194,7 +210,9 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("62700","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("62700","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("62700","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("62700","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("62700","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+
                         <td>{ this.amountByAcountNum("62700","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
                         <td>{this.props.year}</td>
@@ -206,6 +224,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("64300","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("64300","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("64300","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("64300","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("64300","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("64300","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -218,6 +237,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("64900","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("64900","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("64900","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("64900","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("64900","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("64900","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -230,6 +250,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("68111","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("68111","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("68111","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("68111","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("68111","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("68111","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -242,6 +263,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("71000","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("71000","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("71000","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("71000","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("71000","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("71000","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -254,6 +276,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("62200","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("62200","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("62200","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("62200","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("62200","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("62200","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -266,6 +289,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("62300","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("62300","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("62300","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("62300","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("62300","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("62300","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -278,6 +302,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("71000","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("71000","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("71000","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("71000","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("71000","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("71000","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -290,6 +315,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("47030","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("47030","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("47030","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("47030","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("47030","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("47030","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -302,6 +328,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("47130","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("47130","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("47130","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("47130","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("47130","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("47130","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -314,6 +341,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("40030","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("40030","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("40030","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("40030","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("40030","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("40030","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -326,6 +354,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("41030","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("41030","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("41030","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("41030","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("41030","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("41030","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -338,6 +367,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("42830","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("42830","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("42830","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("42830","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("42830","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("42830","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -350,6 +380,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("45930","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("45930","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("45930","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("45930","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("45930","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("45930","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -362,6 +393,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("46030","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("46030","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("46030","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("46030","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("46030","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("46030","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -374,6 +406,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("47020","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("47020","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("47020","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("47020","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("47020","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("47020","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -386,6 +419,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("50030","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("50030","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("50030","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("50030","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("50030","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("50030","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -398,6 +432,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("51030","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("51030","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("51030","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("51030","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("51030","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("51030","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -410,6 +445,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("57030","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("57030","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("57030","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("57030","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("57030","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("57030","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -422,6 +458,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("57130","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("57130","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("57130","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("57130","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("57130","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("57130","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>
@@ -434,6 +471,7 @@ class TzurReport extends Component {
                         <td>{ this.amountByAcountNum("59930","Active").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("59930","HTM").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("59930","HTM-Leverage").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td>{ this.amountByAcountNum("59930","IG").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("59930","cash").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{ this.amountByAcountNum("59930","entire").toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td>{this.props.month}</td>

@@ -76,6 +76,7 @@ class TzurRepository extends Component {
                                 <option value='HTM-Leverage'>HTM-Leverage</option>
                                 <option value='HTM'>HTM</option>
                                 <option value='Active'>Active</option>
+                                <option value='IG'>IG</option>
                                 <option value='cash'>Cash</option>
                             </select>
                         </td>

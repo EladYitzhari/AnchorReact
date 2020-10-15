@@ -84,7 +84,7 @@ class NavPage extends Component {
                                 <option value="HTM">HTM</option>
                                 <option value="HTM-Leverage" selected>HTM-Leverage</option>
                                 <option value="Active">Active</option>
-                                <option value="HTM-IG">HTM-IG</option>
+                                <option value="IG">IG</option>
                             </select></td>
                             <td> <select  id="navMonth" onChange={(e)=>this.setVarInState(e,'navMonth')}>
                                     <option value="01">01</option>
@@ -113,7 +113,7 @@ class NavPage extends Component {
                                     <option value="prediction">Prediction By</option>
                                 </select></td>
                                 {(this.state.mode !== "prediction")?null:(<React.Fragment>
-                                            <td><input className="form-input" type="number" id="libor" onChange={(e)=>this.setVarInState(e,'libor')}/></td>
+                                            <td><input className="form-input" type="number" step="0.01" id="libor" onChange={(e)=>this.setVarInState(e,'libor')}/></td>
                                             <td> <select  id="predictedMonth" onChange={(e)=>this.setVarInState(e,'predictedMonth')}>
                                                     <option value="-">-</option>
                                                     <option value="01">01</option>
