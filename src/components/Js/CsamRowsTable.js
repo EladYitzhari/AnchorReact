@@ -37,6 +37,7 @@ class CsamRowsTable extends Component {
                         <td data-toggle="tooltip" data-placement="top" title='Mark Price'>{c['markPrice'].toFixed(3)}</td>
                         <td data-toggle="tooltip" data-placement="top" title='Quantity'>{c['quantity'].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td data-toggle="tooltip" data-placement="top" title='Asset Issue Amount'>{c['assetIssueAmount'].toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
+                        <td data-toggle="tooltip" data-placement="top" title='Delta From Settled'>{((c['dailyAssetPrice']-c['costPriceSettled'])*c['quantity']).toFixed(0).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")}</td>
                         <td data-toggle="tooltip" data-placement="top" title='Collateral Administrator'>{c['collateralAdministrator']}</td>
                         <td data-toggle="tooltip" data-placement="top" title='Abs Type'>{c['absType']}</td>
                         <td data-toggle="tooltip" data-placement="top" title='Settlement Date'>{c['settlementDate']}</td>
@@ -67,6 +68,7 @@ class CsamRowsTable extends Component {
                     <th>Mark Price</th>
                     <th>Quantity</th>
                     <th>Asset Issue Amount</th>
+                    <th>Delta From Settled</th>
                     <th>Collateral Administrator</th>
                     <th>Abs Type</th>
                     <th>Settlement Date</th>
