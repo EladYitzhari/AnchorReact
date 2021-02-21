@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/AnchorReact/static/css/main.f0df5e30.chunk.css",
-    "main.js": "/AnchorReact/static/js/main.14456c11.chunk.js",
-    "main.js.map": "/AnchorReact/static/js/main.14456c11.chunk.js.map",
+    "main.js": "/AnchorReact/static/js/main.3070581f.chunk.js",
+    "main.js.map": "/AnchorReact/static/js/main.3070581f.chunk.js.map",
     "runtime-main.js": "/AnchorReact/static/js/runtime-main.07f0918e.js",
     "runtime-main.js.map": "/AnchorReact/static/js/runtime-main.07f0918e.js.map",
     "static/css/2.64a99b10.chunk.css": "/AnchorReact/static/css/2.64a99b10.chunk.css",
     "static/js/2.499761d3.chunk.js": "/AnchorReact/static/js/2.499761d3.chunk.js",
     "static/js/2.499761d3.chunk.js.map": "/AnchorReact/static/js/2.499761d3.chunk.js.map",
     "index.html": "/AnchorReact/index.html",
-    "precache-manifest.e6c96bd085f89dfc1d0ad7506b00f1cf.js": "/AnchorReact/precache-manifest.e6c96bd085f89dfc1d0ad7506b00f1cf.js",
+    "precache-manifest.deaaade6fa1b3a6a1d0502fab1c0d48e.js": "/AnchorReact/precache-manifest.deaaade6fa1b3a6a1d0502fab1c0d48e.js",
     "service-worker.js": "/AnchorReact/service-worker.js",
     "static/css/2.64a99b10.chunk.css.map": "/AnchorReact/static/css/2.64a99b10.chunk.css.map",
     "static/css/main.f0df5e30.chunk.css.map": "/AnchorReact/static/css/main.f0df5e30.chunk.css.map",
@@ -20,6 +20,6 @@
     "static/css/2.64a99b10.chunk.css",
     "static/js/2.499761d3.chunk.js",
     "static/css/main.f0df5e30.chunk.css",
-    "static/js/main.14456c11.chunk.js"
+    "static/js/main.3070581f.chunk.js"
   ]
 }
