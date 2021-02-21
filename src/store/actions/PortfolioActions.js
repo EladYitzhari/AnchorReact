@@ -192,7 +192,12 @@ export const getACsamRowsOfPortfolio = (portfolioName) =>
                           let instans ={...m};
                           let deltaBetweenPurchaseAndAsOfDate = globalFunction.deltaOfMonthsBetweenDates(m.settlementDate,m.asOfDate)+1;
                           let amortization =(m.settlementDate !== null)? (100-m.costPriceSettled)/(m.wal*12)*deltaBetweenPurchaseAndAsOfDate: 0;
-                          instans.deltaFromSettled = (m.dailyAssetPrice-m.costPriceSettled+amortization)/m.costPriceSettled*100;
+                          instans.amortizedPrice =(m.settlementDate !== null)? (m.costPriceSettled+amortization): 0;
+                          instans.deltaFromSettled = (m.dailyAssetPrice-(m.costPriceSettled+amortization));
+                          //the market and the amortized doubled by quantity because of the portfolio chart that average this field by quantity and I want the aggregate.
+                          instans.marketAUM = m.dailyAssetPrice/100*m.quantity;
+                          instans.amortizedAUM =instans.amortizedPrice/100*m.quantity;
+                          ///////
                           array.push(instans);
                           });
           dispatch(axiosGetACsamRowsOfPortfolio(array));

@@ -159,7 +159,7 @@ class Portfolio extends Component {
                                                             columnFileName={'asOfDate'}
                                                             columnHeaders={this.TopChartSortDateArray(this.state.lineField)}
                                                             value={this.state.lineField}
-                                                            averageStatus={'yes'}
+                                                            averageStatus={(this.state.lineField.includes("AUM"))?'no':'yes'}
                                                             averageByField={'quantity'} />
         ;
 
@@ -209,10 +209,13 @@ class Portfolio extends Component {
                     {/* <Chart data={this.props.csamRows} labels={this.props.asOfDateList} lineField={this.state.lineField}/>   */}
                         <select onChange={(e)=> changeChartData(e)}>
                             <option value='dailyAssetPrice' selected>Daily Asset Price</option>
+                            <option value='marketAUM' selected>Market AUM </option>
+                            <option value='amortizedPrice' selected>Amortized Price</option>
+                            <option value='amortizedAUM' selected>Amortized AUM</option>
                             <option value='warf'>WARF</option>
                             <option value='trancheOC'>Tranche OC</option>
                             <option value='trancheOcCushion'>Tranche OC Cushion</option>
-                            <option value='deltaFromSettled'>Price Delta From Setteled</option>
+                            <option value='deltaFromSettled'>Price Delta Between MTM to Amortized</option>
                         </select>
                         <label style={{margin:'1%'}} for="fromDate">Start date:</label>
                         <input id="fromDate" type="date"   onChange={(e)=>this.ChangeChartDate(e,'fromDate')}/>
